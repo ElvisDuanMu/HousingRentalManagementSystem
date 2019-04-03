@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.HouseSettingMapper">
+  <insert id="addNewSettings">
+    insert into house_settings
+    <trim prefix="(" suffix=")" prefixOverrides=",">
+      <if test="typeCode!=null and typeCode!= ''">
+        ,type_code
+      </if>
+      <if test="typeName!=null and typeName!= ''">
+        ,type_name
+      </if>
+      <if test="valueId!=null ">
+        ,value_id
+      </if>
+      <if test="valueName!=null and valueName!='' ">
+        ,value_name
+      </if>
+      <if test="createBy!=null and createBy!=''">
+        ,create_by
+      </if>
+      <if test="createDate!=null ">
+        ,create_date
+      </if>
+      <if test="updateBy!=null and updateBy != '' ">
+        ,update_by
+      </if>
+      <if test="updateDate !=null ">
+        ,update_date
+      </if>
+    </trim>
+    <trim prefix="values(" suffix=")" prefixOverrides=",">
+      <if test="typeCode!=null and typeCode!= ''">
+        ,#{typeCode}
+      </if>
+      <if test="typeName!=null and typeName!= ''">
+        ,#{typeName}
+      </if>
+      <if test="valueId!=null ">
+        ,#{valueId}
+      </if>
+      <if test="valueName!=null and valueName!='' ">
+        ,#{valueName}
+      </if>
+      <if test="createBy!=null and createBy!=''">
+        ,#{createBy}
+      </if>
+      <if test="createDate!=null ">
+        ,#{createDate}
+      </if>
+      <if test="updateBy!=null and updateBy != '' ">
+        ,#{updateBy}
+      </if>
+      <if test="updateDate !=null ">
+        ,#{updateDate}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateSetting" >
+    update house_settings
+    <trim prefixOverrides="," prefix="set ">
+      <if test="typeCode != null and typeCode != ''">
+        ,type_code = #{typeCode}
+      </if>
+      <if test="typeName != null and typeName != ''">
+        ,type_name= #{typeName}
+      </if>
+      <if test="valueName != null and valueName != ''">
+        ,value_name= #{valueName}
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        ,update_by= #{updateBy}
+      </if>
+      <if test="updateDate != null ">
+        ,update_date= #{updateDate}
+      </if>
+    </trim>
+    <where>
+      <if test=" settingsId != null">
+        and settings_id=#{settingsId}
+      </if>
+    </where>
+  </update>
+  <delete id="deleteSettingById">
+      delete from house_settings where settings_id = #{settingsId}
+    </delete>
+
+
+    <select id="query" resultType="com.dlu.pojo.HouseSettings">
+    select settings_id,type_code,type_name,value_id,value_name,create_by,
+    create_date,update_by, update_date
+    from house_settings
+    <where>
+      <if test="houseSettings.typeCode !=null and houseSettings.typeCode !=''">
+        and type_code = #{houseSettings.typeCode}
+      </if>
+      <if test="houseSettings.typeName !=null and houseSettings.typeName !=''">
+        and type_name = #{houseSettings.typeName}
+      </if>
+      <if test="houseSettings.valueId !=null ">
+        and value_id = #{houseSettings.valueId}
+      </if>
+      <if test="houseSettings.valueName !=null and houseSettings.valueName !=''">
+        and value_name = #{houseSettings.valueName}
+      </if>
+      <if test="houseSettings.createBy !=null and houseSettings.createBy !=''">
+        and create_by = #{houseSettings.createBy}
+      </if>
+      <if test="houseSettings.createDate !=null ">
+        and create_date  = #{houseSettings.createDate}
+      </if>
+      <if test="houseSettings.updateBy !=null and houseSettings.updateBy !=''">
+        and update_by = #{houseSettings.updateBy}
+      </if>
+      <if test="houseSettings.updateDate !=null ">
+        and update_date = #{houseSettings.updateDate}
+      </if>
+      <if test="houseSettings.startCreateDate !=null and houseSettings.endCreateDate !=null">
+        and date_format(create_date,'%Y-%m-%d') between date_format(#{houseSettings.startCreateDate},'%Y-%m-%d') and date_format(#{houseSettings.endCreateDate},'%Y-%m-%d')
+      </if>
+    </where>
+    limit #{page.start},#{page.limit}
+  </select>
+  <select id="queryCount" resultType="java.lang.Integer">
+    select count(*)
+    from house_settings
+    <where>
+      <if test="typeCode !=null and typeCode !=''">
+        and type_code = #{typeCode}
+      </if>
+      <if test="typeName !=null and typeName !=''">
+        and type_name = #{typeName}
+      </if>
+      <if test="valueId !=null ">
+        and value_id = #{valueId}
+      </if>
+      <if test="valueName !=null and valueName !=''">
+        and value_name = #{valueName}
+      </if>
+      <if test="createBy !=null and createBy !=''">
+        and create_by = #{createBy}
+      </if>
+      <if test="createDate !=null ">
+        and create_date  = #{createDate}
+      </if>
+      <if test="updateBy !=null and updateBy !=''">
+        and value_name = #{valueName}
+      </if>
+      <if test="updateDate !=null and updateDate !=''">
+        and update_date = #{updateDate}
+      </if>
+      <if test="startCreateDate !=null and endCreateDate !=null">
+        and date_format(create_date,'%Y-%m-%d') between date_format(#{startCreateDate},'%Y-%m-%d') and date_format(#{endCreateDate},'%Y-%m-%d')
+      </if>
+    </where>
+  </select>
+    <select id="queryAllTypeName" resultType="com.dlu.pojo.HouseSettings">
+      select distinct type_name
+        from house_settings
+    </select>
+  <select id="queryTypeCodeByTypeName" resultType="java.lang.String">
+    select distinct type_code
+    from house_settings
+    where type_name = #{typeName}
+  </select>
+  <select id="queryCountByTypeName" resultType="java.lang.Integer">
+    select count(*)
+    from house_settings
+    where type_name = #{typeName}
+  </select>
+</mapper>

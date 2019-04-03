@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.AdministratorMapper">
+
+    <select id="queryByNamePwd" resultType="com.dlu.pojo.Administrator">
+        select administrator_name,administrator_password
+        from administrator
+        <where>
+            <if test="administratorName != null and administratorName != ''">
+                and administrator_name = #{administratorName}
+            </if>
+        </where>
+    </select>
+    <select id="queryAllAdministratorName" resultType="com.dlu.pojo.Administrator">
+        select administrator_name
+        from administrator
+    </select>
+</mapper>

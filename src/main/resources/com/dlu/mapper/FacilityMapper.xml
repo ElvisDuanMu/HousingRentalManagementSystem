@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.FacilityMapper">
+
+    <insert id="insertFacility">
+        insert into facilities (facility_name,facility_new_name,facility_img_path,facility_img_rel_path)
+        values (#{facilityName},#{facilityNewName},#{facilityImgPath},#{facilityImgRelPath})
+    </insert>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(*) from facilities
+    </select>
+    <select id="query" resultType="com.dlu.pojo.Facility">
+        select facility_id,facility_name,facility_new_name,facility_img_path,facility_img_rel_path
+        from facilities
+        limit #{page.start},#{page.limit}
+    </select>
+</mapper>

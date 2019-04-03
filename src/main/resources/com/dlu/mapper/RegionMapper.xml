@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dlu.mapper.RegionMapper">
+
+    <select id="queryAllProvince" resultType="com.dlu.pojo.Province">
+        select province_id,province_code,province_name
+        from provinces
+    </select>
+    <select id="queryCityByProvinceCode" resultType="com.dlu.pojo.City">
+        select city_id,city_code,city_name,province_code
+        from cities
+        where province_code = #{provinceCode}
+    </select>
+    <select id="queryDistrictByCity" resultType="com.dlu.pojo.District">
+        select district_id,district_code,district_name,city_code
+        from districts
+        where city_code = #{cityCode}
+    </select>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(*)
+        from provinces t1,cities t2,districts t3
+        <where>
+            t1.province_code = t2.province_code and t2.city_code = t3.city_code
+            <if test="provinceCode !=null and provinceCode !=''">
+                and t1.province_code = #{provinceCode}
+            </if>
+            <if test="cityCode !=null and cityCode !=''">
+                and t2.city_code = #{cityCode}
+            </if>
+            <if test="districtCode !=null and districtCode !=''">
+                and t3.district_code = #{districtCode}
+            </if>
+
+
+        </where>
+    </select>
+    <select id="query" resultType="com.dlu.pojo.Region">
+        select t1.province_id,t1.province_code,t1.province_name,
+          t2.city_id,t2.city_code,t2.city_name,
+          t3.district_id,t3.district_code,t3.district_name
+        from provinces t1,cities t2,districts t3
+        <where>
+            t1.province_code = t2.province_code and t2.city_code = t3.city_code
+            <if test="regionDTO.provinceCode !=null and regionDTO.provinceCode !=''">
+                and t1.province_code = #{regionDTO.provinceCode}
+            </if>
+            <if test="regionDTO.cityCode !=null and regionDTO.cityCode !=''">
+                and t2.city_code = #{regionDTO.cityCode}
+            </if>
+            <if test="regionDTO.districtCode !=null and regionDTO.districtCode !=''">
+                and t3.district_code = #{regionDTO.districtCode}
+            </if>
+        </where>
+        limit #{page.start},#{page.limit}
+
+    </select>
+</mapper>
