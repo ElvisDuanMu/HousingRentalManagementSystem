@@ -46,7 +46,6 @@ public class AdministratorController {
     @RequestMapping("login")
     public String login(HttpSession httpSession, Administrator administrator, AdministratorLoginDTO administratorLoginDTO,
                         Model model){
-        System.out.println(administratorLoginDTO);
         administrator =  administratorService.login(administrator);
         if (administrator!=null){
             if(administrator.getAdministratorName().equals(administratorLoginDTO.getAdministratorName())&&

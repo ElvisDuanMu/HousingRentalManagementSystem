@@ -14,4 +14,8 @@
         from facilities
         limit #{page.start},#{page.limit}
     </select>
+    <select id="queryAllFacilities" resultType="com.dlu.pojo.Facility">
+        select facility_id,facility_name
+        from facilities
+    </select>
 </mapper>

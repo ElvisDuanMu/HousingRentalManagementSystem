@@ -51,7 +51,7 @@
             cols: [[
                 {field:'facilityId',title:'设施编号',hide:true}
                 ,{field:'facilityName', title: '设施名称',align: 'center'}
-                ,{field:'facilityImgRelPath', title: '设施图片',align: 'center',templet:'#show_img'}
+                ,{field:'facilityImgRelPath', title: '设施图标',align: 'center',templet:'#show_img'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]],
             page:true,

@@ -1,7 +1,6 @@
 package com.dlu.mapper;
 
-import com.dlu.pojo.HouseSettings;
-import com.dlu.pojo.Page;
+import com.dlu.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -43,4 +42,14 @@ public interface HouseSettingMapper {
     void deleteSettingById(Integer settingsId);
 
     Integer updateSetting(HouseSettings houseSettings);
+
+    List<RentType> queryAllRentType();
+
+    List<Orientation> queryAllOrientation();
+
+    List<Renovation> queryAllRenovation();
+
+    List<RentContent> queryAllRentContent();
+
+    List<Identity> queryAllIdentity();
 }

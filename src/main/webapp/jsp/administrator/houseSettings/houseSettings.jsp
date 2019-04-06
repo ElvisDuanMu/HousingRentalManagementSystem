@@ -53,8 +53,8 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">创建日期范围</label>
-                        <div class="layui-input-inline">
-                            <input type="text" class="layui-input" id="date" placeholder=" - ">
+                        <div class="layui-input-inline" style="margin-top: 10px;">
+                            <input type="text" class="layui-input" id="date" placeholder=" - " readonly>
                             <input type="hidden" id="startCreateDate" value="" >
                             <input type="hidden" id="endCreateDate" value="" >
                         </div>
@@ -225,7 +225,8 @@
         laydate.render({
             elem: '#date'
             ,range: true
-            ,max:0,
+            ,max:0
+            ,trigger:'click',
             done: function(value, date, endDate) {
                 var startCreateDateCode = value.substring(0,10);
                 $('#startCreateDate').val(startCreateDateCode);

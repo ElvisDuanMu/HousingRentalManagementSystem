@@ -36,7 +36,7 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table  tableName="facilities" domainObjectName="Facilities" enableCountByExample="false"
+        <table  tableName="rent_content" domainObjectName="RentContent" enableCountByExample="false"
            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
            selectByExampleQueryId="false">
             <!--<property name="useActualColumnNames" value="true"/>-->

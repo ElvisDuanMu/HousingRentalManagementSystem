@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dlu.mapper.HouseSettingMapper">
+
+  <resultMap id="rentType" type="com.dlu.pojo.RentType">
+    <id property="rentTypeId" column="value_id" />
+    <result property="rentTypeName" column="value_name" />
+  </resultMap>
+
+  <resultMap id="orientation" type="com.dlu.pojo.Orientation">
+    <id property="orientationId" column="value_id" />
+    <result property="orientationName" column="value_name" />
+  </resultMap>
+
+  <resultMap id="renovation" type="com.dlu.pojo.Renovation">
+    <id property="renovationId" column="value_id" />
+    <result property="renovationName" column="value_name" />
+  </resultMap>
+
+  <resultMap id="identity" type="com.dlu.pojo.Identity">
+    <id property="identityId" column="value_id" />
+    <result property="identityName" column="value_name" />
+  </resultMap>
+
   <insert id="addNewSettings">
     insert into house_settings
     <trim prefix="(" suffix=")" prefixOverrides=",">
@@ -167,5 +188,29 @@
     select count(*)
     from house_settings
     where type_name = #{typeName}
+  </select>
+    <select id="queryAllRentType" resultMap="rentType">
+      select value_id,value_name
+      from house_settings
+      where type_code = 'HOUSE_RENTTYPE'
+    </select>
+  <select id="queryAllOrientation" resultMap="orientation">
+      select value_id,value_name
+      from house_settings
+      where type_code = 'HOUSE_ORIENTATION'
+  </select>
+  <select id="queryAllRenovation" resultMap="renovation">
+      select value_id,value_name
+      from house_settings
+      where type_code = 'RENOVATION'
+  </select>
+  <select id="queryAllRentContent" resultType="com.dlu.pojo.RentContent">
+      select content_id,content_name
+      from rent_content
+  </select>
+  <select id="queryAllIdentity" resultMap="identity">
+      select value_id,value_name
+      from house_settings
+      where type_code = 'IDENTITY_SELECTION'
   </select>
 </mapper>

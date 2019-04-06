@@ -12,4 +12,6 @@ public interface FacilityService {
     int queryCount();
 
     List<Facility> query(Page page);
+
+    List<Facility> queryAllFacilities();
 }

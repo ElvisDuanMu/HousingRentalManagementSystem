@@ -28,4 +28,9 @@ public class FacilityServiceImpl implements FacilityService {
     public List<Facility> query(Page page) {
         return facilityMapper.query(page);
     }
+
+    @Override
+    public List<Facility> queryAllFacilities() {
+        return facilityMapper.queryAllFacilities();
+    }
 }

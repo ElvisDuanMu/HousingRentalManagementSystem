@@ -1,8 +1,7 @@
 package com.dlu.service.impl;
 
 import com.dlu.mapper.HouseSettingMapper;
-import com.dlu.pojo.HouseSettings;
-import com.dlu.pojo.Page;
+import com.dlu.pojo.*;
 import com.dlu.service.HouseSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,5 +67,30 @@ public class HouseSettingsServiceImpl implements HouseSettingsService {
     @Override
     public void updateSetting(HouseSettings houseSettings) {
         houseSettingMapper.updateSetting(houseSettings);
+    }
+
+    @Override
+    public List<RentType> queryAllRentType() {
+        return houseSettingMapper.queryAllRentType();
+    }
+
+    @Override
+    public List<Orientation> queryAllOrientation() {
+        return houseSettingMapper.queryAllOrientation();
+    }
+
+    @Override
+    public List<Renovation> queryAllRenovation() {
+        return houseSettingMapper.queryAllRenovation();
+    }
+
+    @Override
+    public List<RentContent> queryAllRentContent() {
+        return houseSettingMapper.queryAllRentContent();
+    }
+
+    @Override
+    public List<Identity> queryAllIdentity() {
+        return houseSettingMapper.queryAllIdentity();
     }
 }

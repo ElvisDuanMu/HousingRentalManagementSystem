@@ -1,7 +1,6 @@
 package com.dlu.service;
 
-import com.dlu.pojo.HouseSettings;
-import com.dlu.pojo.Page;
+import com.dlu.pojo.*;
 
 import java.util.List;
 
@@ -20,8 +19,6 @@ public interface HouseSettingsService {
     List<HouseSettings> queryAllTypeName();
 
 
-
-
     void addNewSettings(String name, HouseSettings houseSettings);
 
     void deleteSettingById(Integer settingsId);
@@ -29,4 +26,18 @@ public interface HouseSettingsService {
     String queryTypeCodeByTypeName(String typeName);
 
     void updateSetting(HouseSettings houseSettings);
+
+    /**
+     * 查询所有的出租类型
+     * @return
+     */
+    List<RentType> queryAllRentType();
+
+    List<Orientation> queryAllOrientation();
+
+    List<Renovation> queryAllRenovation();
+
+    List<RentContent> queryAllRentContent();
+
+    List<Identity> queryAllIdentity();
 }

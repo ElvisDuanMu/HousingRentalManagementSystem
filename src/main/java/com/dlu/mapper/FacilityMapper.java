@@ -13,4 +13,6 @@ public interface FacilityMapper {
     int queryCount();
 
     List<Facility> query(@Param("page") Page page);
+
+    List<Facility> queryAllFacilities();
 }
