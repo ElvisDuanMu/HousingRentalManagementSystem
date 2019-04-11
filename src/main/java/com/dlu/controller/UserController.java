@@ -2,10 +2,7 @@ package com.dlu.controller;
 
 import com.dlu.dto.UserDTO;
 import com.dlu.pojo.*;
-import com.dlu.service.FacilityService;
-import com.dlu.service.HouseSettingsService;
-import com.dlu.service.RegionService;
-import com.dlu.service.UserService;
+import com.dlu.service.*;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +25,8 @@ public class UserController {
     private HouseSettingsService houseSettingsService;
     @Autowired
     private FacilityService facilityService;
+    @Autowired
+    private HouseInfoService houseInfoService;
 
     /**
      * 跳转到用户登陆界面
@@ -111,4 +110,28 @@ public class UserController {
         return "user/house/publishingHouse";
     }
 
+    /**
+     * 跳转到添加房屋图片界面
+     */
+    @RequestMapping("/toAddHouseImg/{houseId}")
+    public String toAddHouseImg(@PathVariable("houseId")Integer houseId,Model model)
+    {
+        //获取已上传图片数量
+        Integer count = houseInfoService.queryHouseFaceImg(houseId);
+        model.addAttribute("faceImg1",count);
+        Integer count2 = 1 - count;
+        model.addAttribute("faceImg2",count2);
+        model.addAttribute("houseId",houseId);
+        Integer countPT1 = houseInfoService.queryHousePuTongImg(houseId);
+        Integer countPT2 = 10 - countPT1;
+        model.addAttribute("puTongImg",countPT1);
+        model.addAttribute("puTongImg2",countPT2);
+        return "user/house/addHouseImg";
+    }
+
+
+    @RequestMapping("/addSuccess")
+    public String addSuccess(){
+        return "user/house/addSuccess";
+    }
 }

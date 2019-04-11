@@ -2,8 +2,10 @@ package com.dlu.dto;
 
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class HouseInfoDTO {
+    private Integer houseId;
 
     private String houseName;
 
@@ -41,7 +43,6 @@ public class HouseInfoDTO {
 
     private Double housePrice;
 
-
     private String houseInfo;
 
     private Integer inspectionId;
@@ -69,6 +70,42 @@ public class HouseInfoDTO {
     private Integer[] contentId;
 
     private Integer[] facilityId;
+
+    private String createName;
+
+    private Date createDate;
+
+    private Date houseCheckTime;
+
+    private Integer checkStatusId;
+
+    private String detailAddress;
+
+    private Integer houseStatusId;
+
+    public Integer getHouseStatusId() {
+        return houseStatusId;
+    }
+
+    public void setHouseStatusId(Integer houseStatusId) {
+        this.houseStatusId = houseStatusId;
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
+    public Integer getHouseId() {
+        return houseId;
+    }
+
+    public void setHouseId(Integer houseId) {
+        this.houseId = houseId;
+    }
 
     public String getHouseName() {
         return houseName;
@@ -326,6 +363,38 @@ public class HouseInfoDTO {
         this.facilityId = facilityId;
     }
 
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getHouseCheckTime() {
+        return houseCheckTime;
+    }
+
+    public void setHouseCheckTime(Date houseCheckTime) {
+        this.houseCheckTime = houseCheckTime;
+    }
+
+    public Integer getCheckStatusId() {
+        return checkStatusId;
+    }
+
+    public void setCheckStatusId(Integer checkStatusId) {
+        this.checkStatusId = checkStatusId;
+    }
+
     @Override
     public String toString() {
         return "HouseInfoDTO{" +
@@ -361,6 +430,9 @@ public class HouseInfoDTO {
                 ", sex='" + sex + '\'' +
                 ", contentId=" + Arrays.toString(contentId) +
                 ", facilityId=" + Arrays.toString(facilityId) +
+                ", createName='" + createName + '\'' +
+                ", createDate=" + createDate +
+                ", houseCheckTime=" + houseCheckTime +
                 '}';
     }
 }

@@ -27,7 +27,6 @@ public class HouseSettingsController {
      * @param name
      * @param houseSettingsDTO
      * @param model
-     * @param page1
 
      * @return
      * @throws ParseException

@@ -43,7 +43,7 @@
                         <button class="layui-btn" id="commit" onclick="return false">立即提交</button>
                     </div>
                 </div>
-            </>
+            </div>
 
 
         </div>
@@ -51,6 +51,7 @@
     <jsp:include page="/jsp/common/footer.jsp" />
 
 </div>
+
 <script src="${ctx}/static/plugins/layui/layui.js"></script>
 <script>
     //JavaScript代码区域

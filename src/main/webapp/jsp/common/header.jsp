@@ -36,8 +36,8 @@
             <li class="layui-nav-item layui-nav-itemed">
                 <a href="javascript:;">房源信息</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">房源列表</a></dd>
-                    <dd><a href="">添加房源</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toHouseInfo">房源列表</a></dd>
+                    <dd><a href="">审核房源</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">

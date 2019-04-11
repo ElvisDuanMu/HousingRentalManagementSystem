@@ -135,5 +135,16 @@ public class AdministratorController {
         return "administrator/houseSettings/facilitySettings";
     }
 
+    /**
+     * 跳转到房源信息界面
+     * @return
+     */
+    @RequestMapping("/{name}/toHouseInfo")
+    public String toHouseInfo(){
+
+        return "administrator/houseInfo/houseInfo";
+    }
+
+
 
 }

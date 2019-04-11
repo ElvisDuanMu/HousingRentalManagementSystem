@@ -131,11 +131,19 @@
             </div>
             <div class="layui-form-item" style="margin-top: 30px;">
                 <label class="layui-form-label">
+                    <span class="layui-badge-dot"></span>&nbsp;&nbsp;&nbsp;详细地址</label>
+                <div class="layui-input-inline" style="margin-left: 20px;">
+                    <input type="text" name="detailAddress" required style="width: 500px;" lay-verify="required" placeholder="请输入详细地址（街道地址）" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top: 30px;">
+                <label class="layui-form-label">
                     <span class="layui-badge-dot"></span>&nbsp;&nbsp;&nbsp;小区名称</label>
                 <div class="layui-input-inline" style="margin-left: 20px;">
                     <input type="text" name="addressCommunity" required style="width: 500px;" lay-verify="required" placeholder="请输入小区名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
+
             <div class="layui-form-item" style="margin-top: 30px;">
                 <label class="layui-form-label">
                     <span class="layui-badge-dot"></span>&nbsp;&nbsp;&nbsp;房屋位置</label>

@@ -72,30 +72,8 @@
 
 <%--弹出表单信息--%>
 <div class="layui-form" id="popUpdateForm" style="display: none">
-    <input type="hidden" id="settingsId2" name="settingsId2">
-        <div class="layui-form-item" style="margin-top: 30px" >
-            <label class="layui-form-label">类型名称</label>
-            <div class="layui-input-inline">
-                <select id="typeName2" class="layui-input-inline" required name="typeName2" lay-verify="required">
-                    <option value=""></option>
-                    <c:forEach items="${HSTypeName}" var="obj">
-                        <option value="${obj.typeName}">${obj.typeName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">名称</label>
-            <div class="layui-input-inline">
-                <input id="valueName2" type="text" name="valueName2" required lay-verify="valueName" autocomplete="off" placeholder="请输入名称" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="updateBtn">修改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
-        </div>
+    <input type="hidden" id="houseId" name="houseId">
+
 </div>
 
 <%--工具条--%>
