@@ -54,4 +54,14 @@
         limit #{page.start},#{page.limit}
 
     </select>
+    <select id="queryProvinceNameByProvinceCode" resultType="java.lang.String">
+        select province_name
+        from provinces
+        where province_code = #{provinceCode}
+    </select>
+    <select id="queryCityNameByCityCode" resultType="java.lang.String">
+        select city_name
+        from cities
+        where city_code = #{cityCode}
+    </select>
 </mapper>

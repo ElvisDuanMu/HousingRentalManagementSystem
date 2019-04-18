@@ -27,6 +27,8 @@ public class Page implements Serializable {
      */
     private Integer start;
 
+    public Page() {
+    }
 
     public Page(Integer page, Integer limit, Integer totalRecord, Integer totalPage, Integer start) {
         this.page = page;

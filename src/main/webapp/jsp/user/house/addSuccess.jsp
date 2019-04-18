@@ -12,11 +12,8 @@
 
     <link rel="stylesheet" href="${ctx}/static/css/common.css">
     <link rel="stylesheet" href="${ctx}/static/css/main.css">
-    <link rel="stylesheet" href="${ctx}/static/cropper/cropper.css" media="all">
     <link rel="stylesheet" href="${ctx}/static/plugins/layui/css/layui.css" media="all" >
     <script type="text/javascript" src="${ctx}/static/plugins/layui/layui.js"></script>
-    <script type="text/javascript" src="${ctx}/static/cropper/cropper.js"></script>
-    <script type="text/javascript" src="${ctx}/static/cropper/croppers.js"></script>
     <script type="text/javascript" src="${ctx}/static/js/jquery-2.1.4.min.js"></script>
 
 
@@ -103,7 +100,7 @@
         <div class="layui-upload" style="margin-top: 80px;">
 
 
-
+        </div>
 
     </div>
 

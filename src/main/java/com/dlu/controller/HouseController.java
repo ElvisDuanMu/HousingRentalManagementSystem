@@ -2,17 +2,16 @@ package com.dlu.controller;
 
 import com.dlu.dto.FacilityDTO;
 import com.dlu.dto.HouseInfoDTO;
+import com.dlu.dto.ShowHouseDTO;
 import com.dlu.pojo.*;
 import com.dlu.service.HouseInfoService;
 import com.dlu.service.UserService;
 import com.google.gson.Gson;
+import com.mchange.v1.util.Sublist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -190,5 +189,96 @@ public class HouseController {
     }
 
 
+    @RequestMapping("/queryFaceImg/{houseId}")
+    @ResponseBody
+    public List<HouseImg> queryFaceImg(@PathVariable("houseId")Integer houseId){
+        List<HouseImg> list = houseInfoService.queryHouseFaceImgContent(houseId);
+        return list;
+    }
+
+    @RequestMapping("/queryShowImg/{houseId}")
+    @ResponseBody
+    public List<HouseImg> queryShowImg(@PathVariable("houseId") Integer houseId){
+        List<HouseImg> list = houseInfoService.queryShowImg(houseId);
+        return list;
+    }
+
+    @RequestMapping("/userHouseInfo")
+    @ResponseBody
+    public List<Object> userHouseInfo(@RequestBody ShowHouseDTO showHouseDTO){
+        System.out.println(showHouseDTO);
+        HouseInfo houseInfo = new HouseInfo();
+        //处理省市
+        houseInfo.setProvinceCode(showHouseDTO.getProvinceCode());
+        houseInfo.setCityCode(showHouseDTO.getCityCode());
+        //处理区
+        if (showHouseDTO.getDistrictCode() != null && !showHouseDTO.getDistrictCode().equals("")){
+            houseInfo.setDistrictCode(showHouseDTO.getDistrictCode());
+        }
+        //处理租赁方式
+        if(showHouseDTO.getLeasing() != null && !showHouseDTO.getLeasing().equals("")){
+            houseInfo.setLeasingId(Integer.parseInt(showHouseDTO.getLeasing()));
+        }
+        //处理朝向
+        if (showHouseDTO.getOrientation()!= null && !showHouseDTO.getOrientation().equals("")){
+            houseInfo.setOrientationId(Integer.parseInt(showHouseDTO.getOrientation()));
+        }
+        //处理户型
+        if (showHouseDTO.getTypeRooms()!=null && !showHouseDTO.getTypeRooms().equals("")){
+            houseInfo.setTypeRooms(Integer.parseInt(showHouseDTO.getTypeRooms()));
+        }
+        //处理面积
+        houseInfo.setHouseAreaMin(Integer.parseInt(showHouseDTO.getHouseAreaMin()));
+        houseInfo.setHouseAreaMax(Integer.parseInt(showHouseDTO.getHouseAreaMax()));
+        //处理租金
+        houseInfo.setHousePriceMin(Integer.parseInt(showHouseDTO.getHousePriceMin()));
+        houseInfo.setHousePriceMax(Integer.parseInt(showHouseDTO.getHousePriceMax()));
+        //处理特色
+        if (showHouseDTO.getTeSe().length != 0)
+        {
+            for (int i = 0; i <showHouseDTO.getTeSe().length;i++){
+                if( showHouseDTO.getTeSe()[i].equals("1")){
+                    houseInfo.setRenovationId(4);
+                }
+                if (showHouseDTO.getTeSe()[i].equals("2")){
+                    houseInfo.setHouseRentTypeId(2);
+                }
+                if (showHouseDTO.getTeSe()[i].equals("3")){
+                    houseInfo.setInspectionId(1);
+                }
+                if (showHouseDTO.getTeSe()[i].equals("4")){
+                    houseInfo.setSex("男女不限");
+                }
+                if (showHouseDTO.getTeSe()[i].equals("5")){
+                    houseInfo.setHouseElevator("有电梯");
+                }
+                if (showHouseDTO.getTeSe()[i].equals("6")){
+                    houseInfo.setHousePark("有车位");
+                }
+            }
+        }
+        //处理页码
+        Page page = new Page();
+        int start = showHouseDTO.getLimit()*(showHouseDTO.getPage()-1) ;
+        page.setStart(start);
+        page.setLimit(showHouseDTO.getLimit());
+        //处理tab
+        Tab tab = new Tab();
+        tab.setTabIndex(showHouseDTO.getTabIndex());
+        tab.setTabValue(showHouseDTO.getTabValue());
+        //获取查询总数
+        Integer count = houseInfoService.queryByShowMessageByDistrictCount(houseInfo);
+        List<Object> list = new ArrayList<>();
+        list.add(count);
+        if (count > 0){
+            //获取查询值
+            List<HouseInfo> houseInfoList = houseInfoService.queryByShowMessageByDistrict(houseInfo,page,tab);
+            list.add(houseInfoList);
+        }
+
+
+
+        return list;
+    }
 
 }

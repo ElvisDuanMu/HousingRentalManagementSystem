@@ -72,11 +72,11 @@
     <div class="layui-form-item" style="margin-top: 30px;">
         <label class="layui-form-label">房屋位置</label>
         <div class="layui-input-inline" style="width: 100px; margin-left: 20px;">
-            <input  type="text"   id="addressBuilding"  readonly autocomplete="off" class="layui-input" align="center" style="text-align: center;">
+            <input  type="text"  id="addressBuilding"  readonly autocomplete="off" class="layui-input" align="center" style="text-align: center;">
         </div>
         <div class="layui-form-mid layui-word-aux">栋</div>
         <div class="layui-input-inline" style="margin-left: 40px; width: 100px;">
-            <input  type="text" " id="addressUnit"  readonly  autocomplete="off" class="layui-input" align="center" style="text-align: center;">
+            <input  type="text"  id="addressUnit"  readonly  autocomplete="off" class="layui-input" align="center" style="text-align: center;">
         </div>
         <div class="layui-form-mid layui-word-aux">单元</div>
     </div>
@@ -293,7 +293,22 @@
         </div>
     </div>
 </div>
-
+<%--弹出房源图片信息--%>
+<div class="layui-form" id="popImg" style="display: none; margin: 70px  50px;">
+    <input type="hidden" id="houseId2" >
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>封面图片</legend>
+    </fieldset>
+    <div class="layui-upload-list"  id="faceImg" style="width:180px;height:180px;border:3px solid #0099CC;border-radius: 5px;">
+    </div>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>房源图片</legend>
+    </fieldset>
+    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+        预览图：
+        <div class="layer-photos-demo"  id="showImg"></div>
+    </blockquote>
+</div>
 <%--工具条--%>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="viewMsg">信息</a>
@@ -303,12 +318,13 @@
 <script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>
 <script>
     //JavaScript代码区域
-    layui.use(['element','form','jquery','table','laydate'], function(){
+    layui.use(['element','form','jquery','table','laydate','layer'], function(){
         var element = layui.element;
         var form = layui.form;
         var table = layui.table;
         var laydate = layui.laydate;
         var $ = layui.jquery;
+        var layer = layui.layer;
 
         //表格
         var tableIns = table.render({
@@ -363,6 +379,8 @@
             id: 'testReload'
         });
 
+
+
         //监听工具条start
         table.on('tool(test)',function (obj) {
             var data = obj.data;
@@ -416,7 +434,58 @@
                     }
                 })
             }
-        })
+
+            if (obj.event === 'viewImg') {
+                layer.open({
+                    type: 1,
+                    title: '查看房源图片信息',
+                    area:['1000px','600px'],
+                    content:$("#popImg"),
+                    cancel:function(){
+                        $('#faceImg').empty();
+                        $('#showImg').empty();
+                    },
+                    success: function (layero,index) {
+
+                        $('#houseId2').val(data.houseId);
+                        $.ajax({
+                            url:'${ctx}/house/queryFaceImg/' + data.houseId,
+                            type:'get',
+                            success:function (data) {
+                                var result = '${ctx}'+ data[0].imgRelPath;
+                                var name = data[0].imgName;
+                                $('#faceImg').append('<img style="width: 180px;height:180px;" layer-src="'+result+'" src="'+ result +'"  alt="'+name +'">')
+                                layer.photos({
+                                    photos: '#faceImg'
+                                });
+                            }
+                        });
+
+                        $.ajax({
+                            url:'${ctx}/house/queryShowImg/' + data.houseId,
+                            type:'get',
+                            success:function (data) {
+
+                                var size = data.length;
+                                for(var i = 0; i <size;i++)
+                                {
+                                    var result = '${ctx}'+ data[i].imgRelPath;
+                                    var name = data[i].imgName;
+                                    $('#showImg').append('<img style="width: 180px;height:180px; margin-left: 10px; margin-top: 8px;" layer-src="'+result+'" src="'+ result +'"  alt="'+name +'" layer-index="'+i+'">')
+                                }
+
+
+                                layer.photos({
+                                    photos: '#showImg'
+                                });
+
+                            }
+                        });
+
+                    }
+                })
+            }
+        });
 
 
 

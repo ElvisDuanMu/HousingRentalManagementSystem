@@ -20,4 +20,8 @@ public interface RegionMapper {
     int queryCount(RegionDTO regionDTO);
 
     List<Region> query(@Param("regionDTO") RegionDTO regionDTO, @Param("page") Page page);
+
+    String queryProvinceNameByProvinceCode(@Param("provinceCode")String provinceCode);
+
+    String queryCityNameByCityCode(@Param("cityCode") String cityCode);
 }

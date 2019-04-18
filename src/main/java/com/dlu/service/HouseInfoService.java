@@ -28,4 +28,12 @@ public interface HouseInfoService {
     List<RentContent> queryRentContent(Integer houseId);
 
     List<Facility> queryFacility(Integer houseId);
+
+    List<HouseImg> queryHouseFaceImgContent(Integer houseId);
+
+    List<HouseImg> queryShowImg(Integer houseId);
+
+    List<HouseInfo> queryByShowMessageByDistrict(HouseInfo houseInfo,Page page,Tab tab);
+
+    Integer queryByShowMessageByDistrictCount(HouseInfo houseInfo);
 }

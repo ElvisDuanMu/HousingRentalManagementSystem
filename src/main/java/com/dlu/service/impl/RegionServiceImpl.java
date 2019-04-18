@@ -42,5 +42,16 @@ public class RegionServiceImpl implements RegionService {
         return regionMapper.query(regionDTO,page);
     }
 
+    @Override
+    public String queryProvinceNameByProvinceCode(String provinceCode) {
+
+        return regionMapper.queryProvinceNameByProvinceCode(provinceCode);
+    }
+
+    @Override
+    public String queryCityNameByCityCode(String cityCode) {
+        return regionMapper.queryCityNameByCityCode(cityCode);
+    }
+
 
 }

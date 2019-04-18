@@ -3,7 +3,6 @@ package com.dlu.controller;
 import com.dlu.dto.UserDTO;
 import com.dlu.pojo.*;
 import com.dlu.service.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,4 +133,40 @@ public class UserController {
     public String addSuccess(){
         return "user/house/addSuccess";
     }
+
+
+    /**
+     * 跳转到找房界面
+     * @param provinceCode
+     * @param cityCode
+     * @return
+     */
+    @RequestMapping("/{provinceCode}/{cityCode}/queryHouse")
+    public String queryHouse(@PathVariable("provinceCode") String provinceCode, @PathVariable("cityCode") String cityCode
+            , Model model  ){
+        String provinceName = regionService.queryProvinceNameByProvinceCode(provinceCode);
+        String cityName = regionService.queryCityNameByCityCode(cityCode);
+        //查询地区
+        List<District> districtList = regionService.queryDistrictByCity(cityCode);
+        //查询朝向
+        List<Orientation> orientationList = houseSettingsService.queryAllOrientation();
+        model.addAttribute("provinceName",provinceName);
+        model.addAttribute("cityName",cityName);
+        model.addAttribute("provinceCode",provinceCode);
+        model.addAttribute("cityCode",cityCode);
+        model.addAttribute("district",districtList);
+        model.addAttribute("orientation",orientationList);
+        return "user/queryHouse/queryHouse";
+    }
+
+    /**
+     * 跳转到选择城市界面
+     * @return
+     */
+
+    @RequestMapping("/chooseCity")
+    public String chooseCity(){
+        return "user/queryHouse/chooseCity";
+    }
+
 }

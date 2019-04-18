@@ -32,17 +32,16 @@
         <div class="common_width cf">
             <!-- logo -->
             <a alt="乐租租房" title="乐租租房" class="logo fl" href="/" target="_self">
-                <img src="img/02.png" alt="乐租租房" alt="乐租租房">
+                <img src="${ctx}/static/img/02.png" alt="乐租租房" alt="乐租租房">
             </a>
             <!-- 城市切换 -->
             <div class="city_box fl">
-                <span class="cur_city">上海</span>
+                <span class="cur_city"><a href="/user/chooseCity">上海</a></span>
                 <i class="triangle_b"></i>
                 <ul class="city_list">
-                    <li><a alt="上海租房" title="上海租房" href="#">上海</a></li>
-                    <li><a alt="北京租房" title="北京租房" href="#">北京</a></li>
-                    <li><a alt="杭州租房" title="杭州租房" href="#">大连</a></li>
-
+                    <li><a alt="上海租房" title="上海租房" href="${ctx}/user/310000/310100/queryHouse">上海</a></li>
+                    <li><a alt="北京租房" title="北京租房" href="${ctx}/user/110000/110100/queryHouse">北京</a></li>
+                    <li><a alt="杭州租房" title="杭州租房" href="${ctx}/user/210000/210200/queryHouse">大连</a></li>
                 </ul>
             </div>
             <!-- 菜单导航栏 -->

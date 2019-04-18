@@ -57,7 +57,7 @@
             page:true,
             limits:[5,10,15],
             limit:5,
-            id: 'testReload',
+            id: 'testReload'
 
         });
 

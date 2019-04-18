@@ -64,4 +64,24 @@ public class HouseInfoServiceImpl implements HouseInfoService {
     public List<Facility> queryFacility(Integer houseId) {
         return houseInfoMapper.queryFacility(houseId);
     }
+
+    @Override
+    public List<HouseImg> queryHouseFaceImgContent(Integer houseId) {
+        return houseInfoMapper.queryHouseFaceImgContent(houseId);
+    }
+
+    @Override
+    public List<HouseImg> queryShowImg(Integer houseId) {
+        return houseInfoMapper.queryShowImg(houseId);
+    }
+
+    @Override
+    public List<HouseInfo> queryByShowMessageByDistrict(HouseInfo houseInfo, Page page,Tab tab) {
+        return houseInfoMapper.queryByShowMessageByDistrict(houseInfo,page,tab);
+    }
+
+    @Override
+    public Integer queryByShowMessageByDistrictCount(HouseInfo houseInfo) {
+        return houseInfoMapper.queryByShowMessageByDistrictCount(houseInfo);
+    }
 }

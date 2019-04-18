@@ -16,4 +16,8 @@ public interface RegionService {
     int queryCount(RegionDTO regionDTO);
 
     List<Region> query(RegionDTO regionDTO, Page page);
+
+    String queryProvinceNameByProvinceCode(String provinceCode);
+
+    String queryCityNameByCityCode(String cityCode);
 }
