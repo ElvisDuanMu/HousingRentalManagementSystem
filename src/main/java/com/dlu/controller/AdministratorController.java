@@ -145,6 +145,16 @@ public class AdministratorController {
         return "administrator/houseInfo/houseInfo";
     }
 
+    /**
+     * 跳转到审核房源界面
+     * @return
+     */
+
+    @RequestMapping("/{name}/toExaminingHouse")
+    public String toExaminingHouse(){
+        return "administrator/houseInfo/examiningHouse";
+    }
+
 
 
 }

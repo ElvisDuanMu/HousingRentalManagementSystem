@@ -36,4 +36,12 @@ public interface HouseInfoService {
     List<HouseInfo> queryByShowMessageByDistrict(HouseInfo houseInfo,Page page,Tab tab);
 
     Integer queryByShowMessageByDistrictCount(HouseInfo houseInfo);
+
+    int queryExamCount(HouseInfoDTO houseInfoDTO);
+
+    List<HouseInfo> queryExam(HouseInfoDTO houseInfoDTO, Page page);
+
+    void checkSuccess(HouseInfo houseInfo);
+
+    HouseInfo queryHouseInfoByHouseId(Integer houseId);
 }

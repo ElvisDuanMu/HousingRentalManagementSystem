@@ -480,14 +480,14 @@
                             html += '   <a class="content__list--item--aside" target="_blank" href="#"><img  src="${ctx}'+data[1][i].houseImg.imgRelPath+'" class=" lazyloaded" data-expand="400"></a>';
                             html += '   <div class="content__list--item--main">';
                             html += '       <p class="content__list--item--title twoline">';
-                            html += '           <a target="_blank" href="#">';
+                            html += '           <a target="_blank" href="${ctx}/house/houseDetail/'+ data[1][i].houseId +'">';
                             html += '               '+data[1][i].houseName+'</a>';
                             html += '       </p>';
                             html += '       <p class="content__list--item--des">';
                             html += '           <span>'+data[1][i].district.districtName+'</span> - <span >'+data[1][i].addressCommunity+'</span >';
                             html += '           <i>/</i>'+data[1][i].houseArea+'㎡<i>/</i>'+ data[1][i].orientation.orientationName +' <i>/</i>'+ data[1][i].typeRooms+'室 '+data[1][i].typeHalls+'厅 '+data[1][i].typeBathrooms +'卫<span class="hide">';
                             html += '       </p>';
-                            html += '       <p class="content__list--item--brand oneline"><img src="${ctx}/static/img/shijian.png" > '+ util.timeAgo(data[1][i].createDate , 30)+'</p>';
+                            html += '       <p class="content__list--item--brand oneline"><img src="${ctx}/static/img/shijian.png" > '+ util.timeAgo(data[1][i].createDate, true)+'</p>';
                             html += '       <p class="content__list--item--bottom oneline">';
                             if(data[1][i].renovation.renovationName == "精装修")
                             {

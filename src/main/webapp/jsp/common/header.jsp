@@ -37,7 +37,7 @@
                 <a href="javascript:;">房源信息</a>
                 <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toHouseInfo">房源列表</a></dd>
-                    <dd><a href="">审核房源</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toExaminingHouse">审核房源</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
@@ -47,7 +47,6 @@
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toAddNewSetting">添加房源设置</a></dd>
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toFacilitySetting">查看房间设施</a></dd>
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toAddFacility">添加房间设施</a></dd>
-
                 </dl>
             </li>
             <li class="layui-nav-item">

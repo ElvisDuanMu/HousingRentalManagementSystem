@@ -292,18 +292,7 @@
             <input  type="text"  id="updateDateString" readonly  autocomplete="off" class="layui-input" >
         </div>
     </div>
-    <div class="layui-form-item" style="margin-top: 30px; height: 60px;">
-        <label class="layui-form-label">审核人</label>
-        <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
-            <input  type="text"  id="examName" readonly  autocomplete="off" class="layui-input" >
-        </div>
-    </div>
-    <div class="layui-form-item" style="margin-top: 20px; height: 60px;">
-        <label class="layui-form-label">审核时间</label>
-        <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
-            <input  type="text"  id="examDateString" readonly  autocomplete="off" class="layui-input" >
-        </div>
-    </div>
+
 </div>
 <%--弹出房源图片信息--%>
 <div class="layui-form" id="popImg" style="display: none; margin: 70px  50px;">
@@ -325,6 +314,8 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="viewMsg">信息</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="viewImg">图片</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs " lay-event="accept">通过</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="error">不通过</a>
 </script>
 
 <script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>
@@ -341,7 +332,7 @@
         //表格
         var tableIns = table.render({
             elem:'#tableSettings',
-            url: "${ctx}/house/${sessionScope.AdUserName}/queryHouseInfo",
+            url: "${ctx}/house/${sessionScope.AdUserName}/examiningHouseInfo",
             cols: [[
                 {field:'houseId',title:'房源编号',hide:true},
                 {field:'houseName',title:'房源名称'},
@@ -372,8 +363,6 @@
                 {field:'rentContentString',title:'租金包含信息',hide:true},
                 {field:'houseFacilityString',title:'房源包含设施',hide:true},
                 {field:'detailAddress',title:'详细地址',hide:true},
-                {field:'examName',title:'审核人',hide:true},
-                {field:'examDateString',title:'审核时间',hide:true},
                 {field:'orientationName',title:'朝向',hide:true,templet:'<div>{{d.orientation.orientationName}}</div>'},
                 {field:'leasingName',title:'租赁方式',hide:true,templet:'<div>{{d.leasing.leasingName}}</div>'},
                 {field:'provinceName',title:'所在省',hide:true,templet:'<div>{{d.province.provinceName}}</div>'},
@@ -381,16 +370,16 @@
                 {field:'districtName',title:'所在区',hide:true,templet:'<div>{{d.district.districtName}}</div>'},
                 {field:'renovationName',title:'装修方式',hide:true,templet:'<div>{{d.renovation.renovationName}}</div>'},
                 {field:'inspectionName',title:'看房方式',hide:true,templet:'<div>{{d.inspection.inspectionName}}</div>'},
-                {field:'houseStatusName',title:'房源状态',width:100,templet:'<div>{{d.houseStatus.houseStatusName}}</div>'},
+                {field:'houseStatusName',title:'房源状态',hide:true,width:100,templet:'<div>{{d.houseStatus.houseStatusName}}</div>'},
                 {field:'rentTypeName',title:'租金方式',hide:true,templet:'<div>{{d.rentType.rentTypeName}}</div>'},
                 {field:'identityName',title:'身份',hide:true,templet:'<div>{{d.identity.identityName}}</div>'},
-                {field:'checkStatusName',title:'审核状态',hide:true,width:100,templet:'<div>{{d.checkStatus.checkStatusName}}</div>'},
-                {fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
+                {field:'checkStatusName',title:'审核状态',width:100,templet:'<div>{{d.checkStatus.checkStatusName}}</div>'},
+                {fixed: 'right', title:'操作', toolbar: '#barDemo', width:220}
             ]],
             page:true,
             limits:[5,10,15],
             limit:5,
-            id: 'testReload'
+            id: 'message'
         });
 
 
@@ -445,8 +434,7 @@
                         $('#updateDateString').val(data.updateDateString);
                         $('#rentContent').val(data.rentContentString);
                         $('#facility').val(data.houseFacilityString);
-                        $('#examName').val(data.examName);
-                        $('#examDateString').val(data.examDateString);
+
                     }
                 })
             }
@@ -500,6 +488,50 @@
 
                     }
                 })
+            }
+            if (obj.event === 'accept'){
+                layer.open({
+                    type:0,
+                    title:'审核通过确认',
+                    content:'确定审核通过么',
+                    area:['300px','160px'],
+                    btn:['确定','取消'],
+                    resize:false,
+                    yes: function(index, layero){
+                        //按钮【按钮一】的回调
+                        $.ajax({
+                            url:'${ctx}/house/${sessionScope.AdUserName}/checkSuccess/' + data.houseId,
+                            type: 'get',
+                            success:function (data) {
+                                if(data.code == 200){
+                                    layer.msg('审核成功', {
+                                        icon: 6,
+                                        time: 1000
+                                    }, function(){
+                                        layer.load();
+                                        setTimeout(function(){
+                                            layer.closeAll();
+                                            table.reload('message',{
+                                                page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                }});
+                                        }, 1500);
+                                    });
+                                }
+                            }
+                        })
+
+                    },btn2: function(index, layero){
+                        //按钮【按钮二】的回调
+                        layer.close();
+                    }
+
+                })
+
+
+
+
+
             }
         });
 

@@ -40,6 +40,12 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!--静态资源处理-->
+    <mvc:default-servlet-handler />
+
+    <mvc:resources mapping="static/img/**" location="/static/img/" />
+
+
     <!--加上MVC驱动-->
     <mvc:annotation-driven>
         <!--配置消息转换器以支持JSON的使用-->
@@ -92,8 +98,7 @@
 
 
     
-    <!--静态资源处理-->
-    <mvc:default-servlet-handler />
+
 
 
 

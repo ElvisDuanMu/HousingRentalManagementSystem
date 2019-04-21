@@ -84,4 +84,24 @@ public class HouseInfoServiceImpl implements HouseInfoService {
     public Integer queryByShowMessageByDistrictCount(HouseInfo houseInfo) {
         return houseInfoMapper.queryByShowMessageByDistrictCount(houseInfo);
     }
+
+    @Override
+    public int queryExamCount(HouseInfoDTO houseInfoDTO) {
+        return houseInfoMapper.queryExamCount(houseInfoDTO);
+    }
+
+    @Override
+    public List<HouseInfo> queryExam(HouseInfoDTO houseInfoDTO, Page page) {
+        return houseInfoMapper.queryExam(houseInfoDTO,page);
+    }
+
+    @Override
+    public void checkSuccess(HouseInfo houseInfo) {
+        houseInfoMapper.checkSuccess(houseInfo);
+    }
+
+    @Override
+    public HouseInfo queryHouseInfoByHouseId(Integer houseId) {
+        return houseInfoMapper.queryHouseInfoByHouseId(houseId);
+    }
 }

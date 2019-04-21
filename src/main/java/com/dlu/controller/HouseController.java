@@ -1,13 +1,13 @@
 package com.dlu.controller;
 
-import com.dlu.dto.FacilityDTO;
+
 import com.dlu.dto.HouseInfoDTO;
 import com.dlu.dto.ShowHouseDTO;
 import com.dlu.pojo.*;
 import com.dlu.service.HouseInfoService;
-import com.dlu.service.UserService;
+
 import com.google.gson.Gson;
-import com.mchange.v1.util.Sublist;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,7 +64,6 @@ public class HouseController {
         for (Integer facilityId:houseInfoDTO.getFacilityId()) {
             houseInfoService.addHouseIdAndFacilityId(houseId,facilityId);
         }
-
         return "redirect:/user/toAddHouseImg/" + houseId;
     }
 
@@ -95,9 +94,7 @@ public class HouseController {
             houseImg.setImgRelPath(relLocation);
             houseImg.setImgType("封面图片");
             houseInfoService.addHouseFaceImg(houseImg);
-
         }
-
         return new UploadMsg(0,"0", map );
     }
 
@@ -134,6 +131,12 @@ public class HouseController {
         return new UploadMsg(0,"0", map );
     }
 
+    /**
+     * 房源信息界面 管理员部分
+     * @param name
+     * @param page
+     * @return
+     */
 
     @RequestMapping("/{name}/queryHouseInfo")
     @ResponseBody
@@ -153,15 +156,24 @@ public class HouseController {
         List<HouseInfo> houseInfoList = houseInfoService.query(houseInfoDTO,page);
         //修改时间显示格式
         for (HouseInfo houseInfo: houseInfoList) {
+            //处理创建时间
             String createDateString = simpleDateFormat1.format(houseInfo.getCreateDate());
             houseInfo.setCreateDateString(createDateString);
+            //处理修改时间
             if (houseInfo.getUpdateDate()!=null && !houseInfo.getUpdateDate().equals(""))
             {
                 String updateDateString = simpleDateFormat1.format(houseInfo.getUpdateDate());
                 houseInfo.setUpdateDateString(updateDateString);
             }
+            //处理最早入住时间
             String checkTimeString = simpleDateFormat2.format(houseInfo.getHouseCheckTime());
             houseInfo.setHouseCheckTimeString(checkTimeString);
+            //处理审核时间
+            if (houseInfo.getExamDate()!=null && !houseInfo.getExamDate().equals(""))
+            {
+                String examDateString = simpleDateFormat1.format(houseInfo.getExamDate());
+                houseInfo.setExamDateString(examDateString);
+            }
 
         }
         //获取租金包含内容  获取房屋设施
@@ -188,7 +200,11 @@ public class HouseController {
 
     }
 
-
+    /**
+     * 查询封面图片
+     * @param houseId
+     * @return
+     */
     @RequestMapping("/queryFaceImg/{houseId}")
     @ResponseBody
     public List<HouseImg> queryFaceImg(@PathVariable("houseId")Integer houseId){
@@ -196,6 +212,11 @@ public class HouseController {
         return list;
     }
 
+    /**
+     * 查询展示图片
+     * @param houseId
+     * @return
+     */
     @RequestMapping("/queryShowImg/{houseId}")
     @ResponseBody
     public List<HouseImg> queryShowImg(@PathVariable("houseId") Integer houseId){
@@ -203,6 +224,11 @@ public class HouseController {
         return list;
     }
 
+    /**
+     * 房源信息界面 用户部分
+     * @param showHouseDTO
+     * @return
+     */
     @RequestMapping("/userHouseInfo")
     @ResponseBody
     public List<Object> userHouseInfo(@RequestBody ShowHouseDTO showHouseDTO){
@@ -275,10 +301,128 @@ public class HouseController {
             List<HouseInfo> houseInfoList = houseInfoService.queryByShowMessageByDistrict(houseInfo,page,tab);
             list.add(houseInfoList);
         }
-
-
-
         return list;
     }
+
+
+    /**
+     * 审核房源界面
+     * @param name
+     * @param page
+     * @return
+     */
+
+    @RequestMapping("/{name}/examiningHouseInfo")
+    @ResponseBody
+    public String examiningHouseInfo(@PathVariable("name") String name, Page page){
+        HouseInfoDTO houseInfoDTO = new HouseInfoDTO();
+        //date转String格式
+        // 创建时间和修改时间
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // 最早入住时间
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+        //设置初始查询值
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        //记录查询的总数
+        int count = houseInfoService.queryExamCount(houseInfoDTO);
+        page.setTotalRecord(count);
+        List<HouseInfo> houseInfoList = houseInfoService.queryExam(houseInfoDTO,page);
+        //修改时间显示格式
+        for (HouseInfo houseInfo: houseInfoList) {
+            //处理创建时间
+            String createDateString = simpleDateFormat1.format(houseInfo.getCreateDate());
+            houseInfo.setCreateDateString(createDateString);
+            //处理修改时间
+            if (houseInfo.getUpdateDate()!=null && !houseInfo.getUpdateDate().equals(""))
+            {
+                String updateDateString = simpleDateFormat1.format(houseInfo.getUpdateDate());
+                houseInfo.setUpdateDateString(updateDateString);
+            }
+            //处理最早入住时间
+            String checkTimeString = simpleDateFormat2.format(houseInfo.getHouseCheckTime());
+            houseInfo.setHouseCheckTimeString(checkTimeString);
+
+        }
+        //获取租金包含内容  获取房屋设施
+        for (HouseInfo houseInfo:houseInfoList){
+            //租金包含内容
+            List<RentContent> rentContentList = houseInfoService.queryRentContent(houseInfo.getHouseId());
+            String contentMsg = "";
+            for (RentContent rentContent : rentContentList) {
+                contentMsg = contentMsg + rentContent.getContentName()+"    ";
+            }
+            houseInfo.setRentContentString(contentMsg);
+            //房源包含设施
+            List<Facility> facilityList = houseInfoService.queryFacility(houseInfo.getHouseId());
+            String facilityMsg= "";
+            for (Facility facility:facilityList){
+                facilityMsg = facilityMsg + facility.getFacilityName() + "    ";
+            }
+            houseInfo.setHouseFacilityString(facilityMsg);
+        }
+
+
+        Gson gson = new Gson();
+        return gson.toJson(new PojoToJson("0","",String.valueOf(count),houseInfoList));
+
+    }
+
+
+    /**
+     * 房源审核成功
+     * @param name
+     * @param houseId
+     * @return
+     */
+    @RequestMapping("/{name}/checkSuccess/{houseId}")
+    @ResponseBody
+    public Map<String,Integer> checkSuccess(@PathVariable("name")String name,@PathVariable("houseId")Integer houseId){
+        HouseInfo houseInfo = new HouseInfo();
+        houseInfo.setHouseId(houseId);
+        houseInfo.setExamName(name);
+        houseInfo.setExamDate(new Date());
+        houseInfo.setCheckStatusId(2);
+        houseInfo.setHouseStatusId(2);
+        houseInfoService.checkSuccess(houseInfo);
+        Map<String,Integer> map = new HashMap<>();
+        map.put("code",200);
+        return map;
+    }
+
+
+    @RequestMapping("/houseDetail/{houseId}")
+    public String houseDetail(@PathVariable("houseId") Integer houseId,Model model){
+        //查询房屋信息
+        HouseInfo houseInfo = houseInfoService.queryHouseInfoByHouseId(houseId);
+        //处理房源上架时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        houseInfo.setCreateDateString(simpleDateFormat.format(houseInfo.getCreateDate()));
+        //处理最早入住时间
+        houseInfo.setHouseCheckTimeString(simpleDateFormat.format(houseInfo.getHouseCheckTime()));
+        //查询房源图片
+        List<HouseImg> houseImgList = houseInfoService.queryShowImg(houseId);
+        //查询房源包含内容
+        List<Facility> facilityList = houseInfoService.queryFacility(houseId);
+        //查询租金包含内容
+        List<RentContent> rentContentList = houseInfoService.queryRentContent(houseId);
+        String contentMsg = "";
+        for (RentContent rentContent : rentContentList) {
+            contentMsg = contentMsg + rentContent.getContentName()+"    ";
+        }
+        houseInfo.setRentContentString(contentMsg);
+
+        model.addAttribute("houseInfo",houseInfo);
+        model.addAttribute("houseImg",houseImgList);
+        model.addAttribute("facility",facilityList);
+
+        return "user/queryHouse/houseDetail";
+    }
+
+
+
+
+
+
 
 }
