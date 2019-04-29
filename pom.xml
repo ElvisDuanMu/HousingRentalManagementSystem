@@ -184,14 +184,7 @@
     </dependency>
     <!--====日志依赖end-->
 
-    <!--====数据源的引入 start-->
-    <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.5.2</version>
-    </dependency>
-    <!--====数据源的引入 end-->
+
 
     <!--====mybatis与spring整合依赖 start-->
     <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
