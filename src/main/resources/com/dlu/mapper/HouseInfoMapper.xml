@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.HouseInfoMapper">
+
+    <resultMap id="query" type="com.dlu.pojo.HouseInfo">
+        <id property="houseId" column="house_id" />
+        <result property="houseName" column="house_name"/>
+        <result property="floor" column="floor" />
+        <result property="totalFloor" column="total_floor" />
+        <result property="addressCommunity" column="address_community" />
+        <result property="addressBuilding" column="address_building" />
+        <result property="addressUnit" column="address_unit" />
+        <result property="addressRoom" column="address_room" />
+        <result property="typeRooms" column="type_rooms" />
+        <result property="typeHalls" column="type_halls" />
+        <result property="typeBathrooms" column="type_bathrooms" />
+        <result property="houseArea" column="house_area" />
+        <result property="housePrice" column="house_price" />
+        <result property="createName" column="create_name"/>
+        <result property="createDate" column="create_date" />
+        <result property="updateName" column="update_name" />
+        <result property="updateDate" column="update_date" />
+        <result property="houseInfo" column="house_info" />
+        <result property="houseElevator" column="house_elevator" />
+        <result property="housePark" column="house_park" />
+        <result property="houseCheckTime" column="house_checktime"/>
+        <result property="housePeople" column="house_people" />
+        <result property="contacts" column="contacts" />
+        <result property="telephone" column="telephone" />
+        <result property="pet" column="pet" />
+        <result property="sex" column="sex" />
+        <result property="examName" column="exam_name" />
+        <result property="examDate" column="exam_date" />
+        <result property="detailAddress" column="detail_address" />
+        <association property="orientation" javaType="com.dlu.pojo.Orientation">
+            <result property="orientationId" column="renovation_id" />
+            <result property="orientationName" column="orientationName" />
+        </association>
+        <association property="leasing" javaType="com.dlu.pojo.Leasing">
+            <result property="leasingId" column="leasing_id" />
+            <result property="leasingName" column="leasingName" />
+        </association>
+        <association property="province" javaType="com.dlu.pojo.Province">
+            <result property="provinceCode" column="province_code"/>
+            <result property="provinceName" column="provinceName" />
+        </association>
+        <association property="city" javaType="com.dlu.pojo.City">
+            <result property="cityCode" column="city_code"/>
+            <result property="cityName" column="cityName" />
+        </association>
+        <association property="district" javaType="com.dlu.pojo.District">
+            <result property="districtCode" column="district_code"/>
+            <result property="districtName" column="districtName" />
+        </association>
+        <association property="renovation" javaType="com.dlu.pojo.Renovation">
+            <result property="renovationId" column="province_code"/>
+            <result property="renovationName" column="renovationName" />
+        </association>
+        <association property="inspection" javaType="com.dlu.pojo.Inspection">
+            <result property="inspectionId" column="inspection_id"/>
+            <result property="inspectionName" column="inspectionName" />
+        </association>
+        <association property="houseStatus" javaType="com.dlu.pojo.HouseStatus">
+            <result property="houseStatusId" column="house_status_id"/>
+            <result property="houseStatusName" column="houseStatusName" />
+        </association>
+        <association property="rentType" javaType="com.dlu.pojo.RentType">
+            <result property="rentTypeId" column="house_rentType_id"/>
+            <result property="rentTypeName" column="houseRentTypeName" />
+        </association>
+        <association property="identity" javaType="com.dlu.pojo.Identity">
+            <result property="identityId" column="identity_id"/>
+            <result property="identityName" column="identityName" />
+        </association>
+        <association property="checkStatus" javaType="com.dlu.pojo.CheckStatus">
+            <result property="checkStatusId" column="check_status_id"/>
+            <result property="checkStatusName" column="checkStatusName" />
+        </association>
+    </resultMap>
+
+    <resultMap id="queryExam" type="com.dlu.pojo.HouseInfo">
+        <id property="houseId" column="house_id" />
+        <result property="houseName" column="house_name"/>
+        <result property="floor" column="floor" />
+        <result property="totalFloor" column="total_floor" />
+        <result property="addressCommunity" column="address_community" />
+        <result property="addressBuilding" column="address_building" />
+        <result property="addressUnit" column="address_unit" />
+        <result property="addressRoom" column="address_room" />
+        <result property="typeRooms" column="type_rooms" />
+        <result property="typeHalls" column="type_halls" />
+        <result property="typeBathrooms" column="type_bathrooms" />
+        <result property="houseArea" column="house_area" />
+        <result property="housePrice" column="house_price" />
+        <result property="createName" column="create_name"/>
+        <result property="createDate" column="create_date" />
+        <result property="updateName" column="update_name" />
+        <result property="updateDate" column="update_date" />
+        <result property="houseInfo" column="house_info" />
+        <result property="houseElevator" column="house_elevator" />
+        <result property="housePark" column="house_park" />
+        <result property="houseCheckTime" column="house_checktime"/>
+        <result property="housePeople" column="house_people" />
+        <result property="contacts" column="contacts" />
+        <result property="telephone" column="telephone" />
+        <result property="pet" column="pet" />
+        <result property="sex" column="sex" />
+        <result property="detailAddress" column="detail_address" />
+        <association property="orientation" javaType="com.dlu.pojo.Orientation">
+            <result property="orientationId" column="renovation_id" />
+            <result property="orientationName" column="orientationName" />
+        </association>
+        <association property="leasing" javaType="com.dlu.pojo.Leasing">
+            <result property="leasingId" column="leasing_id" />
+            <result property="leasingName" column="leasingName" />
+        </association>
+        <association property="province" javaType="com.dlu.pojo.Province">
+            <result property="provinceCode" column="province_code"/>
+            <result property="provinceName" column="provinceName" />
+        </association>
+        <association property="city" javaType="com.dlu.pojo.City">
+            <result property="cityCode" column="city_code"/>
+            <result property="cityName" column="cityName" />
+        </association>
+        <association property="district" javaType="com.dlu.pojo.District">
+            <result property="districtCode" column="district_code"/>
+            <result property="districtName" column="districtName" />
+        </association>
+        <association property="renovation" javaType="com.dlu.pojo.Renovation">
+            <result property="renovationId" column="province_code"/>
+            <result property="renovationName" column="renovationName" />
+        </association>
+        <association property="inspection" javaType="com.dlu.pojo.Inspection">
+            <result property="inspectionId" column="inspection_id"/>
+            <result property="inspectionName" column="inspectionName" />
+        </association>
+        <association property="houseStatus" javaType="com.dlu.pojo.HouseStatus">
+            <result property="houseStatusId" column="house_status_id"/>
+            <result property="houseStatusName" column="houseStatusName" />
+        </association>
+        <association property="rentType" javaType="com.dlu.pojo.RentType">
+            <result property="rentTypeId" column="house_rentType_id"/>
+            <result property="rentTypeName" column="houseRentTypeName" />
+        </association>
+        <association property="identity" javaType="com.dlu.pojo.Identity">
+            <result property="identityId" column="identity_id"/>
+            <result property="identityName" column="identityName" />
+        </association>
+        <association property="checkStatus" javaType="com.dlu.pojo.CheckStatus">
+            <result property="checkStatusId" column="check_status_id"/>
+            <result property="checkStatusName" column="checkStatusName" />
+        </association>
+    </resultMap>
+
+    <resultMap id="queryByShowMessageByDistrict" type="com.dlu.pojo.HouseInfo">
+        <id property="houseId" column="house_id" />
+        <result property="houseName" column="house_name" />
+        <result property="houseArea" column="house_area" />
+        <result property="addressCommunity" column="address_community" />
+        <result property="createDate" column="create_date" />
+        <result property="sex" column="sex"/>
+        <result property="houseElevator" column="house_elevator" />
+        <result property="typeRooms" column="type_rooms" />
+        <result property="typeHalls" column="type_halls" />
+        <result property="typeBathrooms" column="type_bathrooms" />
+        <result property="housePrice" column="house_price" />
+        <association property="district" javaType="com.dlu.pojo.District">
+            <result property="districtCode" column="district_code" />
+            <result property="districtName" column="districtName" />
+        </association>
+        <association property="leasing" javaType="com.dlu.pojo.Leasing" >
+            <result property="leasingId" column="leasing_id" />
+            <result property="leasingName" column="leasingName" />
+        </association>
+        <association property="orientation" javaType="com.dlu.pojo.Orientation" >
+            <result property="orientationId" column="orientation_id" />
+            <result property="orientationName" column="orientationName" />
+        </association>
+        <association property="renovation" javaType="com.dlu.pojo.Renovation" >
+            <result property="renovationId" column="renovation_id" />
+            <result property="renovationName" column="renovationName" />
+        </association>
+        <association property="rentType" javaType="com.dlu.pojo.RentType" >
+            <result property="rentTypeId" column="house_rentType_id" />
+            <result property="rentTypeName" column="rentTypeName" />
+        </association>
+        <association property="inspection" javaType="com.dlu.pojo.Inspection" >
+            <result property="inspectionId" column="inspection_id" />
+            <result property="inspectionName" column="inspectionName" />
+        </association>
+        <association property="houseImg" javaType="com.dlu.pojo.HouseImg" >
+            <result property="imgName" column="img_name" />
+            <result property="imgRelPath" column="img_rel_path" />
+        </association>
+    </resultMap>
+
+    <insert id="addNewHouseInfo" parameterType="com.dlu.dto.HouseInfoDTO" keyProperty="houseId" useGeneratedKeys="true">
+
+        insert into house_info
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+            <if test="houseName!=null and houseName!= ''">
+                ,house_name
+            </if>
+            <if test="orientationId !=null ">
+                ,orientation_id
+            </if>
+            <if test="leasingId !=null ">
+                ,leasing_id
+            </if>
+            <if test="floor !=null">
+                ,floor
+            </if>
+            <if test="totalFloor!=null ">
+                ,total_floor
+            </if>
+            <if test="provinceCode !=null and provinceCode!=''">
+                ,province_code
+            </if>
+            <if test="cityCode !=null and cityCode !=''">
+                ,city_code
+            </if>
+            <if test="districtCode!=null and districtCode != '' ">
+                ,district_code
+            </if>
+            <if test="addressCommunity !=null and addressCommunity !='' ">
+                ,address_community
+            </if>
+            <if test="addressBuilding !=null ">
+                ,address_building
+            </if>
+            <if test="addressUnit !=null ">
+                ,address_unit
+            </if>
+            <if test=" addressRoom!=null ">
+                ,address_room
+            </if>
+            <if test="typeRooms!=null">
+                ,type_rooms
+            </if>
+            <if test="typeHalls !=null ">
+                ,type_halls
+            </if>
+            <if test="typeBathrooms!=null  ">
+                ,type_bathrooms
+            </if>
+            <if test="renovationId!=null ">
+                ,renovation_id
+            </if>
+            <if test="houseArea !=null ">
+                ,house_area
+            </if>
+            <if test="housePrice!=null  ">
+                ,house_price
+            </if>
+            <if test="createName !=null and createName!=''">
+                ,create_name
+            </if>
+            <if test="createDate !=null ">
+                ,create_date
+            </if>
+            <if test="houseInfo !=null and houseInfo!='' ">
+                ,house_info
+            </if>
+            <if test="inspectionId !=null  ">
+                ,inspection_id
+            </if>
+            <if test="houseElevator !=null and houseElevator !=''">
+                ,house_elevator
+            </if>
+            <if test="housePark !=null and housePark!=''">
+                ,house_park
+            </if>
+            <if test="houseRentTypeId !=null  ">
+                ,house_rentType_id
+            </if>
+            <if test="houseCheckTime !=null ">
+                ,house_checktime
+            </if>
+            <if test="housePeople !=null ">
+                ,house_people
+            </if>
+            <if test="contacts !=null  and contacts!=''">
+                ,contacts
+            </if>
+            <if test="identityId !=null ">
+                ,identity_id
+            </if>
+            <if test="telephone !=null and telephone!=''">
+                ,telephone
+            </if>
+            <if test="checkStatusId !=null ">
+                ,check_status_id
+            </if>
+            <if test="pet !=null and pet!='' ">
+                ,pet
+            </if>
+            <if test="sex !=null and sex !='' ">
+                ,sex
+            </if>
+            <if test="detailAddress !=null and detailAddress !='' ">
+                ,detail_address
+            </if>
+            <if test="houseStatusId !=null  ">
+                ,house_status_id
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" prefixOverrides=",">
+            <if test="houseName!=null and houseName!= ''">
+                ,#{houseName}
+            </if>
+            <if test="orientationId !=null ">
+                ,#{orientationId}
+            </if>
+            <if test="leasingId !=null ">
+                ,#{leasingId}
+            </if>
+            <if test="floor !=null">
+                ,#{floor}
+            </if>
+            <if test="totalFloor!=null ">
+                ,#{totalFloor}
+            </if>
+            <if test="provinceCode !=null and provinceCode!=''">
+                ,#{provinceCode}
+            </if>
+            <if test="cityCode !=null and cityCode !=''">
+                ,#{cityCode}
+            </if>
+            <if test="districtCode!=null and districtCode != '' ">
+                ,#{districtCode}
+            </if>
+            <if test="addressCommunity !=null and addressCommunity !='' ">
+                ,#{addressCommunity}
+            </if>
+            <if test="addressBuilding !=null ">
+                ,#{addressBuilding}
+            </if>
+            <if test="addressUnit !=null ">
+                ,#{addressUnit}
+            </if>
+            <if test=" addressRoom!=null ">
+                ,#{addressRoom}
+            </if>
+            <if test="typeRooms!=null">
+                ,#{typeRooms}
+            </if>
+            <if test="typeHalls !=null ">
+                ,#{typeHalls}
+            </if>
+            <if test="typeBathrooms!=null  ">
+                ,#{typeBathrooms}
+            </if>
+            <if test="renovationId!=null ">
+                ,#{renovationId}
+            </if>
+            <if test="houseArea !=null ">
+                ,#{houseArea}
+            </if>
+            <if test="housePrice!=null  ">
+                ,#{housePrice}
+            </if>
+            <if test="createName !=null and createName!=''">
+                ,#{createName}
+            </if>
+            <if test="createDate !=null ">
+                ,#{createDate}
+            </if>
+            <if test="houseInfo !=null and houseInfo!='' ">
+                ,#{houseInfo}
+            </if>
+            <if test="inspectionId !=null  ">
+                ,#{inspectionId}
+            </if>
+            <if test="houseElevator !=null and houseElevator !=''">
+                ,#{houseElevator}
+            </if>
+            <if test="housePark !=null and housePark!=''">
+                ,#{housePark}
+            </if>
+            <if test="houseRentTypeId !=null  ">
+                ,#{houseRentTypeId}
+            </if>
+            <if test="houseCheckTime !=null ">
+                ,#{houseCheckTime}
+            </if>
+            <if test="housePeople !=null ">
+                ,#{housePeople}
+            </if>
+            <if test="contacts !=null  and contacts!=''">
+                ,#{contacts}
+            </if>
+            <if test="identityId !=null ">
+                ,#{identityId}
+            </if>
+            <if test="telephone !=null and telephone!=''">
+                ,#{telephone}
+            </if>
+            <if test="checkStatusId !=null ">
+                ,#{checkStatusId}
+            </if>
+            <if test="pet !=null and pet!='' ">
+                ,#{pet}
+            </if>
+            <if test="sex !=null and sex !='' ">
+                ,#{sex}
+            </if>
+            <if test="detailAddress !=null and detailAddress !='' ">
+                ,#{detailAddress}
+            </if>
+            <if test="houseStatusId !=null  ">
+                ,#{houseStatusId}
+            </if>
+        </trim>
+
+
+    </insert>
+    <insert id="addHouseIdAndContentId">
+        insert into house_rent_content_association(house_id, rent_content_id)
+        values (#{houseId},#{contentId})
+    </insert>
+    <insert id="addHouseIdAndFacilityId">
+        insert into house_facility_association(house_id, facility_id)
+        values (#{houseId},#{facilityId})
+    </insert>
+    <insert id="addHouseFaceImg">
+        insert into house_img(house_id, img_name, img_path, img_rel_path, img_type)
+        values (#{houseId},#{imgName},#{imgPath},#{imgRelPath},#{imgType})
+    </insert>
+    <update id="checkSuccess">
+        update house_info
+        <trim prefixOverrides="," prefix="set ">
+            <if test="examName != null and examName != ''">
+                ,exam_name = #{examName}
+            </if>
+            <if test="examDate != null ">
+                ,exam_date = #{examDate}
+            </if>
+            <if test="checkStatusId != null ">
+                ,check_status_id= #{checkStatusId}
+            </if>
+            <if test="houseStatusId != null ">
+                ,house_status_id = #{houseStatusId}
+            </if>
+        </trim>
+        <where>
+            <if test=" houseId != null">
+                and house_id=#{houseId}
+            </if>
+        </where>
+    </update>
+    <update id="updateStatus">
+        update house_info
+        set house_status_id = #{houseStatusId}
+        where house_id = #{houseId}
+
+    </update>
+    <select id="queryHouseFaceImg" resultType="java.lang.Integer">
+        select count(*)
+        from house_img
+        where house_id = #{houseId} and img_type = '封面图片'
+    </select>
+    <select id="queryHousePuTongImg" resultType="java.lang.Integer">
+        select count(*)
+        from house_img
+        where house_id = #{houseId} and img_type = '展示图片'
+    </select>
+    <select id="query" resultMap="query">
+        select t1.house_id, t1.house_name,  t1.floor,
+        t1.total_floor, t1.address_community, t1.address_building, t1.address_unit,
+        t1.address_room, t1.type_rooms, t1.type_halls, t1.type_bathrooms,
+        t1.house_area, t1.house_price, t1.create_name,
+        t1.create_date, t1.update_name, t1.update_date,t1.house_info,
+        t1.house_elevator, t1.house_park,  t1.house_checktime, t1.house_people, t1.contacts,
+        t1.telephone, t1.pet, t1.sex, t1.detail_address,t1.exam_date,t1.exam_name,
+        t1.orientation_id ,s1.value_name as orientationName,
+        t1.leasing_id,s2.value_name as leasingName,
+        t1.province_code ,p1.province_name as provinceName ,
+        t1.city_code ,c1.city_name as cityName,
+        t1.district_code,d1.district_name as districtName ,
+        t1.renovation_id,s3.value_name as renovationName,
+        t1.inspection_id,s4.value_name as inspectionName,
+        t1.house_status_id,s5.value_name as houseStatusName,
+        t1.house_rentType_id,s6.value_name as houseRentTypeName,
+        t1.identity_id,s7.value_name as identityName,
+        t1.check_status_id,s8.value_name as checkStatusName
+        from house_info t1
+        left join provinces  p1 on t1.province_code = p1.province_code
+        left join cities  c1 on t1.city_code = c1.city_code
+        left join districts  d1 on t1.district_code = d1.district_code
+        left join house_settings  s1 on t1.orientation_id = s1.value_id
+        left join house_settings  s2 on t1.leasing_id = s2.value_id
+        left join house_settings  s3 on t1.renovation_id = s3.value_id
+        left join house_settings  s4 on t1.inspection_id = s4.value_id
+        left join house_settings  s5 on t1.house_status_id = s5.value_id
+        left join house_settings  s6 on t1.house_rentType_id = s6.value_id
+        left join house_settings  s7 on t1.identity_id = s7.value_id
+        left join house_settings  s8 on t1.check_status_id = s8.value_id
+        <where>
+              and s1.type_code = 'HOUSE_ORIENTATION'
+              and s2.type_code = 'LEASING_MODE'
+              and s3.type_code = 'RENOVATION'
+              and s4.type_code = 'HOUSE_INSPECTION'
+              and s5.type_code = 'HOUSE_STATUS'
+              and s6.type_code = 'HOUSE_RENTTYPE'
+              and s7.type_code = 'IDENTITY_SELECTION'
+              and s8.type_code = 'CHECK_STATUS'
+        </where>
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(*)
+        from house_info
+    </select>
+    <select id="queryRentContent" resultType="com.dlu.pojo.RentContent">
+        select t1.content_id,t1.content_name
+        from rent_content t1,house_rent_content_association t2
+        where t1.content_id = t2.rent_content_id and t2.house_id = #{houseId}
+    </select>
+    <select id="queryFacility" resultType="com.dlu.pojo.Facility">
+        select t1.facility_id,t1.facility_name,t1.facility_img_rel_path
+        from facilities t1,house_facility_association t2
+        where t1.facility_id = t2.facility_id and t2.house_id = #{houseId}
+    </select>
+    <select id="queryHouseFaceImgContent" resultType="com.dlu.pojo.HouseImg">
+        select id,img_name,img_rel_path
+        from house_img
+        where house_id = #{houseId} and img_type='封面图片'
+    </select>
+    <select id="queryShowImg" resultType="com.dlu.pojo.HouseImg">
+        select id,img_name,img_rel_path
+        from house_img
+        where house_id = #{houseId} and img_type='展示图片'
+    </select>
+    <select id="queryByShowMessageByDistrict" resultMap="queryByShowMessageByDistrict">
+        select t1.house_name,t1.house_id,t1.house_area,t1.address_community,
+           t1.type_rooms,t1.type_halls,t1.type_bathrooms,t1.house_price,
+           t1.create_date,t1.sex,t1.house_elevator,
+           t1.district_code ,d1.district_name as districtName,
+           t1.leasing_id , s1.value_name as leasingName,
+           t1.orientation_id , s2.value_name as orientationName,
+           t1.renovation_id, s3.value_name as renovationName,
+           t1.house_rentType_id ,s4.value_name as rentTypeName,
+           t1.inspection_id,s5.value_name as inspectionName,
+           t2.img_name,t2.img_rel_path
+
+            from house_info t1
+            left join house_settings s1 on t1.leasing_id = s1.value_id
+            left join districts d1 on t1.district_code = d1.district_code
+            left join house_settings s2 on t1.orientation_id = s2.value_id
+            left join house_settings s3 on t1.renovation_id = s3.value_id
+            left join house_settings s4 on t1.house_rentType_id = s4.value_id
+            left join house_settings s5 on t1.inspection_id = s5.value_id
+            left join house_img t2 on t1.house_id = t2.house_id
+
+        <where>
+            and s1.type_code = 'LEASING_MODE'
+            and s2.type_code = 'HOUSE_ORIENTATION'
+            and s3.type_code = 'RENOVATION'
+            and s4.type_code = 'HOUSE_RENTTYPE'
+            and s5.type_code ='HOUSE_INSPECTION'
+            and t1.check_status_id = '2'
+            and t1.house_status_id = '2'
+            and t2.img_type='封面图片'
+            and t1.house_price between #{houseInfo.housePriceMin} and #{houseInfo.housePriceMax}
+            and t1.house_area between #{houseInfo.houseAreaMin} and #{houseInfo.houseAreaMax}
+            and t1.province_code = #{houseInfo.provinceCode}
+            and t1.city_code = #{houseInfo.cityCode}
+            <if test="houseInfo.districtCode != null and houseInfo.districtCode!= ''">
+                and t1.district_code = #{houseInfo.districtCode}
+            </if>
+            <if test="houseInfo.leasingId != null">
+                and t1.leasing_id = #{houseInfo.leasingId}
+            </if>
+            <if test="houseInfo.orientationId != null">
+                and t1.orientation_id = #{houseInfo.orientationId}
+            </if>
+            <if test="houseInfo.typeRooms == 1 or houseInfo.typeRooms==2 or houseInfo.typeRooms == 3">
+                and t1.type_rooms = #{houseInfo.typeRooms}
+            </if>
+            <if test="houseInfo.typeRooms == 4 ">
+                and t1.type_rooms &gt;= 4
+            </if>
+            <if test="houseInfo.renovationId != null">
+                and t1.renovation_id = #{houseInfo.renovationId}
+            </if>
+            <if test="houseInfo.houseRentTypeId != null">
+                and t1.house_rentType_id = #{houseInfo.houseRentTypeId}
+            </if>
+            <if test="houseInfo.inspectionId != null">
+                and t1.inspection_id = #{houseInfo.inspectionId}
+            </if>
+            <if test="houseInfo.sex != null and houseInfo.sex != ''">
+                and t1.sex = #{houseInfo.sex}
+            </if>
+            <if test="houseInfo.houseElevator != null and houseInfo.houseElevator != ''">
+                and t1.house_elevator = #{houseInfo.houseElevator}
+            </if>
+            <if test="houseInfo.housePark != null and houseInfo.housePark != ''">
+                and t1.house_park = #{houseInfo.housePark}
+            </if>
+            <if test="tab.tabIndex == 1">
+                order by t1.create_date DESC
+            </if>
+            <if test="tab.tabIndex == 2 and tab.tabValue == 1" >
+                 order by t1.house_price ASC
+            </if>
+            <if test="tab.tabIndex == 2 and tab.tabValue == 2" >
+                 order by t1.house_price DESC
+            </if>
+            <if test="tab.tabIndex == 3 and tab.tabValue == 1" >
+                order by t1.house_area ASC
+            </if>
+            <if test="tab.tabIndex == 3 and tab.tabValue == 2" >
+                order by t1.house_area DESC
+            </if>
+            limit #{page.start},#{page.limit}
+        </where>
+    </select>
+    <select id="queryByShowMessageByDistrictCount" resultType="java.lang.Integer">
+        select count(*)
+        from house_info t1
+        left join house_settings s1 on t1.leasing_id = s1.value_id
+        left join districts d1 on t1.district_code = d1.district_code
+        left join house_settings s2 on t1.orientation_id = s2.value_id
+        left join house_settings s3 on t1.renovation_id = s3.value_id
+        left join house_settings s4 on t1.house_rentType_id = s4.value_id
+        left join house_settings s5 on t1.inspection_id = s5.value_id
+        <where>
+            and s1.type_code = 'LEASING_MODE'
+            and s2.type_code = 'HOUSE_ORIENTATION'
+            and s3.type_code = 'RENOVATION'
+            and s4.type_code = 'HOUSE_RENTTYPE'
+            and s5.type_code ='HOUSE_INSPECTION'
+            and t1.check_status_id = '2'
+            and t1.house_status_id = '2'
+            and t1.house_price between #{housePriceMin} and #{housePriceMax}
+            and t1.house_area between #{houseAreaMin} and #{houseAreaMax}
+            and t1.province_code = #{provinceCode}
+            and t1.city_code = #{cityCode}
+            <if test="districtCode != null and districtCode!= ''">
+                and t1.district_code = #{districtCode}
+            </if>
+            <if test="leasingId != null">
+                and t1.leasing_id = #{leasingId}
+            </if>
+            <if test="orientationId != null">
+                and t1.orientation_id = #{orientationId}
+            </if>
+            <if test="typeRooms == 1 or typeRooms==2 or typeRooms == 3">
+                and t1.type_rooms = #{typeRooms}
+            </if>
+            <if test="typeRooms == 4 ">
+                and t1.type_rooms &gt;= 4
+            </if>
+            <if test="renovationId != null">
+                and t1.renovation_id = #{renovationId}
+            </if>
+            <if test="houseRentTypeId != null">
+                and t1.house_rentType_id = #{houseRentTypeId}
+            </if>
+            <if test="inspectionId != null">
+                and t1.inspection_id = #{inspectionId}
+            </if>
+            <if test="sex != null and sex != ''">
+                and t1.sex = #{sex}
+            </if>
+            <if test="houseElevator != null and houseElevator != ''">
+                and t1.house_elevator = #{houseElevator}
+            </if>
+            <if test="housePark != null and housePark != ''">
+                and t1.house_park = #{housePark}
+            </if>
+
+        </where>
+    </select>
+    <select id="queryExamCount" resultType="java.lang.Integer">
+        select count(*)
+        from house_info
+        where check_status_id = '1'
+    </select>
+    <select id="queryExam" resultMap="queryExam">
+        select t1.house_id, t1.house_name,  t1.floor,
+        t1.total_floor, t1.address_community, t1.address_building, t1.address_unit,
+        t1.address_room, t1.type_rooms, t1.type_halls, t1.type_bathrooms,
+        t1.house_area, t1.house_price, t1.create_name,
+        t1.create_date, t1.update_name, t1.update_date,t1.house_info,
+        t1.house_elevator, t1.house_park,  t1.house_checktime, t1.house_people, t1.contacts,
+        t1.telephone, t1.pet, t1.sex, t1.detail_address,t1.exam_date,t1.exam_name,
+        t1.orientation_id ,s1.value_name as orientationName,
+        t1.leasing_id,s2.value_name as leasingName,
+        t1.province_code ,p1.province_name as provinceName ,
+        t1.city_code ,c1.city_name as cityName,
+        t1.district_code,d1.district_name as districtName ,
+        t1.renovation_id,s3.value_name as renovationName,
+        t1.inspection_id,s4.value_name as inspectionName,
+        t1.house_status_id,s5.value_name as houseStatusName,
+        t1.house_rentType_id,s6.value_name as houseRentTypeName,
+        t1.identity_id,s7.value_name as identityName,
+        t1.check_status_id,s8.value_name as checkStatusName
+        from house_info t1
+        left join provinces  p1 on t1.province_code = p1.province_code
+        left join cities  c1 on t1.city_code = c1.city_code
+        left join districts  d1 on t1.district_code = d1.district_code
+        left join house_settings  s1 on t1.orientation_id = s1.value_id
+        left join house_settings  s2 on t1.leasing_id = s2.value_id
+        left join house_settings  s3 on t1.renovation_id = s3.value_id
+        left join house_settings  s4 on t1.inspection_id = s4.value_id
+        left join house_settings  s5 on t1.house_status_id = s5.value_id
+        left join house_settings  s6 on t1.house_rentType_id = s6.value_id
+        left join house_settings  s7 on t1.identity_id = s7.value_id
+        left join house_settings  s8 on t1.check_status_id = s8.value_id
+        <where>
+            and s1.type_code = 'HOUSE_ORIENTATION'
+            and s2.type_code = 'LEASING_MODE'
+            and s3.type_code = 'RENOVATION'
+            and s4.type_code = 'HOUSE_INSPECTION'
+            and s5.type_code = 'HOUSE_STATUS'
+            and s6.type_code = 'HOUSE_RENTTYPE'
+            and s7.type_code = 'IDENTITY_SELECTION'
+            and s8.type_code = 'CHECK_STATUS'
+            and check_status_id = '1'
+        </where>
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryHouseInfoByHouseId" resultMap="query">
+        select t1.house_id, t1.house_name,  t1.floor,
+        t1.total_floor, t1.address_community, t1.address_building, t1.address_unit,
+        t1.address_room, t1.type_rooms, t1.type_halls, t1.type_bathrooms,
+        t1.house_area, t1.house_price, t1.create_name,
+        t1.create_date, t1.update_name, t1.update_date,t1.house_info,
+        t1.house_elevator, t1.house_park,  t1.house_checktime, t1.house_people, t1.contacts,
+        t1.telephone, t1.pet, t1.sex, t1.detail_address,t1.exam_date,t1.exam_name,
+        t1.orientation_id ,s1.value_name as orientationName,
+        t1.leasing_id,s2.value_name as leasingName,
+        t1.province_code ,p1.province_name as provinceName ,
+        t1.city_code ,c1.city_name as cityName,
+        t1.district_code,d1.district_name as districtName ,
+        t1.renovation_id,s3.value_name as renovationName,
+        t1.inspection_id,s4.value_name as inspectionName,
+        t1.house_status_id,s5.value_name as houseStatusName,
+        t1.house_rentType_id,s6.value_name as houseRentTypeName,
+        t1.identity_id,s7.value_name as identityName,
+        t1.check_status_id,s8.value_name as checkStatusName
+        from house_info t1
+        left join provinces  p1 on t1.province_code = p1.province_code
+        left join cities  c1 on t1.city_code = c1.city_code
+        left join districts  d1 on t1.district_code = d1.district_code
+        left join house_settings  s1 on t1.orientation_id = s1.value_id
+        left join house_settings  s2 on t1.leasing_id = s2.value_id
+        left join house_settings  s3 on t1.renovation_id = s3.value_id
+        left join house_settings  s4 on t1.inspection_id = s4.value_id
+        left join house_settings  s5 on t1.house_status_id = s5.value_id
+        left join house_settings  s6 on t1.house_rentType_id = s6.value_id
+        left join house_settings  s7 on t1.identity_id = s7.value_id
+        left join house_settings  s8 on t1.check_status_id = s8.value_id
+        <where>
+            and s1.type_code = 'HOUSE_ORIENTATION'
+            and s2.type_code = 'LEASING_MODE'
+            and s3.type_code = 'RENOVATION'
+            and s4.type_code = 'HOUSE_INSPECTION'
+            and s5.type_code = 'HOUSE_STATUS'
+            and s6.type_code = 'HOUSE_RENTTYPE'
+            and s7.type_code = 'IDENTITY_SELECTION'
+            and s8.type_code = 'CHECK_STATUS'
+            and t1.house_id = #{houseId}
+        </where>
+    </select>
+    <select id="queryHousePrice" resultType="java.lang.Double">
+        select house_price
+        from house_info
+        where house_id = #{houseId}
+    </select>
+
+</mapper>

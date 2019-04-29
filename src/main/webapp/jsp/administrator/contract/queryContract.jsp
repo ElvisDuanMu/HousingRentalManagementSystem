@@ -376,17 +376,6 @@
             <text>  ●证件编号：</text>
             <text fontStyle="underline"></text>
         </para>
-        <para lineSpacing="4">
-            <text>承租人（乙方）：</text>
-            <text fontStyle="underline">                    </text>
-            <text>   证件类型：</text>
-            <text fontStyle="underline">                  </text>
-            <text>  </text>
-        </para>
-        <para lineSpacing="4">
-            <text>证件编号：</text>
-            <text fontStyle="underline">                                               </text>
-        </para>
         </body>
     </xdoc>
 

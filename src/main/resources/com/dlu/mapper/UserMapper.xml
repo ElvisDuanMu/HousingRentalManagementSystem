@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.UserMapper">
+
+    <select id="queryByNamePwd" resultType="com.dlu.pojo.User">
+        select user_login_name,user_password
+        from user
+        <where>
+            <if test="userLoginName != null and userLoginName != ''">
+                and user_login_name = #{userLoginName}
+            </if>
+        </where>
+
+
+    </select>
+</mapper>

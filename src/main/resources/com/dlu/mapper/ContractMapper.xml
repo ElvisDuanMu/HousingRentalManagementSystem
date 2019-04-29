@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.ContractMapper">
+  <insert id="addContract">
+    insert into contract(house_id,contract_number,partA_login_name,partB_login_name,status)
+    values (#{houseId},#{contractNumber},#{partALoginName},#{partBLoginName},#{status})
+  </insert>
+
+  <update id="updateContractMsg">
+    update contract
+    <trim prefixOverrides="," prefix="set ">
+      <if test="partAName != null and partAName != ''">
+        ,partA_name = #{partAName}
+      </if>
+      <if test="partBName != null and partBName != ''">
+        ,partB_name = #{partBName}
+      </if>
+      <if test="partATypeOfCertificate != null and partATypeOfCertificate != ''">
+        ,partA_type_of_certificate = #{partATypeOfCertificate}
+      </if>
+      <if test="partBTypeOfCertificate != null and partBTypeOfCertificate != ''">
+        ,partB_type_of_certificate = #{partBTypeOfCertificate}
+      </if>
+      <if test="partAIdNumber != null and partAIdNumber != ''">
+        ,partA_id_number = #{partAIdNumber}
+      </if>
+      <if test="partBIdNumber != null and partBIdNumber != ''">
+        ,partB_id_number = #{partBIdNumber}
+      </if>
+      <if test="houseOwnership != null and houseOwnership != ''">
+        ,house_ownership = #{houseOwnership}
+      </if>
+      <if test="houseOwnershipCertificate != null and houseOwnershipCertificate != ''">
+        ,house_ownership_certificate = #{houseOwnershipCertificate}
+      </if>
+      <if test="houseSourceCertificateContent != null and houseSourceCertificateContent != ''">
+        ,house_source_certificate_content = #{houseSourceCertificateContent}
+      </if>
+      <if test="houseOwnerName != null and houseOwnerName != ''">
+        ,house_owner_name = #{houseOwnerName}
+      </if>
+      <if test="mortgage != null and mortgage != ''">
+        ,mortgage = #{mortgage}
+      </if>
+      <if test="rentalPurposes != null and rentalPurposes != ''">
+        ,rental_purposes = #{rentalPurposes}
+      </if>
+      <if test="people != null ">
+        ,people = #{people}
+      </if>
+      <if test="startDate != null ">
+        ,start_date = #{startDate}
+      </if>
+      <if test="endDate != null ">
+        ,end_date = #{endDate}
+      </if>
+      <if test="duration != null and duration != ''">
+        ,duration = #{duration}
+      </if>
+      <if test="partADeliveryTime != null">
+        ,partA_delivery_time = #{partADeliveryTime}
+      </if>
+      <if test="partADeliveryCondition != null and partADeliveryCondition != ''">
+        ,partA_delivery_condition = #{partADeliveryCondition}
+      </if>
+      <if test="renewal != null ">
+        ,renewal = #{renewal}
+      </if>
+      <if test="rentPaymentTimeMethod != null and rentPaymentTimeMethod != ''">
+        ,rent_payment_time_method = #{rentPaymentTimeMethod}
+      </if>
+      <if test="monthlyRent != null">
+        ,monthly_rent = #{monthlyRent}
+      </if>
+      <if test="monthlyRentUppercase != null and monthlyRentUppercase != ''">
+        ,monthly_rent_uppercase = #{monthlyRentUppercase}
+      </if>
+      <if test="totalPrice != null">
+        ,total_price = #{totalPrice}
+      </if>
+      <if test="totalPriceUppercase != null and totalPriceUppercase != ''">
+        ,total_price_uppercase = #{totalPriceUppercase}
+      </if>
+      <if test="rentPaymentMethod != null and rentPaymentMethod != ''">
+        ,rent_payment_method = #{rentPaymentMethod}
+      </if>
+      <if test="paymentDateString != null and paymentDateString != ''">
+        ,payment_date_string = #{paymentDateString}
+      </if>
+      <if test="deposit != null ">
+        ,deposit = #{deposit}
+      </if>
+      <if test="depositUppercase != null and depositUppercase != ''">
+        ,deposit_uppercase = #{depositUppercase}
+      </if>
+      <if test="partACost != null and partACost != ''">
+        ,partA_cost = #{partACost}
+      </if>
+      <if test="partBCost != null and partBCost != ''">
+        ,partB_cost = #{partBCost}
+      </if>
+      <if test="partAIntermediaryCosts != null ">
+        ,partA_intermediary_costs = #{partAIntermediaryCosts}
+      </if>
+      <if test="partAIntermediaryCostsUppercase != null and partAIntermediaryCostsUppercase != ''">
+        ,partA_intermediary_costs_uppercase = #{partAIntermediaryCostsUppercase}
+      </if>
+      <if test="partBIntermediaryCosts != null">
+        ,partB_intermediary_costs = #{partBIntermediaryCosts}
+      </if>
+      <if test="partBIntermediaryCostsUppercase != null and partBIntermediaryCostsUppercase != ''">
+        ,partB_intermediary_costs_uppercase = #{partBIntermediaryCostsUppercase}
+      </if>
+      <if test="partAPayment != null and partAPayment != ''">
+        ,partA_payment = #{partAPayment}
+      </if>
+      <if test="partBPayment != null and partBPayment != ''">
+        ,partB_payment = #{partBPayment}
+      </if>
+      <if test="partAAdditionalClauses != null and partAAdditionalClauses != ''">
+        ,partA_additional_clauses = #{partAAdditionalClauses}
+      </if>
+      <if test="partBAdditionalClauses != null and partBAdditionalClauses != ''">
+        ,partB_additional_clauses = #{partBAdditionalClauses}
+      </if>
+      <if test="partAPenalty != null ">
+        ,partA_penalty = #{partAPenalty}
+      </if>
+      <if test="partBPenalty != null ">
+        ,partB_penalty = #{partBPenalty}
+      </if>
+      <if test="penalty != null ">
+        ,penalty = #{penalty}
+      </if>
+      <if test="penaltyAdditionalClauses != null and penaltyAdditionalClauses != ''">
+        ,penalty_additional_clauses = #{penaltyAdditionalClauses}
+      </if>
+      <if test="other != null and other != ''">
+        ,other = #{other}
+      </if>
+      <if test="status != null and status != ''">
+        ,status = #{status}
+      </if>
+      <if test="partAConfirm != null and partAConfirm != ''">
+        ,partA_confirm = #{partAConfirm}
+      </if>
+      <if test="partBConfirm != null and partBConfirm != ''">
+        ,partB_confirm = #{partBConfirm}
+      </if>
+    </trim>
+    where id = #{id}
+
+
+  </update>
+  <update id="partAConfirm">
+    update contract
+    <trim prefixOverrides="," prefix="set ">
+      <if test="partAConfirm != null and partAConfirm != ''">
+        ,partA_confirm = #{partAConfirm}
+      </if>
+      <if test="status!= null and status != ''">
+        ,status = #{status}
+      </if>
+    </trim>
+    where id = #{id}
+  </update>
+  <update id="partBConfirm">
+    update contract
+    <trim prefixOverrides="," prefix="set ">
+      <if test="partBConfirm != null and partBConfirm != ''">
+        ,partB_confirm = #{partBConfirm}
+      </if>
+      <if test="status!= null and status != ''">
+        ,status = #{status}
+      </if>
+    </trim>
+    where id = #{id}
+  </update>
+  <update id="acceptConfirm">
+    update contract
+    set status = '审核通过' , check_by = #{name}
+    where id = #{id}
+  </update>
+  <update id="rejectConfirm">
+    update contract
+    set status = '审核未通过', check_by = #{name}
+    where id = #{id}
+  </update>
+  <update id="siteConfirmation">
+    update contract
+    set status = '已完成'
+    where id = #{id}
+  </update>
+    <update id="terminationConfirm">
+      update contract
+    set status = '已终止'
+    where id = #{id}
+    </update>
+
+
+    <select id="queryAllCount" resultType="java.lang.Integer">
+    select count(*)
+    from contract
+  </select>
+    <select id="queryRunningCount" resultType="java.lang.Integer">
+      select count(*)
+      from contract
+      where (partA_login_name = #{name} or partB_login_name = #{name})
+            and (status != '已终止' and status != '已完成')
+    </select>
+  <select id="queryRunningContract" resultType="com.dlu.pojo.Contract">
+    select id,contract_number,house_id,status,partA_login_name,partB_login_name,partA_confirm,partB_confirm,check_by
+    from contract
+    where (partA_login_name = #{name} or partB_login_name = #{name})
+          and (status != '已终止' and status != '已完成')
+     limit #{page.start},#{page.limit}
+  </select>
+    <select id="queryPartBPenaltyAdditionalClauses" resultType="java.lang.String">
+      select penalty_additional_clauses
+      from contract
+      where  id = #{id}
+    </select>
+  <select id="queryPartBOther" resultType="java.lang.String">
+      select other
+      from contract
+      where id = #{id}
+  </select>
+    <select id="queryById" resultType="com.dlu.pojo.Contract">
+      select contract_number, house_id, status, partA_login_name,
+      partB_login_name, partA_name, partB_name, partA_type_of_certificate,
+      partB_type_of_certificate, partA_id_number, partB_id_number,
+      house_ownership, house_ownership_certificate, house_source_certificate_content,
+      house_owner_name, mortgage, rental_purposes, people, start_date, end_date,
+      duration, partA_delivery_time, partA_delivery_condition, renewal,
+      rent_payment_time_method, monthly_rent, monthly_rent_uppercase, total_price,
+      total_price_uppercase, rent_payment_method, payment_date_string, deposit,
+      deposit_uppercase, partA_cost, partB_cost, partA_intermediary_costs,
+      partA_intermediary_costs_uppercase, partB_intermediary_costs, partB_intermediary_costs_uppercase,
+      partA_payment, partB_payment, partA_additional_clauses, partB_additional_clauses,
+      partA_penalty, partB_penalty, penalty, penalty_additional_clauses, other, partA_confirm, partB_confirm,check_by
+      from contract
+      where id = #{id}
+    </select>
+  <select id="queryPartBIsConfirm" resultType="java.lang.String">
+    select partB_confirm
+    from contract
+    where id = #{id}
+
+  </select>
+  <select id="queryPartAIsConfirm" resultType="java.lang.String">
+    select partA_confirm
+    from contract
+    where id = #{id}
+  </select>
+  <select id="queryFinishCount" resultType="java.lang.Integer">
+    select count(*)
+      from contract
+      where (partA_login_name = #{name} or partB_login_name = #{name})
+            and status = '已完成'
+  </select>
+  <select id="queryFinishContract" resultType="com.dlu.pojo.Contract">
+    select id,contract_number,house_id,status,partA_login_name,partB_login_name,partA_confirm,partB_confirm,check_by
+    from contract
+    where (partA_login_name = #{name} or partB_login_name = #{name})
+          and status = '已完成'
+     limit #{page.start},#{page.limit}
+
+  </select>
+  <select id="queryTerminationCount" resultType="java.lang.Integer">
+    select count(*)
+      from contract
+      where (partA_login_name = #{name} or partB_login_name = #{name})
+            and status = '已终止'
+  </select>
+  <select id="queryTerminationContract" resultType="com.dlu.pojo.Contract">
+    select id,contract_number,house_id,status,partA_login_name,partB_login_name,partA_confirm,partB_confirm,check_by
+    from contract
+    where (partA_login_name = #{name} or partB_login_name = #{name})
+          and status = '已终止'
+     limit #{page.start},#{page.limit}
+  </select>
+    <select id="queryExaminingContractInfoCount" resultType="java.lang.Integer">
+      select count(*)
+    from contract
+    <where>
+      status = '等待审核'
+      <if test="contractNumber !=null and contractNumber !=''">
+        and contract_number =  #{contractNumber}
+      </if>
+      <if test="loginName !=null and loginName !=''">
+        and partA_login_name =  #{loginName}  or partB_login_name = #{loginName}
+      </if>
+      <if test="userName !=null and userName !=''">
+        and partA_name =  #{userName}  or partB_name = #{userName}
+      </if>
+    </where>
+
+    </select>
+
+
+  <select id="queryExaminingContractInfo" resultType="com.dlu.pojo.Contract">
+    select id,contract_number,house_id,status,partA_login_name,partB_login_name,partA_name,partB_name,check_by
+    from contract
+    <where>
+      status = '等待审核'
+      <if test="contractDTO.contractNumber !=null and contractDTO.contractNumber !=''">
+        and contract_number =  #{contractDTO.contractNumber}
+      </if>
+      <if test="contractDTO.loginName !=null and contractDTO.loginName !=''">
+        and partA_login_name =  #{contractDTO.loginName}  or partB_login_name = #{contractDTO.loginName}
+      </if>
+      <if test="contractDTO.userName !=null and contractDTO.userName !=''">
+        and partA_name =  #{contractDTO.userName}  or partB_name = #{contractDTO.userName}
+      </if>
+    </where>
+    limit #{page.start},#{page.limit}
+  </select>
+  <select id="querySiteConfirmationContractInfoCount" resultType="java.lang.Integer">
+    select count(*)
+    from contract
+    <where>
+      status = '审核通过'
+      <if test="contractNumber !=null and contractNumber !=''">
+        and contract_number =  #{contractNumber}
+      </if>
+    </where>
+  </select>
+  <select id="querySiteConfirmationContractInfo" resultType="com.dlu.pojo.Contract">
+    select id,contract_number,house_id,status,partA_login_name,partB_login_name,partA_name,partB_name,check_by
+    from contract
+    <where>
+      status = '审核通过'
+      <if test="contractDTO.contractNumber !=null and contractDTO.contractNumber !=''">
+        and contract_number =  #{contractDTO.contractNumber}
+      </if>
+    </where>
+    limit #{page.start},#{page.limit}
+  </select>
+
+  <select id="queryAllContractInfoCount" resultType="java.lang.Integer">
+    select count(*)
+    from contract
+    <where>
+      <if test="contractNumber !=null and contractNumber !=''">
+        and contract_number =  #{contractNumber}
+      </if>
+      <if test="loginName !=null and loginName !=''">
+        and partA_login_name =  #{loginName}  or partB_login_name = #{loginName}
+      </if>
+      <if test="userName !=null and userName !=''">
+        and partA_name =  #{userName}  or partB_name = #{userName}
+      </if>
+      <if test="status !=null and status !=''">
+        and status =  #{status}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryAllContractInfo" resultType="com.dlu.pojo.Contract">
+    select id,contract_number,house_id,status,partA_login_name,partB_login_name,partA_name,partB_name,check_by
+    from contract
+    <where>
+      <if test="contractDTO.contractNumber !=null and contractDTO.contractNumber !=''">
+        and contract_number =  #{contractDTO.contractNumber}
+      </if>
+      <if test="contractDTO.loginName !=null and contractDTO.loginName !=''">
+        and partA_login_name =  #{contractDTO.loginName}  or partB_login_name = #{contractDTO.loginName}
+      </if>
+      <if test="contractDTO.userName !=null and contractDTO.userName !=''">
+        and partA_name =  #{contractDTO.userName}  or partB_name = #{contractDTO.userName}
+      </if>
+      <if test="contractDTO.status !=null and contractDTO.status !=''">
+        and status =  #{contractDTO.status}
+      </if>
+    </where>
+    limit #{page.start},#{page.limit}
+  </select>
+
+</mapper>
