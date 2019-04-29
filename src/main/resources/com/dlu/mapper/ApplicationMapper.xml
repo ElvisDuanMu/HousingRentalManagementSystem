@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dlu.mapper.ApplicationMapper">
+
+    <insert id="addApplication">
+        insert into application(house_id, partA_name, partB_name, status, create_date)
+        values(#{houseId},#{partAName},#{partBName},#{status},#{createDate})
+    </insert>
+    <update id="acceptApplication">
+        update application
+        set status = #{status} , update_date = #{updateDate}
+        where id = #{id}
+    </update>
+    <update id="updateOtherApplicationStatus">
+        update application
+        set  status = #{status} , update_date = #{updateDate}
+        where id = #{id}
+    </update>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(*)
+        from application
+        <where>
+            status != '申请通过' and status !='申请被拒绝'
+            <if test="name!= null and name!=''">
+                and partB_name = #{name}
+            </if>
+        </where>
+    </select>
+    <select id="query" resultType="com.dlu.pojo.Application">
+        select  id, house_id, partA_name, partB_name, status, create_date, update_date
+        from application
+        <where>
+            status != '申请通过' and status !='申请被拒绝'
+            <if test="name!= null and name!=''">
+                and partB_name = #{name}
+            </if>
+        </where>
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryOtherCount" resultType="java.lang.Integer">
+        select count(*)
+        from application
+        <where>
+            status != '申请通过' and status !='申请被拒绝'
+            <if test="name!= null and name!=''">
+                and partA_name = #{name}
+            </if>
+        </where>
+    </select>
+    <select id="queryOther" resultType="com.dlu.pojo.Application">
+        select  id, house_id, partA_name, partB_name, status, create_date, update_date
+        from application
+        <where>
+            status != '申请通过' and status !='申请被拒绝'
+            <if test="name!= null and name!=''">
+                and partA_name = #{name}
+            </if>
+        </where>
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryIsExist" resultType="java.lang.Integer">
+        select count(*)
+        from application
+        where house_id = #{houseId} and partB_name = #{username}
+    </select>
+    <select id="queryOtherApplicationCount" resultType="java.lang.Integer">
+        select count(*)
+        from application
+        where house_id = #{houseId} and partB_name != #{partBLoginName}
+    </select>
+    <select id="queryOtherApplicationId" resultType="java.lang.Integer">
+        select id
+        from application
+        where house_id = #{houseId} and partB_name != #{partBLoginName}
+    </select>
+    <select id="queryFinishCount" resultType="java.lang.Integer">
+        select count(*)
+        from application
+        where  (status = '申请通过' or status = '申请被拒绝')
+              and  (partA_name=#{name} or partB_name=#{name})
+
+    </select>
+    <select id="queryFinish" resultType="com.dlu.pojo.Application">
+        select id, house_id, partA_name, partB_name, status, create_date, update_date
+        from application
+        where (status = '申请通过' or status = '申请被拒绝')
+              and  (partA_name=#{name} or partB_name=#{name})
+        limit #{page.start},#{page.limit}
+    </select>
+</mapper>

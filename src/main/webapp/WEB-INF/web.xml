@@ -70,5 +70,10 @@
 
   <!--优先级：  监听器 > 过滤器 > 拦截器 > servlet-->
 
+  <!--设置首页-->
+  <welcome-file-list>
+    <welcome-file>/jsp/index.jsp</welcome-file>
+  </welcome-file-list>
+
 
 </web-app>

@@ -44,4 +44,9 @@ public interface HouseInfoService {
     void checkSuccess(HouseInfo houseInfo);
 
     HouseInfo queryHouseInfoByHouseId(Integer houseId);
+
+    void updateStatus(HouseInfo houseInfo);
+
+    Double queryHousePrice(Integer houseId);
+
 }

@@ -32,16 +32,15 @@
 <%--弹出房源详细信息--%>
 <div class="layui-form" id="popDetailMsg" style="display: none; margin: 70px  50px;">
     <input type="hidden" id="houseId" >
-    <h2>类别</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+        <legend style="color: black">基础信息</legend>
+    </fieldset>
     <div class="layui-form-item">
         <label class="layui-form-label">出租方式</label>
         <div class="layui-input-inline" style="margin-left: 20px;">
             <input type="text" id="leasingName"  readonly  style="width: 100px;"  autocomplete="off" class="layui-input">
         </div>
     </div>
-    <h2 style="margin-top: 30px;">基础信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 30px;">
     <div class="layui-form-item" >
         <label class="layui-form-label">省/直辖市</label>
         <div class="layui-input-inline" style="width: 100px; margin-left: 20px;">
@@ -171,8 +170,9 @@
             <input  type="text"  id="rentContent" readonly  autocomplete="off" class="layui-input" >
         </div>
     </div>
-    <h2 style="margin-top: 30px;">详细信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+        <legend style="color: black">详细信息</legend>
+    </fieldset>
     <div class="layui-form-item">
         <label class="layui-form-label">看房时间</label>
         <div class="layui-input-inline" style="width: 100px; margin-left: 20px;">
@@ -230,8 +230,9 @@
             <textarea  id="houseInfo" style="margin-top: 10px; height: 160px;" readonly  class="layui-textarea"></textarea>
         </div>
     </div>
-    <h2 style="margin-top: 30px;">其他信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+        <legend style="color: black">其他信息</legend>
+    </fieldset>
     <div class="layui-form-item" style="margin-top: 30px; height: 60px;">
         <label class="layui-form-label">&emsp;联系人</label>
         <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
@@ -251,8 +252,9 @@
         </div>
     </div>
 
-    <h2>状态及审核信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+        <legend style="color: black">状态及审核信息</legend>
+    </fieldset>
     <div class="layui-form-item" style="margin-top: 30px; height: 60px;">
         <label class="layui-form-label">房源状态</label>
         <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
@@ -266,8 +268,9 @@
         </div>
     </div>
 
-    <h2>发布和修改信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+        <legend style="color: black">发布和修改信息</legend>
+    </fieldset>
     <div class="layui-form-item" style="margin-top: 30px; height: 60px;">
         <label class="layui-form-label">发布人</label>
         <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
@@ -343,7 +346,7 @@
             elem:'#tableSettings',
             url: "${ctx}/house/${sessionScope.AdUserName}/queryHouseInfo",
             cols: [[
-                {field:'houseId',title:'房源编号',hide:true},
+                {field:'houseId',title:'房源编号'},
                 {field:'houseName',title:'房源名称'},
                 {field:'floor',title:'楼层',hide:true},
                 {field:'totalFloor',title:'楼层总数',hide:true},
@@ -398,6 +401,7 @@
         //监听工具条start
         table.on('tool(test)',function (obj) {
             var data = obj.data;
+            //查看信息事件
             if (obj.event === 'viewMsg') {
                 layer.open({
                     type: 1,
@@ -451,6 +455,7 @@
                 })
             }
 
+            //查看图片事件
             if (obj.event === 'viewImg') {
                 layer.open({
                     type: 1,

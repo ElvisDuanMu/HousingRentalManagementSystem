@@ -104,4 +104,15 @@ public class HouseInfoServiceImpl implements HouseInfoService {
     public HouseInfo queryHouseInfoByHouseId(Integer houseId) {
         return houseInfoMapper.queryHouseInfoByHouseId(houseId);
     }
+
+    @Override
+    public void updateStatus(HouseInfo houseInfo) {
+        houseInfoMapper.updateStatus(houseInfo);
+    }
+
+    @Override
+    public Double queryHousePrice(Integer houseId) {
+        return houseInfoMapper.queryHousePrice(houseId);
+    }
+
 }

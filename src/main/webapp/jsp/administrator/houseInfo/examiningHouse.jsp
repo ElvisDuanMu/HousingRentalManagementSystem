@@ -32,16 +32,18 @@
 <%--弹出房源详细信息--%>
 <div class="layui-form" id="popDetailMsg" style="display: none; margin: 70px  50px;">
     <input type="hidden" id="houseId" >
-    <h2>类别</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>类别</legend>
+    </fieldset>
     <div class="layui-form-item">
         <label class="layui-form-label">出租方式</label>
         <div class="layui-input-inline" style="margin-left: 20px;">
             <input type="text" id="leasingName"  readonly  style="width: 100px;"  autocomplete="off" class="layui-input">
         </div>
     </div>
-    <h2 style="margin-top: 30px;">基础信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 30px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>基础信息</legend>
+    </fieldset>
     <div class="layui-form-item" >
         <label class="layui-form-label">省/直辖市</label>
         <div class="layui-input-inline" style="width: 100px; margin-left: 20px;">
@@ -171,8 +173,9 @@
             <input  type="text"  id="rentContent" readonly  autocomplete="off" class="layui-input" >
         </div>
     </div>
-    <h2 style="margin-top: 30px;">详细信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>详细信息</legend>
+    </fieldset>
     <div class="layui-form-item">
         <label class="layui-form-label">看房时间</label>
         <div class="layui-input-inline" style="width: 100px; margin-left: 20px;">
@@ -230,8 +233,9 @@
             <textarea  id="houseInfo" style="margin-top: 10px; height: 160px;" readonly  class="layui-textarea"></textarea>
         </div>
     </div>
-    <h2 style="margin-top: 30px;">其他信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>其他信息</legend>
+    </fieldset>
     <div class="layui-form-item" style="margin-top: 30px; height: 60px;">
         <label class="layui-form-label">&emsp;联系人</label>
         <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
@@ -251,8 +255,9 @@
         </div>
     </div>
 
-    <h2>状态及审核信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>状态及审核信息</legend>
+    </fieldset>
     <div class="layui-form-item" style="margin-top: 30px; height: 60px;">
         <label class="layui-form-label">房源状态</label>
         <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
@@ -266,8 +271,9 @@
         </div>
     </div>
 
-    <h2>发布和修改信息</h2>
-    <hr class="layui-bg-green" style="margin-bottom: 20px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>发布和修改信息</legend>
+    </fieldset>
     <div class="layui-form-item" style="margin-top: 30px; height: 60px;">
         <label class="layui-form-label">发布人</label>
         <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">

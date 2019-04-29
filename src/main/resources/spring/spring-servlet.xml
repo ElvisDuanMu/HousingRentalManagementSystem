@@ -44,7 +44,7 @@
     <mvc:default-servlet-handler />
 
     <mvc:resources mapping="static/img/**" location="/static/img/" />
-
+    <mvc:resources mapping="static/css/**" location="/static/css/" />
 
     <!--加上MVC驱动-->
     <mvc:annotation-driven>

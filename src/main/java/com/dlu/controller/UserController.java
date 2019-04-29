@@ -7,10 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -26,6 +31,8 @@ public class UserController {
     private FacilityService facilityService;
     @Autowired
     private HouseInfoService houseInfoService;
+    @Autowired
+    private ApplicationService applicationService;
 
     /**
      * 跳转到用户登陆界面
@@ -47,7 +54,7 @@ public class UserController {
     @RequestMapping("login")
     public String login(HttpSession httpSession, User user, UserDTO userDTO,
                         Model model){
-        user =  userService.login(user);
+        user =  userService.login(userDTO);
         if (user!=null){
             if(user.getUserLoginName().equals(userDTO.getUserLoginName())&&
                     user.getUserPassword().equals(userDTO.getUserPassword())){
@@ -67,6 +74,56 @@ public class UserController {
             return "user/login";
         }
     }
+
+    /**
+     * 用户登录检查
+     * @param userDTO
+     * @param httpSession
+     * @return
+     */
+    @RequestMapping("loginChecking")
+    @ResponseBody
+    public Map<String,Integer> loginChecking(@RequestBody UserDTO userDTO,HttpSession httpSession){
+        User user =  userService.login(userDTO);
+        System.out.println("1");
+        System.out.println(userDTO.getUserLoginName() + " " + userDTO.getUserPassword());
+        Map<String,Integer> map = new HashMap<>();
+        if (user!=null){
+            if(user.getUserLoginName().equals(userDTO.getUserLoginName())&&
+                    user.getUserPassword().equals(userDTO.getUserPassword())){
+                //登陆成功
+                httpSession.setAttribute("Username",user.getUserLoginName());
+                map.put("code",200);
+                return map;
+            }
+            else{
+                //账号或密码不正确
+                map.put("code",400);
+                return map;
+            }
+        }
+        else{
+            //没有此用户
+            map.put("code",404);
+            return map;
+        }
+    }
+
+    /**
+     * 用户退出
+     * @param httpSession
+     * @return
+     */
+    @RequestMapping("/logout")
+    @ResponseBody
+    public Map<String,Integer> logout(HttpSession httpSession){
+        httpSession.removeAttribute("Username");
+        httpSession.invalidate();
+        Map<String,Integer> map = new HashMap<>();
+        map.put("code",200);
+        return map;
+    }
+
 
 
     /**
@@ -168,5 +225,67 @@ public class UserController {
     public String chooseCity(){
         return "user/queryHouse/chooseCity";
     }
+
+
+    /**
+     * 跳转到我的房源信息界面
+     * @param houseId
+     * @param username
+     * @param createName
+     * @return
+     */
+    @RequestMapping("/toHouseInfo/{username}/{createName}/{houseId}")
+    public String toHouseInfo(@PathVariable("houseId") Integer houseId,@PathVariable("username") String username,@PathVariable("createName") String createName){
+        //查询是否已经申请过
+        int exist = applicationService.queryIsExist(houseId,username);
+        if (exist == 0) {
+            Application application = new Application(houseId, createName, username, "已发送申请", new Date());
+            applicationService.addApplication(application);
+        }
+        return "redirect:/user/application/" + username;
+    }
+
+    /**
+     * 跳转到房源信息界面
+     * @return
+     */
+    @RequestMapping("/application/{name}")
+    public String application(){
+        return "user/house/application";
+    }
+
+
+    /**
+     * 退出跳转到主界面
+     * @return
+     */
+    @RequestMapping("/quit")
+    public String quit(HttpSession httpSession){
+        httpSession.removeAttribute("Username");
+        httpSession.invalidate();
+        return "redirect:/user/toIndex";
+    }
+
+
+    /**
+     * 跳转到主页面
+     * @return
+     */
+    @RequestMapping("/toIndex")
+    public String toIndex(){
+        return "index";
+    }
+
+    /**
+     * 跳转到合同页面
+     * @return
+     */
+    @RequestMapping("/contract/{name}")
+    public String contract(){
+        return "user/contract/contractMsg";
+    }
+
+
+
 
 }

@@ -73,7 +73,22 @@
 <%--弹出表单信息--%>
 <div class="layui-form" id="popUpdateForm" style="display: none">
     <input type="hidden" id="houseId" name="houseId">
+    <div class="layui-form-item" style="margin-top: 50px;">
+        <label class="layui-form-label">类型名称</label>
+        <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
+            <input  type="text"  id="typeName2" readonly autocomplete="off" class="layui-input" >
+        </div>
+    </div>
+    <div class="layui-form-item" >
+        <label class="layui-form-label">具体名称</label>
+        <div class="layui-input-inline" style="width: 200px; margin-left: 20px;">
+            <input  type="text"  id="valueName2"  autocomplete="off" class="layui-input" >
+        </div>
+    </div>
 
+    <div class="layui-form-item" >
+        <button class="layui-btn" lay-submit lay-filter="updateBtn" style="margin-left: 100px; width: 100px;">修改</button>
+    </div>
 </div>
 
 <%--工具条--%>
@@ -141,7 +156,6 @@
                                 layer.msg("删除失败",{icon:5});
                             }
                         }
-
                     })
                 });
             } else if(obj.event === 'edit'){
@@ -154,10 +168,10 @@
                         $('#typeName2').val(data.typeName);
                         $('#valueName2').val(data.valueName);
                         form.render();
-
+                        setFormValue(obj,data);
                     }
                 });
-                setFormValue(obj,data);
+
             }
         });
         //监听工具条end
@@ -168,8 +182,8 @@
                 $.ajax({
                     url:"${ctx}/houseSettings/${sessionScope.AdUserName}/updateSetting"
                     ,type:'post'
-                    ,data:{settingsId:data.settingsId,typeName:message.field.typeName2,
-                            valueName:message.field.valueName2}
+                    ,data:{settingsId:data.settingsId,typeName: $('#typeName2').val(),
+                            valueName: $('#valueName2').val()}
                     ,success:function (msg) {
                         if(msg.code == 200){
                             layer.msg('修改成功', {

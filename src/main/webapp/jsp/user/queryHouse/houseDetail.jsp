@@ -12,7 +12,8 @@
     <meta name="applicable-device" content="pc">
     <meta http-equiv="Cache-Control" content="no-transform "/>
     <title>${cityName}租房信息_${cityName}出租房源|房屋出租价格</title>
-
+    <link rel="stylesheet" href="${ctx}/static/css/admin.css">
+    <link rel="stylesheet" href="${ctx}/static/css/login.css">
     <link rel="stylesheet" href="${ctx}/static/css/common2.css">
     <script>
         var g_conf = {};
@@ -52,6 +53,7 @@
 
 
 <input type="hidden" id="count">
+<input type="hidden" id="username" value="${sessionScope.Username}">
 
 <div class="wrapper">
 
@@ -72,17 +74,16 @@
                 <li class="header__item fl "><a href="//news.lianjia.com/bj/jingyan/" target="_blank">经验</a></li>
                 <li class="header__item fl "><a href="#" target="_blank">发布房源</a></li>
                 <li class="header__item fl "><a href="#" target="_blank">企业汇</a></li>
-                <li class="header__aside fr pointer typeShowUser" data-el="login" data-event_id="10794"
-                    data-event_action="target=login">
+                <li class="header__aside fr pointer typeShowUser" >
+                        <c:if test="${sessionScope.Username != null}">
+                            <a data-el="login_box" href="${ctx}/user/index/${sessionScope.Username}"> 欢迎你：${sessionScope.Username}</a>
+                            <a data-el="logout_btn" href="${ctx}/user/logout" id="logout" >退出</a>
+                        </c:if>
+                        <c:if test="${sessionScope.Username == null}">
 							<span data-el="login_box">
-								<span data-el="btn_login" data-id="dialog_tel" class="btn-login">登录</span>/<span
-                                    class="btn-resgiter" data-el="register"
-                                    data-id="dialog_reg">注册</span>
+                                <a id="login" class=btn-login" style="margin-right: 5px;" >登录</a>/<a class="btn-resgiter" id="register" style="margin-left: 5px;">注册</a>
 							</span>
-                </li>
-                <li class="top__aside fr hide" data-el="user_box">
-                    <a href="" data-el="userName"></a>
-                    <a data-el="logout_btn">退出</a>
+                        </c:if>
                 </li>
 
             </ul>
@@ -124,6 +125,10 @@
         <div class="content__subtitle">
             房源上架时间 ${houseInfo.createDateString}         <i class="house_code">房源编号：${houseInfo.houseId}</i>
         </div>
+        <%--存一下发布人--%>
+        <input type="hidden" id="createName" value="${houseInfo.createName}">
+        <%--存一下编号--%>
+        <input type="hidden" id="houseId" value="${houseInfo.houseId}">
         <!-- 房源左侧内容 -->
         <div class="content__article fl">
 
@@ -228,7 +233,7 @@
                     <div class="content__aside__list--title oneline" >
                         <span class="contact_name"  style="max-width: 288px;" >电话：${houseInfo.telephone}</span>
                     </div>
-                    <button class="layui-btn layui-btn-radius " style="margin-top: 15px; width: 288px; height: 45px; font-size: large">立即租赁</button>
+                    <button class="layui-btn layui-btn-radius " id="leasingBtn" style="margin-top: 15px; width: 288px; height: 45px; font-size: large">立即租赁</button>
                </li>
             </ul>
         </div>
@@ -279,7 +284,61 @@
         </div>
     </div>
 </div>
+
+
+<div class="layadmin-user-login-main" id="loginContent" style="display: none;">
+    <div class="layadmin-user-login-box layadmin-user-login-header" style="margin-top: 40px;">
+        <h2>用户登录</h2>
+    </div>
+    <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+        <div class="layui-form-item">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+            <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+            <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
+        </div>
+        <%--<div class="layui-form-item">--%>
+            <%--<div class="layui-row">--%>
+                <%--<div class="layui-col-xs7">--%>
+                    <%--<label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>--%>
+                    <%--<input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" placeholder="图形验证码" class="layui-input">--%>
+                <%--</div>--%>
+                <%--<div class="layui-col-xs5">--%>
+                    <%--<div style="margin-left: 10px;">--%>
+                        <%--<img src="https://www.oschina.net/action/user/captcha" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+        <div class="layui-form-item" style="margin-bottom: 20px; height: 28px;">
+            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
+            <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
+        </div>
+        <div class="layui-form-item">
+            <button class="layui-btn layui-btn-fluid" id="submit" lay-filter="LAY-user-login-submit">登 入</button>
+        </div>
+        <div class="layui-trans layui-form-item layadmin-user-login-other">
+            <label>社交账号登入</label>
+            <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
+            <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
+            <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 </body>
+
+
 
 
 
@@ -305,6 +364,94 @@
 
         });
 
+
+        $('#login').click(function () {
+                login();
+            }
+        );
+
+        function login() {
+            layer.open({
+                type: 1 ,
+                title: false,
+                shade : 0.3,
+                shadeClose : true,
+                content: $('#loginContent'),
+                area : ['600px','500px'],
+                offset: '150px',
+                closeBtn: 0 ,
+                success:function (layero, index) {
+
+                    $('#submit').click(function () {
+                        var userInfo = {
+                            userLoginName : $('#LAY-user-login-username').val(),
+                            userPassword : $('#LAY-user-login-password').val()
+                        };
+                        $.ajax({
+                            url: '${ctx}/user/loginChecking',
+                            type: 'post',
+                            contentType: 'application/json',
+                            data: JSON.stringify(userInfo),
+                            success: function (data) {
+                                if (data.code == 404){
+                                    layer.msg("账号不存在",{icon:5});
+                                    $('#LAY-user-login-username').val("");
+                                    $('#LAY-user-login-password').val("");
+                                }
+                                else if (data.code == 400){
+                                    layer.msg("账号或密码错误",{icon:5});
+                                    $('#LAY-user-login-username').val("");
+                                    $('#LAY-user-login-password').val("");
+                                }
+                                else {
+                                    layer.msg('登陆成功',{
+                                        icon: 6,
+                                        time: '1000'
+                                    },function () {
+                                        layer.close(index);
+                                        window.location.reload();
+                                    });
+
+                                }
+
+                            }
+                        });
+                    });
+
+                }
+            });
+        }
+
+        $('#logout').click(function () {
+            $.ajax({
+                url:'${ctx}/user/logout',
+                type:'post',
+                success: function (data) {
+                    if (data.code == 200){
+                        window.location.reload();
+                    }
+                }
+            })
+        });
+
+
+        var username = $('#username').val();
+        var createName = $('#createName').val();
+        var houseId = $('#houseId').val();
+        console.log(username);
+        $('#leasingBtn').click(function () {
+            if (username != null && username!=''){
+                if (username == createName){
+                    layer.msg("您不能租赁自己发布的房屋");
+                }else {
+                    window.location.href = '${ctx}/user/toHouseInfo/'+ username +"/" + createName + "/" +houseId ;
+                }
+
+            }
+            else {
+                login();
+            }
+        });
 
 
 

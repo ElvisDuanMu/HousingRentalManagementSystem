@@ -57,6 +57,14 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
+                <a href="javascript:;">合同管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toContractMsg">合同列表</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toCheckContract">审核合同</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toSiteConfirmationContract">现场确认合同</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
                 <a href="javascript:;">地区设置</a>
                 <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toRegionSettings">地区查询</a></dd>

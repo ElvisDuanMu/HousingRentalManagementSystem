@@ -34,7 +34,7 @@ public class HouseSettingsController {
 
     @RequestMapping("/{name}/querySettings")
     @ResponseBody
-    public String querySettings(@PathVariable("name") String name, HouseSettingsDTO  houseSettingsDTO, Model model,
+    public String querySettings(@PathVariable("name") String name, HouseSettingsDTO  houseSettingsDTO,
                                 Page page) throws ParseException {
         //时间string转date
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -108,8 +108,6 @@ public class HouseSettingsController {
     @ResponseBody
     public Map<String,Integer > updateSetting(@PathVariable("name") String name,
                                               Integer settingsId,String typeName,String valueName){
-        System.out.println("11111111111");
-
         Date date = new Date();
         HouseSettings houseSettings = new HouseSettings();
         houseSettings.setSettingsId(settingsId);

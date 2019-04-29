@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -145,16 +146,42 @@ public class AdministratorController {
         return "administrator/houseInfo/houseInfo";
     }
 
+
+
     /**
      * 跳转到审核房源界面
      * @return
      */
-
     @RequestMapping("/{name}/toExaminingHouse")
     public String toExaminingHouse(){
         return "administrator/houseInfo/examiningHouse";
     }
 
+    /**
+     * 跳转到合同信息界面
+     * @return
+     */
+    @RequestMapping("/{name}/toContractMsg")
+    public String toContractMsg(){
+        return "administrator/contract/queryContract";
+    }
 
+    /**
+     * 跳转到审核合同信息界面
+     * @return
+     */
+    @RequestMapping("/{name}/toCheckContract")
+    public String toCheckContract(){
+        return "administrator/contract/examiningContract";
+    }
+
+    /**
+     * 跳转到现场确认合同信息界面
+     * @return
+     */
+    @RequestMapping("/{name}/toSiteConfirmationContract")
+    public String toSiteConfirmationContract(){
+        return "administrator/contract/siteConfirmation";
+    }
 
 }

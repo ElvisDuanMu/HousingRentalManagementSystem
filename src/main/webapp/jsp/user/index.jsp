@@ -73,7 +73,7 @@
                                 <div class="user-news" id="userNews">
 
                                 </div>
-                                <div class="typeShowUser"><span class="welcome">欢迎你，${sessionScope.Username}</span></div>
+
                             </div>
                         </div>
                     </div>
@@ -85,19 +85,16 @@
         <div class="main-left fl">
             <div class="name">
             </div>
-            <div class="user-name">欢迎你，${sessionScope.Username}</div>
+            <div class="user-name" style="padding: 15px 0 5px 0;">欢迎你，${sessionScope.Username} </div>
+            <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
             <ul>
-                <li class="hover"><a href="/site/index/">首页</a></li>
-                <li><a href="/site/seeList/">待看清单</a></li>
-                <li><a href="/site/seeSchedule/">看房日程</a></li>
-                <li><a href="/site/favorHouse/">关注的房源</a></li>
-                <li><a href="/site/favorCommunity/">关注的小区</a></li>
-                <li><a href="/site/myAgent/">我的经纪人</a></li>
-                <li><a href="/site/history/">看房记录</a></li>
-                <li><a href="/site/delegation/">我的委托</a></li>
-                <li><a href="/site/searchlist/">我的搜索</a></li>
-                <li><a href="/site/myWenda/">我的问答</a></li>
-                <li><a href="/site/client/">编辑资料</a></li>
+                <li class="hover"><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
+                <li> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
+                <li><a href="">看房日程</a></li>
+                <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
+                <li><a href="">我的收入</a></li>
+                <li><a href="">报障信息</a></li>
+                <li><a href="">编辑资料</a></li>
             </ul>
         </div>
         <div class="main-right fr">

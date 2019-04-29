@@ -4,6 +4,8 @@ package com.dlu.controller;
 import com.dlu.dto.HouseInfoDTO;
 import com.dlu.dto.ShowHouseDTO;
 import com.dlu.pojo.*;
+import com.dlu.service.ApplicationService;
+import com.dlu.service.ContractService;
 import com.dlu.service.HouseInfoService;
 
 import com.google.gson.Gson;
@@ -28,6 +30,10 @@ public class HouseController {
     private static String uploadPath = "D:\\imgSources\\houseImg"+ File.separator;
     @Autowired
     private HouseInfoService houseInfoService;
+    @Autowired
+    private ApplicationService applicationService;
+    @Autowired
+    private ContractService contractService;
 
     @RequestMapping("/addNewHouseInfo")
     public String addNewHouseInfo(HouseInfoDTO houseInfoDTO, HttpSession httpSession) throws ParseException {
@@ -306,7 +312,7 @@ public class HouseController {
 
 
     /**
-     * 审核房源界面
+     * 审核房源界面 管理员部分
      * @param name
      * @param page
      * @return
@@ -370,7 +376,7 @@ public class HouseController {
 
 
     /**
-     * 房源审核成功
+     * 房源审核成功 管理员部分
      * @param name
      * @param houseId
      * @return
@@ -391,6 +397,12 @@ public class HouseController {
     }
 
 
+    /**
+     * 房源详细界面 管理员部分
+     * @param houseId
+     * @param model
+     * @return
+     */
     @RequestMapping("/houseDetail/{houseId}")
     public String houseDetail(@PathVariable("houseId") Integer houseId,Model model){
         //查询房屋信息
@@ -420,7 +432,148 @@ public class HouseController {
     }
 
 
+    /**
+     * 申请房源查看信息（自己）
+     */
+    @RequestMapping("/houseInfo/application/{name}")
+    @ResponseBody
+    public String application(@PathVariable("name") String name,Page page){
+        //date转String格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //查询总数
+        int count = applicationService.queryCount(name);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        List<Application> applicationList = applicationService.query(name ,page);
+        //修改显示时间格式
+        for (Application a:applicationList) {
+            a.setCreateDateString(simpleDateFormat.format(a.getCreateDate()));
+            if ( a.getUpdateDate() != null){
+                a.setUpdateDateString(simpleDateFormat.format(a.getUpdateDate()));
+            }
+        }
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),applicationList));
+    }
 
+    /**
+     * 申请房源查看信息（他人）
+     * @param name
+     * @param page
+     * @return
+     */
+    @RequestMapping("/houseInfo/otherApplication/{name}")
+    @ResponseBody
+    public String otherApplication(@PathVariable("name") String name,Page page){
+        //date转String格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //查询总数
+        int count = applicationService.queryOtherCount(name);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        List<Application> applicationList = applicationService.queryOther(name ,page);
+        //修改显示时间格式
+        for (Application a:applicationList) {
+            a.setCreateDateString(simpleDateFormat.format(a.getCreateDate()));
+            if ( a.getUpdateDate() != null){
+                a.setUpdateDateString(simpleDateFormat.format(a.getUpdateDate()));
+            }
+        }
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),applicationList));
+    }
+
+
+
+    @RequestMapping("/houseInfo/finishApplication/{name}")
+    @ResponseBody
+    public String finishApplication(@PathVariable("name") String name,Page page){
+        //date转String格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //查询总数
+        int count = applicationService.queryFinishCount(name);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        List<Application> applicationList = applicationService.queryFinish(name ,page);
+        //修改显示时间格式
+        for (Application a:applicationList) {
+            a.setCreateDateString(simpleDateFormat.format(a.getCreateDate()));
+            if ( a.getUpdateDate() != null){
+                a.setUpdateDateString(simpleDateFormat.format(a.getUpdateDate()));
+            }
+        }
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),applicationList));
+    }
+
+
+
+    /**
+     * 通过房源申请
+     * @return
+     */
+    @RequestMapping("/houseInfo/acceptApplication")
+    @ResponseBody
+    public Map<String,Integer> acceptApplication(Integer id,Integer houseId,String partALoginName,String partBLoginName){
+        Map<String,Integer> map = new HashMap<>();
+        Application application = new Application(id,"申请通过",new Date());
+
+        int result = applicationService.acceptApplication(application);
+        if (result == 1){
+            //房源锁定
+            HouseInfo houseInfo = new HouseInfo(houseId,4);
+            houseInfoService.updateStatus(houseInfo);
+            //生成合同
+            //查询所有合同数量
+            int contractCount = contractService.queryAllCount();
+            String contractNumber = (contractCount + 1) +"" + new Date().getTime();
+            Contract contract = new Contract(houseId, contractNumber,partALoginName,partBLoginName,"等待乙方（承租人）填写合同信息");
+            contractService.addContract(contract);
+            //查询同一时间其他申请的数量
+            int count = applicationService.queryOtherApplicationCount(houseId,partBLoginName);
+            System.out.println(count);
+            if (count != 0){
+                //如果不为0，则说明有其他人申请，自动拒绝
+                //查询他们的申请id
+                List<Integer> applicationIdList =applicationService.queryOtherApplicationId(houseId,partBLoginName);
+                //修改状态
+                for ( Integer i:applicationIdList) {
+                    Application application1 = new Application(i,"申请被拒绝",new Date());
+                    applicationService.updateOtherApplicationStatus(application1);
+                }
+            }
+
+            map.put("code",200);
+        }
+        else
+            map.put("code",0);
+        return map;
+    }
+
+    @RequestMapping("/houseInfo/rejectApplication")
+    @ResponseBody
+    public Map<String,Integer> rejectApplication(Integer id,Integer houseId,String partALoginName,String partBLoginName){
+        Map<String,Integer> map = new HashMap<>();
+        Application application = new Application(id,"申请被拒绝",new Date());
+        applicationService.updateOtherApplicationStatus(application);
+        map.put("code",200);
+        return map;
+    }
+
+    @RequestMapping("/viewHouseMsg/{houseId}")
+    @ResponseBody
+    public List<HouseInfo> viewHouseMsg(@PathVariable("houseId") Integer houseId){
+        HouseInfo houseInfo = houseInfoService.queryHouseInfoByHouseId(houseId);
+        List<HouseInfo> houseInfoList = new ArrayList<>();
+        houseInfoList.add(houseInfo);
+        return houseInfoList;
+    }
 
 
 

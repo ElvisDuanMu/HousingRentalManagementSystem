@@ -1,5 +1,6 @@
 package com.dlu.service.impl;
 
+import com.dlu.dto.UserDTO;
 import com.dlu.mapper.UserMapper;
 import com.dlu.pojo.User;
 import com.dlu.service.UserService;
@@ -16,12 +17,13 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User login(User user) {
-        List<User> userList = userMapper.queryByNamePwd(user);
+    public User login(UserDTO userDTO) {
+        List<User> userList = userMapper.queryByNamePwd(userDTO);
         if ( userList != null && userList.size() == 1){
             return userList.get(0);
         }
         else
             return null;
     }
+
 }
