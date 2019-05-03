@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.MoneyMapper">
+
+  <insert id="addNewMoneyMsg">
+    insert into money(house_id,partA_login_name,partB_login_name,pay_date,pay_money,status,partA_confirm,partB_confirm)
+    values(#{houseId},#{partALoginName},#{partBLoginName},#{payDate},#{payMoney},#{status}, #{partAConfirm},#{partBConfirm})
+  </insert>
+  <update id="updateMsg">
+    update money
+    <trim prefixOverrides="," prefix="set ">
+      <if test="partAConfirm != null and partAConfirm != ''">
+        ,partA_confirm = #{partAConfirm}
+      </if>
+      <if test="partBConfirm != null and partBConfirm != ''">
+        ,partB_confirm = #{partBConfirm}
+      </if>
+      <if test="status != null and status != ''">
+        ,status = #{status}
+      </if>
+      <if test="partAConfirmDate != null ">
+        ,partA_confirm_date= #{partAConfirmDate}
+      </if>
+      <if test="partBConfirmDate != null ">
+        ,partB_confirm_date = #{partBConfirmDate}
+      </if>
+      <if test="prompt != null and prompt!= ''">
+        ,prompt = #{prompt}
+      </if>
+    </trim>
+    <where>
+      <if test=" id != null">
+        and id=#{id}
+      </if>
+    </where>
+  </update>
+  <select id="queryHouseMoneyDetailCount" resultType="java.lang.Integer">
+      select count(*)
+      from money
+      where house_id = #{houseId}
+    </select>
+  <select id="queryHouseMoneyDetail" resultType="com.dlu.pojo.Money">
+    select id, house_id, partA_login_name, partB_login_name, pay_date, pay_money,
+    status, partA_confirm, partB_confirm, prompt,  partA_confirm_date,
+    partB_confirm_date
+    from money
+    where house_id = #{houseId}
+    limit #{page.start},#{page.limit}
+  </select>
+    <select id="queryHousePay" resultType="java.lang.Double">
+      select pay_money
+      from money
+      where house_id = #{houseId}  and  partA_confirm = '已确认'
+    </select>
+    <select id="queryHouseHasPay" resultType="java.lang.Double">
+      select pay_money
+      from money
+      where house_id = #{houseId}  and  partB_confirm = '已确认'
+    </select>
+  <select id="currentMoney" resultType="java.lang.Double">
+    select pay_money
+    from money
+    <where>
+      <if test="partALoginName != null and partALoginName !='' ">
+        and partA_login_name = #{partALoginName}
+        and partA_confirm = '已确认'
+      </if>
+      <if test="partALoginName != null and partALoginName !='' and startCreateDate !=null and endCreateDate !=null">
+        and partA_login_name = #{partALoginName}
+        and partA_confirm = '已确认'
+        and date_format(partA_confirm_date,'%Y-%m-%d') between date_format(#{startCreateDate},'%Y-%m-%d') and date_format(#{endCreateDate},'%Y-%m-%d')
+      </if>
+      and (status = '正在进行中' or status = '已完成')
+    </where>
+  </select>
+</mapper>

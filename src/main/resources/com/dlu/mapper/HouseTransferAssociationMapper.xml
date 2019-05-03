@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dlu.mapper.HouseTransferAssociationMapper">
+
+    <resultMap id="queryPartAMsg" type="com.dlu.pojo.HouseTransferAssociation">
+        <id property="transferId" column="id" />
+        <result property="houseId" column="houseId" />
+        <result property="partALoginName" column="partALoginName" />
+        <result property="partBLoginName" column="partBLoginName" />
+        <result property="startTime" column="startTime" />
+        <result property="endTime" column="endTime" />
+        <result property="createTime" column="createTime"/>
+        <result property="status" column="status"/>
+        <association property="contract" javaType="com.dlu.pojo.Contract" >
+            <result property="totalPrice" column="totalPrice" />
+        </association>
+    </resultMap>
+
+    <insert id="addNewTransferInfo">
+        insert into house_transfer_association
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+            <if test="houseId !=null ">
+                ,house_id
+            </if>
+            <if test="partALoginName !=null and partALoginName != ''">
+                ,partA_login_name
+            </if>
+            <if test="partBLoginName !=null and partBLoginName != ''">
+                ,partB_login_name
+            </if>
+            <if test="partAName !=null and partAName != ''">
+                ,partA_name
+            </if>
+            <if test="partBName !=null and partBName != ''">
+                ,partB_name
+            </if>
+            <if test="contractNumber !=null and contractNumber != ''">
+                ,contract_number
+            </if>
+            <if test="startTime !=null ">
+                ,start_time
+            </if>
+            <if test="endTime !=null ">
+                ,end_time
+            </if>
+            <if test="createTime !=null  ">
+                ,create_time
+            </if>
+            <if test="createBy !=null and createBy!= ''">
+                ,create_by
+            </if>
+            <if test="status !=null and status != ''">
+                ,status
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" prefixOverrides=",">
+            <if test="houseId !=null ">
+                ,#{houseId}
+            </if>
+            <if test="partALoginName !=null and partALoginName != ''">
+                ,#{partALoginName}
+            </if>
+            <if test="partBLoginName !=null and partBLoginName != ''">
+                ,#{partBLoginName}
+            </if>
+            <if test="partAName !=null and partAName != ''">
+                ,#{partAName}
+            </if>
+            <if test="partBName !=null and partBName != ''">
+                ,#{partBName}
+            </if>
+            <if test="contractNumber !=null and contractNumber != ''">
+                ,#{contractNumber}
+            </if>
+            <if test="startTime !=null ">
+                ,#{startTime}
+            </if>
+            <if test="endTime !=null ">
+                ,#{endTime}
+            </if>
+            <if test="createTime !=null  ">
+                ,#{createTime}
+            </if>
+            <if test="createBy !=null and createBy!= ''">
+                ,#{createBy}
+            </if>
+            <if test="status !=null and status != ''">
+                ,#{status}
+            </if>
+        </trim>
+
+    </insert>
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(*)
+        from house_transfer_association t1
+        left join house_info t2 on t1.house_id = t2.house_id
+        <where>
+            <if test="houseId != null">
+                and t1.house_id = #{houseId}
+            </if>
+            <if test="addressCommunity != null and addressCommunity != ''">
+                and t2.address_community = #{addressCommunity}
+            </if>
+            <if test="userLoginName != null and userLoginName != ''">
+                and (t1.partA_login_name = #{userLoginName} or  t1.partB_login_name = #{userLoginName})
+            </if>
+            <if test="status != null and status != ''">
+                and t1.status = #{status}
+            </if>
+            <if test="checkBy != null and checkBy != ''">
+                and t1.create_by = #{checkBy}
+            </if>
+            <if test="addressCommunity != null and addressCommunity !=''">
+                and t2.address_community = #{addressCommunity}
+            </if>
+            <if test="startCreateDate !=null and endCreateDate !=null">
+                and date_format(t1.create_time,'%Y-%m-%d') between date_format(#{startCreateDate},'%Y-%m-%d') and date_format(#{endCreateDate},'%Y-%m-%d')
+            </if>
+            <if test="province != null and province != ''">
+                and t2.province_code = #{province}
+            </if>
+            <if test="city != null and city != ''">
+                and t2.city_code = #{city}
+            </if>
+            <if test="district != null and district != ''">
+                and t2.district_code = #{city}
+            </if>
+        </where>
+    </select>
+    <select id="query" resultType="com.dlu.pojo.HouseTransferAssociation">
+        select t1.transfer_id, t1.house_id, t1.partA_login_name, t1.partB_login_name,
+        t1.partA_name, t1.partB_name, t1.contract_number, t1.start_time, t1.end_time,
+        t1.create_time, t1.create_by, t1.status
+        from house_transfer_association t1
+        left join house_info t2 on t1.house_id = t2.house_id
+        <where>
+            <if test="houseTransferDTO.houseId != null">
+                and t1.house_id = #{houseTransferDTO.houseId}
+            </if>
+            <if test="houseTransferDTO.addressCommunity != null and houseTransferDTO.addressCommunity != ''">
+                and t2.address_community = #{houseTransferDTO.addressCommunity}
+            </if>
+            <if test="houseTransferDTO.userLoginName != null and houseTransferDTO.userLoginName != ''">
+                and (t1.partA_login_name = #{houseTransferDTO.userLoginName} or  t1.partB_login_name = #{houseTransferDTO.userLoginName})
+            </if>
+            <if test="houseTransferDTO.status != null and houseTransferDTO.status != ''">
+                and t1.status = #{houseTransferDTO.status}
+            </if>
+            <if test="houseTransferDTO.checkBy != null and houseTransferDTO.checkBy != ''">
+                and t1.create_by = #{houseTransferDTO.checkBy}
+            </if>
+            <if test="houseTransferDTO.addressCommunity != null and houseTransferDTO.addressCommunity !=''">
+                and t2.address_community = #{houseTransferDTO.addressCommunity}
+            </if>
+            <if test="houseTransferDTO.startCreateDate !=null and houseTransferDTO.endCreateDate !=null">
+                and date_format(t1.create_time,'%Y-%m-%d') between date_format(#{houseTransferDTO.startCreateDate},'%Y-%m-%d') and date_format(#{houseTransferDTO.endCreateDate},'%Y-%m-%d')
+            </if>
+            <if test="houseTransferDTO.province != null and houseTransferDTO.province !=''">
+                and t2.province_code = #{houseTransferDTO.province}
+            </if>
+            <if test="houseTransferDTO.city != null and houseTransferDTO.city !=''">
+                and t2.city_code = #{houseTransferDTO.city}
+            </if>
+            <if test="houseTransferDTO.district != null and houseTransferDTO.district !=''">
+                and t2.district_code = #{houseTransferDTO.city}
+            </if>
+        </where>
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryRentedHouseCountByPartAName" resultType="java.lang.Integer">
+        select count(*)
+        from house_transfer_association
+        where partA_login_name = #{name} and status = '正在出租'
+    </select>
+    <select id="queryRentedHouseByPartAName" resultType="com.dlu.pojo.HouseTransferAssociation">
+        select transfer_id, house_id, partA_login_name, partB_login_name, partA_name, partB_name, contract_number, start_time, end_time, create_time, create_by, status
+        from house_transfer_association
+        where partA_login_name = #{name} and status = '正在出租'
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryInfoCount" resultType="java.lang.Integer">
+        select  count(*)
+        from house_transfer_association
+        <where>
+            <if test="partALoginName != null and partALoginName !=''">
+                and partA_login_name = #{partALoginName}
+            </if>
+            <if test="partBLoginName != null and partBLoginName !=''">
+                and partB_login_name = #{partBLoginName}
+            </if>
+            <if test="startCreateDate !=null and endCreateDate !=null">
+                and date_format(create_time,'%Y-%m-%d') between date_format(#{startCreateDate},'%Y-%m-%d') and date_format(#{endCreateDate},'%Y-%m-%d')
+            </if>
+            and (status = '正在出租' or status = '已结束')
+        </where>
+
+
+
+    </select>
+    <select id="queryInfo" resultMap="queryPartAMsg">
+        select t1.transfer_id as id, t1.house_id as houseId,t1.partA_login_name as partALoginName,
+        t1.partB_login_name as partBLoginName,t1.start_time as startTime, t1.end_time as endTime,
+        t1.create_time as createTime,t1.status ,t2.total_price as totalPrice
+        from house_transfer_association t1
+        left join contract t2 on t1.house_id = t2.house_id
+        <where>
+            <if test="houseTransferAssociation.partALoginName != null and houseTransferAssociation.partALoginName !=''">
+                and t1.partA_login_name = #{houseTransferAssociation.partALoginName}
+            </if>
+            <if test="houseTransferAssociation.partBLoginName != null and houseTransferAssociation.partBLoginName !=''">
+                and t1.partB_login_name = #{houseTransferAssociation.partBLoginName}
+            </if>
+            <if test="houseTransferAssociation.startCreateDate !=null and houseTransferAssociation.endCreateDate !=null">
+                and date_format(t1.create_time,'%Y-%m-%d') between date_format(#{houseTransferAssociation.startCreateDate},'%Y-%m-%d') and date_format(#{houseTransferAssociation.endCreateDate},'%Y-%m-%d')
+            </if>
+            and (t1.status = '正在出租' or t1.status = '已结束')
+        </where>
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="TotalMoney" resultType="java.lang.Double">
+        select t2.total_price
+        from house_transfer_association t1
+        left join contract t2 on t1.house_id = t2.house_id
+        <where>
+            <if test="partALoginName != null and partALoginName !=''">
+                and t1.partA_login_name = #{partALoginName}
+            </if>
+            <if test="partBLoginName != null and partBLoginName !=''">
+                and t1.partB_login_name = #{partBLoginName}
+            </if>
+            <if test="startCreateDate !=null and endCreateDate !=null">
+                and date_format(t1.create_time,'%Y-%m-%d') between date_format(#{startCreateDate},'%Y-%m-%d') and date_format(#{endCreateDate},'%Y-%m-%d')
+            </if>
+            and (t1.status = '正在出租' or t1.status = '已结束')
+        </where>
+    </select>
+
+</mapper>
