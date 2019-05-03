@@ -5,6 +5,8 @@ import com.dlu.dto.ContractDTO;
 import com.dlu.pojo.*;
 import com.dlu.service.ContractService;
 import com.dlu.service.HouseInfoService;
+import com.dlu.service.HouseTransferService;
+import com.dlu.service.MoneyService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,10 @@ public class ContractController {
     private ContractService contractService;
     @Autowired
     private HouseInfoService houseInfoService;
+    @Autowired
+    private HouseTransferService houseTransferService;
+    @Autowired
+    private MoneyService moneyService;
 
 
     /**
@@ -496,14 +502,37 @@ public class ContractController {
 
     /**
      * 管理员进行现场确认
-     * @param id
+     * @param contractId
      * @return
      */
     @RequestMapping("/siteConfirmation/{id}")
     @ResponseBody
-    public Map<String,Integer> siteConfirmation(@PathVariable("id") Integer id){
+    public Map<String,Integer> siteConfirmation(@PathVariable("id") Integer contractId){
         //现场确认
-        contractService.siteConfirmation(id);
+        contractService.siteConfirmation(contractId);
+        //查询与该合同有关的所有内容
+        Contract contract = contractService.queryById(contractId);
+        //创建租赁关系对象
+        HouseTransferAssociation houseTransferAssociation = new HouseTransferAssociation(contract.getHouseId(),
+                contract.getPartALoginName(),contract.getPartBLoginName(),contract.getPartAName(),contract.getPartBName(),
+                contract.getContractNumber(),contract.getStartDate(),contract.getEndDate(),new Date(),contract.getCheckBy(),"正在出租");
+        //添加租赁关系
+        houseTransferService.addNewTransferInfo(houseTransferAssociation);
+        //修改房源状态为已出租状态
+        HouseInfo houseInfo = new HouseInfo();
+        houseInfo.setHouseId(contract.getHouseId());
+        houseInfo.setHouseStatusId(3);
+        houseInfoService.updateStatus(houseInfo);
+        //查询所有待交钱日期
+        String[] date = contract.getPaymentDateString().trim().split("\\s+");
+        //处理小数点后两位
+        DecimalFormat df = new DecimalFormat("#.00");
+        //添加到租金管理表
+        for (String s:date){
+            Money money = new Money(contract.getHouseId(), contract.getPartALoginName(),contract.getPartBLoginName(),s,
+                    Double.valueOf(df.format(contract.getTotalPrice() / date.length)),"正在进行中","等待确认","等待确认" );
+            moneyService.addNewMoneyMsg(money);
+        }
         Map<String,Integer> map = new HashMap<>();
         map.put("code",200);
         return map;
@@ -539,12 +568,21 @@ public class ContractController {
     @RequestMapping("/terminationConfirm/{id}")
     @ResponseBody
     public Map<String,Integer> terminationConfirm(@PathVariable("id") Integer id){
-        //通过合同
+        //终止合同
         contractService.terminationConfirm(id);
+        //修改房源状态为退租状态
+        Contract contract = contractService.queryById(id);
+        HouseInfo houseInfo = new HouseInfo();
+        houseInfo.setHouseId(contract.getHouseId());
+        houseInfo.setHouseStatusId(5);
+        houseInfoService.updateStatus(houseInfo);
         Map<String,Integer> map = new HashMap<>();
         map.put("code",200);
         return map;
     }
+
+
+
 
 
 

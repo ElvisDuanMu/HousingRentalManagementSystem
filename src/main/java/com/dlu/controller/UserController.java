@@ -34,46 +34,7 @@ public class UserController {
     @Autowired
     private ApplicationService applicationService;
 
-    /**
-     * 跳转到用户登陆界面
-     * @return
-     */
-    @RequestMapping("toLogin")
-    public String toLogin(){
-        return "user/login";
-    }
 
-    /**
-     * 用户登录
-     * @param httpSession
-     * @param user
-     * @param userDTO
-     * @param model
-     * @return
-     */
-    @RequestMapping("login")
-    public String login(HttpSession httpSession, User user, UserDTO userDTO,
-                        Model model){
-        user =  userService.login(userDTO);
-        if (user!=null){
-            if(user.getUserLoginName().equals(userDTO.getUserLoginName())&&
-                    user.getUserPassword().equals(userDTO.getUserPassword())){
-                //登陆成功
-                httpSession.setAttribute("Username",user.getUserLoginName());
-                return "redirect:/user/index/" + user.getUserLoginName();
-            }
-            else{
-                //账号或密码不正确
-                model.addAttribute("msg","1");
-                return "user/login";
-            }
-        }
-        else{
-            //没有此用户
-            model.addAttribute("msg","2");
-            return "user/login";
-        }
-    }
 
     /**
      * 用户登录检查
@@ -85,8 +46,6 @@ public class UserController {
     @ResponseBody
     public Map<String,Integer> loginChecking(@RequestBody UserDTO userDTO,HttpSession httpSession){
         User user =  userService.login(userDTO);
-        System.out.println("1");
-        System.out.println(userDTO.getUserLoginName() + " " + userDTO.getUserPassword());
         Map<String,Integer> map = new HashMap<>();
         if (user!=null){
             if(user.getUserLoginName().equals(userDTO.getUserLoginName())&&
@@ -286,6 +245,24 @@ public class UserController {
     }
 
 
+    /**
+     * 跳转到收入支出界面
+     * @return
+     */
+    @RequestMapping("/money/{name}")
+    public String money(){
+        return "user/money/moneyMsg";
+    }
+
+
+    /**
+     * 跳转到房源信息界面
+     * @return
+     */
+    @RequestMapping("/houseInfo/{name}")
+    public String houseInfo(){
+        return "user/house/houseInfo";
+    }
 
 
 }

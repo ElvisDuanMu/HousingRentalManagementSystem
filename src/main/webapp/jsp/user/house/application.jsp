@@ -102,9 +102,9 @@
             <ul>
                 <li><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
                 <li class="hover"> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
-                <li><a href="">看房日程</a></li>
+                <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
                 <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
-                <li><a href="">我的收入</a></li>
+                <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
                 <li><a href="">报障信息</a></li>
                 <li><a href="">编辑资料</a></li>
             </ul>

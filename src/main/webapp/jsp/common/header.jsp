@@ -26,7 +26,7 @@
                 <dd><a href="">安全设置</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><a href="">退了</a></li>
+        <li class="layui-nav-item"><a href="${ctx}/administrator/quit">退了</a></li>
     </ul>
 </div>
 <div class="layui-side layui-bg-black">
@@ -52,8 +52,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">租赁信息</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">在租列表</a></dd>
-                    <dd><a href="">退租列表</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toHouseTransferMsg">租赁列表</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">

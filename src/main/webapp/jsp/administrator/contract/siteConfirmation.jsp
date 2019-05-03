@@ -581,18 +581,18 @@
             //现场确认事件
             if (obj.event === 'siteConfirmation'){
                 //现场确认完毕
-                siteConfirmation(data.id);
+                siteConfirmation(data.id );
             }
 
         });
         //监听工具条end
 
         //现场确认
-        function siteConfirmation(id) {
+        function siteConfirmation(id,houseId,checkBy) {
             layer.confirm('确认完成？',function () {
 
                 $.ajax({
-                    url: '${ctx}/contract/siteConfirmation/' + id,
+                    url: '${ctx}/contract/siteConfirmation/' + id ,
                     type: 'post',
                     success: function (data) {
                         if(data.code == 200){

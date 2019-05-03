@@ -49,4 +49,6 @@ public interface HouseInfoService {
 
     Double queryHousePrice(Integer houseId);
 
+
+
 }

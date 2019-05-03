@@ -115,4 +115,7 @@ public class HouseInfoServiceImpl implements HouseInfoService {
         return houseInfoMapper.queryHousePrice(houseId);
     }
 
+
+
+
 }

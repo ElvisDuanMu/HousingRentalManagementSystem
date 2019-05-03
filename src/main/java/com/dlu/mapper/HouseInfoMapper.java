@@ -1,6 +1,7 @@
 package com.dlu.mapper;
 
 import com.dlu.dto.HouseInfoDTO;
+import com.dlu.dto.HouseTransferDTO;
 import com.dlu.pojo.*;
 import org.apache.ibatis.annotations.Param;
 

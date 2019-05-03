@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/administrator")
@@ -28,46 +31,35 @@ public class AdministratorController {
     @Autowired
     private RegionService regionService;
 
-    /**
-     * 跳转管理员登陆界面
-     * @return
-     */
-    @RequestMapping("toLogin")
-    public String toLogin(){
-        return "administrator/login";
-    }
 
-    /**
-     * 管理员登录
-     * @param httpSession
-     * @param administrator
-     * @param administratorLoginDTO
-     * @return
-     */
-    @RequestMapping("login")
-    public String login(HttpSession httpSession, Administrator administrator, AdministratorLoginDTO administratorLoginDTO,
-                        Model model){
-        administrator =  administratorService.login(administrator);
+    @RequestMapping("loginChecking")
+    @ResponseBody
+    public Map<String,Integer> loginChecking(@RequestBody AdministratorLoginDTO administratorLoginDTO, HttpSession httpSession){
+        Administrator administrator =  administratorService.login(administratorLoginDTO);
+        Map<String,Integer> map = new HashMap<>();
         if (administrator!=null){
             if(administrator.getAdministratorName().equals(administratorLoginDTO.getAdministratorName())&&
                     administrator.getAdministratorPassword().equals(administratorLoginDTO.getAdministratorPassword())){
                 //登陆成功
                 httpSession.setAttribute("AdUserName",administrator.getAdministratorName());
-                return "redirect:/administrator/index/" + administrator.getAdministratorName();
+                map.put("code",200);
+                return map;
             }
             else{
                 //账号或密码不正确
-                model.addAttribute("msg","1");
-                return "administrator/login";
+                map.put("code",400);
+                return map;
             }
         }
         else{
             //没有此用户
-            model.addAttribute("msg","2");
-            return "administrator/login";
+            map.put("code",404);
+            return map;
         }
-
     }
+
+
+
 
     /**
      * 管理员进入登陆页面
@@ -183,5 +175,40 @@ public class AdministratorController {
     public String toSiteConfirmationContract(){
         return "administrator/contract/siteConfirmation";
     }
+
+
+    /**
+     * 管理员退出
+     * @param httpSession
+     * @return
+     */
+    @RequestMapping("/quit")
+    public String quit(HttpSession httpSession){
+        httpSession.removeAttribute("AdUsername");
+        httpSession.invalidate();
+        return "redirect:/administrator/toIndex";
+    }
+
+    /**
+     * 跳转到主页面
+     * @return
+     */
+    @RequestMapping("/toIndex")
+    public String toIndex(){
+        return "index";
+    }
+
+    /**
+     * 跳转到正在租赁页面
+     * @return
+     */
+    @RequestMapping("{name}/toHouseTransferMsg")
+    public String toHouseTransferMsg(Model model){
+        //查询所有的省
+        List<Province> provinceList = regionService.queryAllProvince();
+        model.addAttribute("province",provinceList);
+        return "administrator/houseTransfer/houseTransferMsg";
+    }
+
 
 }

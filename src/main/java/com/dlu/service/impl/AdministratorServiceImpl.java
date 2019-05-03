@@ -1,5 +1,6 @@
 package com.dlu.service.impl;
 
+import com.dlu.dto.AdministratorLoginDTO;
 import com.dlu.mapper.AdministratorMapper;
 import com.dlu.pojo.Administrator;
 import com.dlu.service.AdministratorService;
@@ -16,12 +17,12 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     /**
      * 管理员登陆
-     * @param administrator
+     * @param administratorLoginDTO
      * @return
      */
     @Override
-    public Administrator login(Administrator administrator) {
-        List<Administrator> administratorList = administratorMapper.queryByNamePwd(administrator);
+    public Administrator login(AdministratorLoginDTO administratorLoginDTO) {
+        List<Administrator> administratorList = administratorMapper.queryByNamePwd(administratorLoginDTO);
         if ( administratorList != null && administratorList.size() == 1){
             return administratorList.get(0);
         }

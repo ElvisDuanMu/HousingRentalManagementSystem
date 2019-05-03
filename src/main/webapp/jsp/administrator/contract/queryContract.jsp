@@ -359,6 +359,7 @@
 <script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>
 
 
+<%--生成pdf--%>
 <script id="contractPrintPreview" type="text/html">
     <xdoc version="12.1.7">
         <back>
@@ -849,9 +850,9 @@
                 ,{field:'contractNumber', title: '合同编号',align: 'center'}
                 ,{field:'partALoginName', title: '房主（甲方）',align: 'center'}
                 ,{field:'partBLoginName', title: '申请人（乙方）',align: 'center'}
-                ,{field:'status', title: '状态',align: 'center'}
                 ,{field:'partAName',title:'甲方姓名',align: 'center'}
                 ,{field:'partBName',title:'乙方姓名',align: 'center'}
+                ,{field:'status', title: '状态',align: 'center'}
                 ,{field:'checkBy',title:'审核人',align: 'center'}
                 ,{fixed: 'right', title:'操作', toolbar: '#queryAllContractInfoListBar',align:'center', width:200}
             ]],

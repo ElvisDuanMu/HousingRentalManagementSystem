@@ -31,6 +31,8 @@
 
 
     <div class="layui-body">
+
+        <%--记录管理员姓名--%>
         <input id="devName" type="hidden" value="${sessionScope.AdUserName}">
 
         <div class="layui-form" style="padding: 20px; margin-top: 50px;">

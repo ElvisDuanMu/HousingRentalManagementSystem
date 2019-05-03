@@ -566,6 +566,11 @@ public class HouseController {
         return map;
     }
 
+    /**
+     *  查询房源信息
+     * @param houseId
+     * @return
+     */
     @RequestMapping("/viewHouseMsg/{houseId}")
     @ResponseBody
     public List<HouseInfo> viewHouseMsg(@PathVariable("houseId") Integer houseId){

@@ -771,4 +771,5 @@
         where house_id = #{houseId}
     </select>
 
+
 </mapper>
