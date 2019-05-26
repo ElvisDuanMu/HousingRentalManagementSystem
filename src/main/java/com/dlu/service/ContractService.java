@@ -60,4 +60,10 @@ public interface ContractService {
     List<Contract> queryAllContractInfo(ContractDTO contractDTO, Page page);
 
     void terminationConfirm(Integer id);
+
+    void updateStatus(Contract contract);
+
+    int queryEndCount(String name);
+
+    List<Contract> queryEndContract(String name, Page page);
 }

@@ -64,4 +64,10 @@ public interface ContractMapper {
     void terminationConfirm(Integer id);
 
     void rejectConfirm(@Param("id") Integer id, @Param("name") String name);
+
+    void updateStatus(Contract contract);
+
+    int queryEndCount(String name);
+
+    List<Contract> queryEndContract(@Param("name") String name, @Param("page") Page page);
 }

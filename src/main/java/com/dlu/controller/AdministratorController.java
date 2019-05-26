@@ -1,9 +1,7 @@
 package com.dlu.controller;
 
 import com.dlu.dto.AdministratorLoginDTO;
-import com.dlu.pojo.Administrator;
-import com.dlu.pojo.HouseSettings;
-import com.dlu.pojo.Province;
+import com.dlu.pojo.*;
 import com.dlu.service.AdministratorService;
 import com.dlu.service.HouseSettingsService;
 import com.dlu.service.RegionService;
@@ -90,11 +88,11 @@ public class AdministratorController {
      * @return
      */
     @RequestMapping("/{name}/toRegionSettings")
-    public String toCityTest(Model model){
+    public String toRegionSettings(Model model){
         //查询所有的省
         List<Province> provinceList = regionService.queryAllProvince();
         model.addAttribute("province",provinceList);
-        return "administrator/RegionSettings/RegionSettings";
+        return "administrator/regionSettings/regionSettings";
     }
 
     /**
@@ -133,8 +131,16 @@ public class AdministratorController {
      * @return
      */
     @RequestMapping("/{name}/toHouseInfo")
-    public String toHouseInfo(){
-
+    public String toHouseInfo(Model model){
+        //查询所有的省
+        List<Province> provinceList = regionService.queryAllProvince();
+        model.addAttribute("province",provinceList);
+        //查询所有的房源状态
+        List<HouseStatus> houseStatusList = houseSettingsService.queryAllHouseStatus();
+        model.addAttribute("houseStatus",houseStatusList);
+        //查询所有的审核状态
+        List<CheckStatus> checkStatusList = houseSettingsService.queryAllCheckStatus();
+        model.addAttribute("checkStatus",checkStatusList);
         return "administrator/houseInfo/houseInfo";
     }
 
@@ -208,6 +214,33 @@ public class AdministratorController {
         List<Province> provinceList = regionService.queryAllProvince();
         model.addAttribute("province",provinceList);
         return "administrator/houseTransfer/houseTransferMsg";
+    }
+
+    /**
+     * 跳转到故障信息页面
+     * @return
+     */
+    @RequestMapping("/{name}/toQueryBreakdown")
+    public String toQueryBreakdown(){
+        return "administrator/breakdown/queryBreakdown";
+    }
+
+    /**
+     * 跳转到审核故障信息页面
+     * @return
+     */
+    @RequestMapping("/{name}/toCheckBreakdown")
+    public String toCheckBreakdown(){
+        return "administrator/breakdown/checkBreakdown";
+    }
+
+
+    @RequestMapping("/{name}/toQueryMoney")
+    public String toQueryMoney(Model model){
+        //查询所有的省
+        List<Province> provinceList = regionService.queryAllProvince();
+        model.addAttribute("province",provinceList);
+        return "administrator/money/money";
     }
 
 

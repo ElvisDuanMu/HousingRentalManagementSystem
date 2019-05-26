@@ -147,5 +147,21 @@ public class ContractServiceImpl implements ContractService {
         contractMapper.terminationConfirm(id);
     }
 
+    @Override
+    public void updateStatus(Contract contract) {
+         contractMapper.updateStatus(contract);
+    }
+
+    @Override
+    public int queryEndCount(String name) {
+        return contractMapper.queryEndCount(name);
+
+    }
+
+    @Override
+    public List<Contract> queryEndContract(String name, Page page) {
+        return contractMapper.queryEndContract(name,page);
+    }
+
 
 }

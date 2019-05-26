@@ -76,4 +76,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<Application> queryFinish(String name, Page page) {
         return applicationMapper.queryFinish(name,page);
     }
+
+    @Override
+    public void undoApplication(Integer id) {
+         applicationMapper.undoApplication(id);
+    }
 }

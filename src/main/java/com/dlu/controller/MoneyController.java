@@ -2,6 +2,8 @@ package com.dlu.controller;
 
 
 import com.dlu.dto.MoneyDTO;
+import com.dlu.dto.QueryInfoDTO;
+import com.dlu.dto.QueryMoneyDTO;
 import com.dlu.pojo.HouseTransferAssociation;
 import com.dlu.pojo.Money;
 import com.dlu.pojo.Page;
@@ -195,6 +197,35 @@ public class MoneyController {
         Map<String,Integer> map = new HashMap<>();
         map.put("code",200);
         return map;
+    }
+
+
+
+    @RequestMapping("/queryAdMoney")
+    @ResponseBody
+    public String queryAdMoney(QueryMoneyDTO queryMoneyDTO, Page page) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (queryMoneyDTO.getStartCreateDateString() != null && !queryMoneyDTO.getStartCreateDateString().equals("")){
+            queryMoneyDTO.setStartCreateDate(simpleDateFormat.parse(queryMoneyDTO.getStartCreateDateString()));
+        }
+        if (queryMoneyDTO.getEndCreateDateString() != null && !queryMoneyDTO.getEndCreateDateString().equals("")){
+            queryMoneyDTO.setEndCreateDate(simpleDateFormat.parse(queryMoneyDTO.getEndCreateDateString()));
+        }
+        //查询数量
+        int count = moneyService.AdQueryMoneyCount(queryMoneyDTO);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        List<HouseTransferAssociation> moneyList = moneyService.AdQueryMoney(queryMoneyDTO,page);
+        for (HouseTransferAssociation m:moneyList) {
+            if(m.getCreateTime() != null )
+                m.setCreateTimeString(simpleDateFormat.format(m.getCreateTime()));
+        }
+
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),moneyList));
+
     }
 
 

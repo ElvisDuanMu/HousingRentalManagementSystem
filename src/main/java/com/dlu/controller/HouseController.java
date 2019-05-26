@@ -1,6 +1,7 @@
 package com.dlu.controller;
 
 
+import com.dlu.dto.HouseInfoAdDTO;
 import com.dlu.dto.HouseInfoDTO;
 import com.dlu.dto.ShowHouseDTO;
 import com.dlu.pojo.*;
@@ -38,6 +39,7 @@ public class HouseController {
     @RequestMapping("/addNewHouseInfo")
     public String addNewHouseInfo(HouseInfoDTO houseInfoDTO, HttpSession httpSession) throws ParseException {
         //处理创建人
+        System.out.println(houseInfoDTO.toString());
         Object create_name = httpSession.getAttribute("Username");
         houseInfoDTO.setCreateName(create_name.toString());
         //处理创建时间
@@ -62,14 +64,21 @@ public class HouseController {
         houseInfoService.addNewHouseInfo(houseInfoDTO);
         Integer houseId = houseInfoDTO.getHouseId();
         System.out.println(houseId);
-        //处理租金包含内容
-        for (Integer  contentId:houseInfoDTO.getContentId()) {
-            houseInfoService.addHouseIdAndContentId(houseId,contentId);
+
+        if (houseInfoDTO.getContentId() != null){
+            //处理租金包含内容
+            for (Integer  contentId:houseInfoDTO.getContentId()) {
+                houseInfoService.addHouseIdAndContentId(houseId,contentId);
+            }
         }
+
         //处理房源包含设施
-        for (Integer facilityId:houseInfoDTO.getFacilityId()) {
-            houseInfoService.addHouseIdAndFacilityId(houseId,facilityId);
+        if(houseInfoDTO.getFacilityId() != null){
+            for (Integer facilityId:houseInfoDTO.getFacilityId()) {
+                houseInfoService.addHouseIdAndFacilityId(houseId,facilityId);
+            }
         }
+
         return "redirect:/user/toAddHouseImg/" + houseId;
     }
 
@@ -146,9 +155,7 @@ public class HouseController {
 
     @RequestMapping("/{name}/queryHouseInfo")
     @ResponseBody
-    public String queryHouseInfo(@PathVariable("name") String name, Page page){
-        HouseInfoDTO houseInfoDTO = new HouseInfoDTO();
-        //date转String格式
+    public String queryHouseInfo(@PathVariable("name") String name, HouseInfoAdDTO houseInfoAdDTO, Page page) throws ParseException {
         // 创建时间和修改时间
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // 最早入住时间
@@ -156,49 +163,58 @@ public class HouseController {
         //设置初始查询值
         int start = page.getLimit()*(page.getPage()-1) ;
         page.setStart(start);
+        if (houseInfoAdDTO.getStartTimeString() != null && !houseInfoAdDTO.getStartTimeString().equals("")
+              && houseInfoAdDTO.getEndTimeString() !=null && !houseInfoAdDTO.getEndTimeString().equals(""))
+        {
+            houseInfoAdDTO.setStartTime(simpleDateFormat2.parse(houseInfoAdDTO.getStartTimeString()));
+            houseInfoAdDTO.setEndTime(simpleDateFormat2.parse(houseInfoAdDTO.getEndTimeString()));
+        }
         //记录查询的总数
-        int count = houseInfoService.queryCount(houseInfoDTO);
+        int count = houseInfoService.queryCount(houseInfoAdDTO);
         page.setTotalRecord(count);
-        List<HouseInfo> houseInfoList = houseInfoService.query(houseInfoDTO,page);
-        //修改时间显示格式
-        for (HouseInfo houseInfo: houseInfoList) {
-            //处理创建时间
-            String createDateString = simpleDateFormat1.format(houseInfo.getCreateDate());
-            houseInfo.setCreateDateString(createDateString);
-            //处理修改时间
-            if (houseInfo.getUpdateDate()!=null && !houseInfo.getUpdateDate().equals(""))
-            {
-                String updateDateString = simpleDateFormat1.format(houseInfo.getUpdateDate());
-                houseInfo.setUpdateDateString(updateDateString);
-            }
-            //处理最早入住时间
-            String checkTimeString = simpleDateFormat2.format(houseInfo.getHouseCheckTime());
-            houseInfo.setHouseCheckTimeString(checkTimeString);
-            //处理审核时间
-            if (houseInfo.getExamDate()!=null && !houseInfo.getExamDate().equals(""))
-            {
-                String examDateString = simpleDateFormat1.format(houseInfo.getExamDate());
-                houseInfo.setExamDateString(examDateString);
-            }
+        List<HouseInfo> houseInfoList = houseInfoService.query(houseInfoAdDTO,page);
+        if(houseInfoList != null){
+            //修改时间显示格式
+            for (HouseInfo houseInfo: houseInfoList) {
+                //处理创建时间
+                String createDateString = simpleDateFormat1.format(houseInfo.getCreateDate());
+                houseInfo.setCreateDateString(createDateString);
+                //处理修改时间
+                if (houseInfo.getUpdateDate()!=null && !houseInfo.getUpdateDate().equals(""))
+                {
+                    String updateDateString = simpleDateFormat1.format(houseInfo.getUpdateDate());
+                    houseInfo.setUpdateDateString(updateDateString);
+                }
+                //处理最早入住时间
+                String checkTimeString = simpleDateFormat2.format(houseInfo.getHouseCheckTime());
+                houseInfo.setHouseCheckTimeString(checkTimeString);
+                //处理审核时间
+                if (houseInfo.getExamDate()!=null && !houseInfo.getExamDate().equals(""))
+                {
+                    String examDateString = simpleDateFormat1.format(houseInfo.getExamDate());
+                    houseInfo.setExamDateString(examDateString);
+                }
 
-        }
-        //获取租金包含内容  获取房屋设施
-        for (HouseInfo houseInfo:houseInfoList){
-            //租金包含内容
-            List<RentContent> rentContentList = houseInfoService.queryRentContent(houseInfo.getHouseId());
-            String contentMsg = "";
-            for (RentContent rentContent : rentContentList) {
-                contentMsg = contentMsg + rentContent.getContentName()+"    ";
             }
-            houseInfo.setRentContentString(contentMsg);
-            //房源包含设施
-            List<Facility> facilityList = houseInfoService.queryFacility(houseInfo.getHouseId());
-            String facilityMsg= "";
-            for (Facility facility:facilityList){
-                facilityMsg = facilityMsg + facility.getFacilityName() + "    ";
+            //获取租金包含内容  获取房屋设施
+            for (HouseInfo houseInfo:houseInfoList){
+                //租金包含内容
+                List<RentContent> rentContentList = houseInfoService.queryRentContent(houseInfo.getHouseId());
+                String contentMsg = "";
+                for (RentContent rentContent : rentContentList) {
+                    contentMsg = contentMsg + rentContent.getContentName()+"    ";
+                }
+                houseInfo.setRentContentString(contentMsg);
+                //房源包含设施
+                List<Facility> facilityList = houseInfoService.queryFacility(houseInfo.getHouseId());
+                String facilityMsg= "";
+                for (Facility facility:facilityList){
+                    facilityMsg = facilityMsg + facility.getFacilityName() + "    ";
+                }
+                houseInfo.setHouseFacilityString(facilityMsg);
             }
-            houseInfo.setHouseFacilityString(facilityMsg);
         }
+
 
 
         Gson gson = new Gson();
@@ -390,11 +406,29 @@ public class HouseController {
         houseInfo.setExamDate(new Date());
         houseInfo.setCheckStatusId(2);
         houseInfo.setHouseStatusId(2);
-        houseInfoService.checkSuccess(houseInfo);
+        houseInfoService.check(houseInfo);
         Map<String,Integer> map = new HashMap<>();
         map.put("code",200);
         return map;
     }
+
+    /**
+     * 房源审核未通过 管理员部分
+     * @param
+     * @return
+     */
+    @RequestMapping("/checkDefeat")
+    @ResponseBody
+    public Map<String,Integer> checkDefeat(@RequestBody HouseInfo houseInfo){
+        houseInfo.setExamDate(new Date());
+        houseInfo.setCheckStatusId(3);
+        houseInfo.setHouseStatusId(7);
+        houseInfoService.check(houseInfo);
+        Map<String,Integer> map = new HashMap<>();
+        map.put("code",200);
+        return map;
+    }
+
 
 
     /**
@@ -488,7 +522,12 @@ public class HouseController {
     }
 
 
-
+    /**
+     * 申请完成
+     * @param name
+     * @param page
+     * @return
+     */
     @RequestMapping("/houseInfo/finishApplication/{name}")
     @ResponseBody
     public String finishApplication(@PathVariable("name") String name,Page page){
@@ -556,6 +595,14 @@ public class HouseController {
         return map;
     }
 
+    /**
+     * 拒绝申请
+     * @param id
+     * @param houseId
+     * @param partALoginName
+     * @param partBLoginName
+     * @return
+     */
     @RequestMapping("/houseInfo/rejectApplication")
     @ResponseBody
     public Map<String,Integer> rejectApplication(Integer id,Integer houseId,String partALoginName,String partBLoginName){
@@ -580,6 +627,108 @@ public class HouseController {
         return houseInfoList;
     }
 
+
+    /**
+     * 查询待审核房源
+     * @param username
+     * @param page
+     * @return
+     */
+    @RequestMapping("/queryCheckHouseListInfo/{username}")
+    @ResponseBody
+    public String queryCheckHouseListInfo(@PathVariable("username")String username ,Page page){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        HouseInfo houseInfo = new HouseInfo();
+        houseInfo.setHouseStatusId(1);
+        houseInfo.setCreateName(username);
+        int count = houseInfoService.queryHouseInfoByUserNameAndStatusCount(houseInfo);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        //修改显示时间格式
+        List<HouseInfo> houseInfoList = houseInfoService.queryHouseInfoByUserNameAndStatus(houseInfo,page);
+        if (houseInfoList.size() != 0){
+            for (HouseInfo h : houseInfoList) {
+                h.setCreateDateString(simpleDateFormat.format(h.getCreateDate()));
+            }
+        }
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),houseInfoList));
+    }
+
+    /**
+     * 查询待出租房源
+     * @param username
+     * @param page
+     * @return
+     */
+    @RequestMapping("/queryForHireHouseListInfo/{username}")
+    @ResponseBody
+    public String queryForHireHouseListInfo(@PathVariable("username")String username ,Page page){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        HouseInfo houseInfo = new HouseInfo();
+        houseInfo.setHouseStatusId(2);
+        houseInfo.setCreateName(username);
+        int count = houseInfoService.queryHouseInfoByUserNameAndStatusCount(houseInfo);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        //修改显示时间格式
+        List<HouseInfo> houseInfoList = houseInfoService.queryHouseInfoByUserNameAndStatus(houseInfo,page);
+        if (houseInfoList.size() != 0){
+            for (HouseInfo h : houseInfoList) {
+                h.setCreateDateString(simpleDateFormat.format(h.getCreateDate()));
+            }
+        }
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),houseInfoList));
+    }
+
+
+    /**
+     * 查询待修改房源
+     * @param username
+     * @param page
+     * @return
+     */
+    @RequestMapping("/queryUpdateHouseListInfo/{username}")
+    @ResponseBody
+    public String queryUpdateHouseListInfo(@PathVariable("username")String username ,Page page){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        HouseInfo houseInfo = new HouseInfo();
+        houseInfo.setHouseStatusId(7);
+        houseInfo.setCreateName(username);
+        int count = houseInfoService.queryHouseInfoByUserNameAndStatusCount(houseInfo);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        //修改显示时间格式
+        List<HouseInfo> houseInfoList = houseInfoService.queryHouseInfoByUserNameAndStatus(houseInfo,page);
+        if (houseInfoList.size() != 0){
+            for (HouseInfo h : houseInfoList) {
+                h.setCreateDateString(simpleDateFormat.format(h.getCreateDate()));
+            }
+        }
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),houseInfoList));
+    }
+
+    /**
+     * 撤销申请
+     * @param id
+     * @return
+     */
+    @RequestMapping("/undoApplication/{id}")
+    @ResponseBody
+    public Map<String,Integer> undoApplication(@PathVariable("id")Integer id){
+        applicationService.undoApplication(id);
+        Map<String,Integer> map = new HashMap<>();
+        map.put("code",200);
+        return map;
+    }
 
 
 

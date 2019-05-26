@@ -16,6 +16,10 @@
         set  status = #{status} , update_date = #{updateDate}
         where id = #{id}
     </update>
+    <delete id="undoApplication">
+        delete from application
+        where id = #{id}
+    </delete>
     <select id="queryCount" resultType="java.lang.Integer">
         select count(*)
         from application

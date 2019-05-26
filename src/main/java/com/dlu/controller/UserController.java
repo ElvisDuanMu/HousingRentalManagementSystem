@@ -264,5 +264,8 @@ public class UserController {
         return "user/house/houseInfo";
     }
 
-
+    @RequestMapping("/breakdown/{name}")
+    public String breakdown(){
+        return "user/breakdown/breakdown";
+    }
 }

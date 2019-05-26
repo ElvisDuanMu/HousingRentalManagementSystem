@@ -13,6 +13,24 @@
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/plugins/layui/css/layui.css" />
 
+    <style>
+        .spa{
+            height: 25px;
+            line-height: 20px;
+            width: 204px;
+            display: inline-block;
+            float: left;
+            font-size: 15px;
+            color: #BD362F;
+            text-indent: 10px;
+            margin-top: 5px;
+        }
+        .layui-form-item {
+            margin-bottom: 0;
+            clear: both;
+
+        }
+    </style>
     <header class="lianjia-header">
         <div class="nav-wrap">
             <div class="wrapper">
@@ -20,23 +38,9 @@
                 <div class="fr nav">
                     <div class="fl">
                         <ul>
-                            <li>
-                                <a class="" href="#">二手房</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">新房</a>
-                            </li>
+
                             <li>
                                 <a class="" href="#">租房</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">海外</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">小区</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">经纪人</a>
                             </li>
                             <li class="hover">
                                 <a class="" href="#">
@@ -55,16 +59,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a class="" href="#">房价</a>
-                            </li>
-                            <li>
-                                <a class="" href="#" target="_blank">工具</a>
-                            </li>
-                            <li>
                                 <a class="" href="#" target="_blank">发布房源</a>
-                            </li>
-                            <li>
-                                <a class="" href="#" target="_blank">企业汇</a>
                             </li>
                         </ul>
                     </div>
@@ -129,20 +124,23 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item" style="margin-top: 30px;">
+            <div class="layui-form-item" style="margin-top: 30px; height: 40px;">
                 <label class="layui-form-label">
                     <span class="layui-badge-dot"></span>&nbsp;&nbsp;&nbsp;详细地址</label>
                 <div class="layui-input-inline" style="margin-left: 20px;">
-                    <input type="text" name="detailAddress" required style="width: 500px;" lay-verify="required" placeholder="请输入详细地址（街道地址）" autocomplete="off" class="layui-input">
+                    <input type="text" name="detailAddress" id="detailAddress" required style="width: 500px;" lay-verify="required" placeholder="请输入详细地址（街道地址）" autocomplete="off" class="layui-input">
                 </div>
             </div>
+            <span class="spa spa1" id="spa1" style="margin-left: 125px; width: 400px;"></span>
+
             <div class="layui-form-item" style="margin-top: 30px;">
                 <label class="layui-form-label">
                     <span class="layui-badge-dot"></span>&nbsp;&nbsp;&nbsp;小区名称</label>
                 <div class="layui-input-inline" style="margin-left: 20px;">
-                    <input type="text" name="addressCommunity" required style="width: 500px;" lay-verify="required" placeholder="请输入小区名称" autocomplete="off" class="layui-input">
+                    <input type="text" name="addressCommunity" id="addressCommunity" required style="width: 500px;" lay-verify="required" placeholder="请输入小区名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
+            <span class="spa spa2" id="spa2" style="margin-left: 125px; width: 400px;"></span>
 
             <div class="layui-form-item" style="margin-top: 30px;">
                 <label class="layui-form-label">
@@ -176,7 +174,7 @@
                 <div class="layui-form-mid layui-word-aux">卫</div>
                 <div class="layui-form-mid layui-word-aux" style="margin-left: 40px;">共</div>
                 <div class="layui-input-inline" style=" width: 100px;">
-                    <input  type="text" name="houseArea" required  lay-verify="required"  autocomplete="off" class="layui-input" style="text-align: center;">
+                    <input  type="text" name="houseArea" required  lay-verify="required"  autocomplete="off" class="layui-input" style="text-align: center;" placeholder="">
                 </div>
                 <div class="layui-form-mid layui-word-aux">㎡</div>
             </div>
@@ -244,7 +242,7 @@
                 <label class="layui-form-label">
                     <span class="layui-badge-dot"></span>&nbsp;&nbsp;&nbsp;租&emsp;&emsp;金</label>
                 <div class="layui-input-inline" style="width: 150px; margin-left: 20px;">
-                    <input  type="text" name="housePrice" required  lay-verify="required"  autocomplete="off" class="layui-input" style="text-align: center;">
+                    <input  type="text" name="housePrice" required  lay-verify="required"  autocomplete="off" class="layui-input" style="text-align: center;" placeholder="">
                 </div>
                 <div class="layui-form-mid layui-word-aux">元/月</div>
                 <div class="layui-input-inline" style=" width: 150px;">
@@ -474,9 +472,74 @@
             ,trigger:'click'
         });
 
-        // layedit.build('houseInfo', {
-        //     height: 180 //设置编辑器高度
-        // });
+        //失焦判断
+        var check = false;
+        $("input").blur(function(){
+            if($(this).is("#detailAddress")){             //地址判断
+                var address= $('#detailAddress').val().trim();
+                if(address == ''){
+                    $(".spa1").text("地址不能为空");
+                    $(this).css("border","1px solid #BD362F");
+                    check = false;
+                }else if(address.length > 25){
+                    $(".spa1").text("字符数已超出限制");
+                    $(this).css("border","1px solid #BD362F");
+                    check = false;
+                }else{
+                    $(".spa1").text("通过").css("color","#00CD00")
+                    $(this).css("border","1px solid #aaa")
+                    check = true;
+                }
+            }
+            if($(this).is("#addressCommunity")){            //小区判断
+                var community = $('#addressCommunity').val().trim();
+                if(community == ''){
+                    $(".spa2").text("地址不能为空");
+                    $(this).css("border","1px solid #BD362F");
+                    check = false;
+                }else if(community.length > 15){
+                    $(".spa2").text("字符数已超出限制");
+                    $(this).css("border","1px solid #BD362F");
+                    check = false;
+                }else{
+                    $(".spa2").text("通过").css("color","#00CD00")
+                    $(this).css("border","1px solid #aaa")
+                    check = true;
+                }
+            }
+
+            if($(this).is("#useraddress")){            //地址判断
+                var ad=/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]{8,32}/;
+                if($("#useraddress").val()!=""){
+                    if(!(ad.test($("#useraddress").val()))){
+                        $(".spa3").text("请输入正确地址");
+                        $(this).css("border","1px solid #BD362F")
+                        return false;
+                    }else if(ad){
+                        $(".spa3").text("");
+                        return true;
+                    }
+                }else{
+                    $(".spa3").text("");
+                }
+            }
+        })
+
+        //聚焦判断
+        $("input").focus(function(){
+            if($(this).is("#detailAddress")){
+                $(".spa1").text("不超过25个字符").css("color","#0000FF")
+                $(this).css("border","1px solid #aaa")
+            }
+            if($(this).is("#addressCommunity")){
+                $(".spa2").text("不超过15个字符").css("color","#0000FF")
+                $(this).css("border","1px solid #aaa")
+            }
+            if($(this).is("#useraddress")){
+                $(".spa3").text("最少8个字符（汉字、字母和数字）").css("color","#aaa")
+                $(this).css("border","1px solid #aaa")
+            }
+        })
 
     });
 </script>

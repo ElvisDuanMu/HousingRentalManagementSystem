@@ -26,8 +26,6 @@ public class HouseSettingsController {
      * 多条件查询
      * @param name
      * @param houseSettingsDTO
-     * @param model
-
      * @return
      * @throws ParseException
      */
@@ -44,8 +42,8 @@ public class HouseSettingsController {
         HouseSettings houseSettings = new HouseSettings();
         houseSettings.setTypeName(houseSettingsDTO.getTypeName());
         houseSettings.setCreateBy(houseSettings.getCreateBy());
-        if ( houseSettingsDTO.getStartCreateDate()!=null && houseSettingsDTO.getStartCreateDate()!=""
-                && houseSettingsDTO.getEndCreateDate()!=null  && houseSettingsDTO.getEndCreateDate()!="")
+        if ( houseSettingsDTO.getStartCreateDate()!=null && !houseSettingsDTO.getStartCreateDate().equals("")
+                && houseSettingsDTO.getEndCreateDate()!=null  && !houseSettingsDTO.getEndCreateDate().equals(""))
         {
             houseSettings.setStartCreateDate(simpleDateFormat.parse(houseSettingsDTO.getStartCreateDate()));
             houseSettings.setEndCreateDate(simpleDateFormat.parse(houseSettingsDTO.getEndCreateDate()));

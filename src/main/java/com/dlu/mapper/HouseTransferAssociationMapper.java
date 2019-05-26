@@ -16,9 +16,9 @@ public interface HouseTransferAssociationMapper {
 
     List<HouseTransferAssociation> query(@Param("houseTransferDTO") HouseTransferDTO houseTransferDTO, @Param("page") Page page);
 
-    int queryRentedHouseCountByPartAName(String name);
+    int queryRentedHouseCountByPartNameAndStatus(HouseTransferAssociation houseTransferAssociation);
 
-    List<HouseTransferAssociation> queryRentedHouseByPartAName(@Param("name") String name, @Param("page") Page page);
+    List<HouseTransferAssociation>queryRentedHouseByPartNameAndStatus(@Param("houseTransferAssociation") HouseTransferAssociation houseTransferAssociation, @Param("page") Page page);
 
     int queryInfoCount(HouseTransferAssociation houseTransferAssociation);
 
@@ -28,4 +28,13 @@ public interface HouseTransferAssociationMapper {
     List<Double> TotalMoney(MoneyDTO moneyDTO);
 
 
+    int queryHouseBreakdownCount(HouseTransferAssociation houseTransferAssociation);
+
+    List<HouseTransferAssociation> queryHouseBreakdown(@Param("houseTransferAssociation") HouseTransferAssociation houseTransferAssociation, @Param("page") Page page);
+
+    int queryEndHouseCountByPartNameAndStatus(@Param("name") String name, @Param("status") String status);
+
+    List<HouseTransferAssociation> queryEndHouseByPartNameAndStatus(@Param("name") String name, @Param("status") String status, @Param("page") Page page);
+
+    void updateStatus(HouseTransferAssociation houseTransferAssociation);
 }

@@ -110,7 +110,7 @@
             <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
             <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
             <li class="hover"><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
-            <li><a href="">报障信息</a></li>
+            <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
             <li><a href="">编辑资料</a></li>
         </ul>
     </div>
@@ -225,7 +225,7 @@
         <div class="layui-input-inline" style="width: 150px; ">
             <input  style="text-align: center" type="text"  id="houseId2" readonly  autocomplete="off" class="layui-input" >
         </div>
-        <label class="layui-form-label">承租人账号</label>
+        <label class="layui-form-label">出租人账号</label>
         <div class="layui-input-inline" style="width: 150px; ">
             <input  type="text"  id="partALoginName" readonly  autocomplete="off" class="layui-input" >
         </div>
@@ -311,7 +311,6 @@
             elem:'#incomeHouseListInfo',
             url: "${ctx}/houseTransfer/queryPartAInfo",
             where: {partALoginName : username},
-            cellMinWidth:200,
             cols: [[
                 {field:'transferId',title:'租赁id',align: 'center',hide:true}
                 ,{field:'houseId',title:'房源编号',align: 'center'}
@@ -338,7 +337,6 @@
             elem:'#expenditureHouseListInfo',
             url: "${ctx}/houseTransfer/queryPartBInfo",
             where: {partBLoginName : username},
-            cellMinWidth:200,
             cols: [[
                 {field:'transferId',title:'租赁id',align: 'center',hide:true}
                 ,{field:'houseId',title:'房源编号',align: 'center'}
@@ -599,7 +597,6 @@
                                 type: 'post',
                                 contentType: 'application/json',
                                 data: JSON.stringify(obj),
-
                                 success: function (data ) {
                                     if(data.code == 200){
                                         layer.msg('填写成功', {

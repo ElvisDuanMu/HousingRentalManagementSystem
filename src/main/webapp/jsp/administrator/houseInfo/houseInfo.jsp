@@ -18,8 +18,88 @@
 
     <div class="layui-body">
 
-        <div class="layui-form" style="padding: 20px;">
+        <div class="layui-form" style="padding: 20px; margin-top: 50px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">省/直辖市</label>
+                <div class="layui-input-inline" >
+                    <select name="province" id="provinceS" lay-filter="province" lay-search>
+                        <option value="">-请选择-</option>
+                        <c:forEach items="${province}" var="obj">
+                            <option value="${obj.provinceCode}" >${obj.provinceName}</option>
 
+                        </c:forEach>
+                    </select>
+                </div>
+                <label class="layui-form-label">市</label>
+                <div class="layui-input-inline">
+                    <select name="city" id="cityS" lay-filter="city" lay-search>
+                        <option value="">-请选择-</option>
+                    </select>
+                </div>
+                <label class="layui-form-label">区</label>
+                <div class="layui-input-inline">
+                    <select name="district" id="districtS" lay-filter="district" lay-search>
+                        <option value="">-请选择-</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">小区名称</label>
+                <div class="layui-input-inline">
+                    <div class="layui-input-inline" style="margin-left: 5px;">
+                        <input type="text" name="addressCommunity" id="addressCommunityS" required style="width: 200px;" placeholder="请输入小区名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <label class="layui-form-label">详细地址</label>
+                <div class="layui-input-inline">
+                    <div class="layui-input-inline" style="margin-left: 5px;">
+                        <input type="text" name="detailAddress" id="detailAddressS" required style="width: 200px;" placeholder="请输入详细地址" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <label class="layui-form-label">发布人</label>
+                <div class="layui-input-inline">
+                    <div class="layui-input-inline" style="margin-left: 5px;">
+                        <input type="text" name="createName" id="createNameS" required style="width: 200px;" placeholder="请输入发布人" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <label class="layui-form-label" >房源编号</label>
+                <div class="layui-input-inline">
+                    <div class="layui-input-inline" style="margin-left: 5px;">
+                        <input type="text" name="houseId" id="houseIdS" required style="width: 200px;" placeholder="请输入房源编号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">房源状态</label>
+                <div class="layui-input-inline" style=" width: 150px; margin-left: 5px;" >
+                    <select name="status" id="houseStatusS"  >
+                        <option value="" >请选择</option>
+                        <c:forEach items="${houseStatus}" var="obj">
+                            <option value="${obj.houseStatusId}">${obj.houseStatusName}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <label class="layui-form-label">审核状态</label>
+                <div class="layui-input-inline" style=" width: 150px; margin-left: 5px;" >
+                    <select name="status" id="checkStatusS"  >
+                        <option value="" >请选择</option>
+                        <c:forEach items="${checkStatus}" var="obj">
+                            <option value="${obj.checkStatusId}">${obj.checkStatusName}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">发布时间</label>
+                    <div class="layui-input-inline" >
+                        <input type="text" class="layui-input" id="date" placeholder=" - " readonly>
+                        <input type="hidden" id="startCreateDate" value="" >
+                        <input type="hidden" id="endCreateDate" value="" >
+                    </div>
+                </div>
+            </div>
+            <button class="layui-btn" style="margin-left: 300px; width: 300px;" data-type="reload" id="searchBtn" >搜索</button>
         </div>
 
         <div  style="margin: 30px;">
@@ -338,8 +418,88 @@
         var form = layui.form;
         var table = layui.table;
         var laydate = layui.laydate;
-        var $ = layui.jquery;
+        var $ = layui.$;
         var layer = layui.layer;
+
+        //省市联动start
+        form.on('select(province)',function () {
+            //获取provinceCode值
+            var provinceCode = $('#provinceS').val();
+            if(provinceCode == '' ){
+                //清空
+                var html="<option value=\"\">-请选择-</option>";
+                $('#cityS').html(html);
+                $('#districtS').html(html);
+                form.render();
+                return ;
+            }else {
+                var html="<option value=\"\">-请选择-</option>";
+                $('#districtS').html(html);
+                form.render();
+                $.ajax({
+                    url:'${ctx}/regionSettings/queryCityByProvinceCode/' + provinceCode,
+                    type:'get',
+                    success:function (data) {
+                        //根据data修改数据，重新渲染即可
+                        var html="<option value=\"\">-请选择-</option>";
+                        var len = data.length;
+                        for(var i = 0; i <len;i++){
+                            html += '<option value="' + data[i].cityCode +'">' + data[i].cityName +'</option>';
+                        }
+                        //选择level2更新
+                        $('#cityS').html(html);
+                        form.render();
+                    }
+                })
+            }
+        })
+        //省市联动end
+
+        //市区联动start
+        form.on('select(city)',function () {
+            //获取provinceCode值
+            var cityCode = $('#cityS').val();
+            if(cityCode == ''){
+                //清空
+                var html="<option value=\"\">-请选择-</option>";
+                $('#districtS').html(html);
+                form.render();
+                return ;
+            }else {
+                $.ajax({
+                    url:'${ctx}/regionSettings/queryDistrictByCity/' + cityCode,
+                    type:'get',
+                    success:function (data) {
+                        //根据data修改数据，重新渲染即可
+                        var html="<option value=\"\">-请选择-</option>";
+                        var len = data.length;
+                        for(var i = 0; i <len;i++){
+                            html += '<option value="' + data[i].districtCode +'">' + data[i].districtName +'</option>';
+                        }
+                        //选择level2更新
+                        $('#districtS').html(html);
+                        form.render();
+                    }
+                })
+            }
+        })
+        //市区联动end
+
+        //日期范围 start
+        laydate.render({
+            elem: '#date'
+            ,range: true
+            ,max:0
+            ,trigger:'click',
+            done: function(value, date, endDate) {
+                var startCreateDateCode = value.substring(0,10);
+                $('#startCreateDate').val(startCreateDateCode);
+                var endCreateDateCode = value.substring(13,23);
+                $('#endCreateDate').val(endCreateDateCode);
+            }
+        });
+        //日期范围 end
+
 
         //表格
         var tableIns = table.render({
@@ -392,8 +552,7 @@
             ]],
             page:true,
             limits:[5,10,15],
-            limit:5,
-            id: 'testReload'
+            limit:5
         });
 
 
@@ -507,6 +666,53 @@
                 })
             }
         });
+
+        //表格重载，条件查询 start
+        active = {
+            reload: function(){
+                var provinceCode = $('#provinceS').val().trim();
+                var cityCode = $('#cityS').val().trim();
+                var districtCode = $('#districtS').val().trim();
+                var createName = $('#createNameS').val().trim();
+                var houseId = $('#houseIdS').val().trim();
+                var houseStatus = $('#houseStatusS').val();
+                var addressCommunity = $('#addressCommunityS').val().trim();
+                var checkStatus = $('#checkStatusS').val();
+                var startTime = $('#startCreateDate').val();
+                var endTime = $('#endCreateDate').val();
+                var detailAddress = $('#detailAddressS').val().trim();
+
+                //执行重载
+                table.reload('tableSettings', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        provinceCode : provinceCode,
+                        cityCode: cityCode,
+                        districtCode : districtCode,
+                        addressCommunity :addressCommunity ,
+                        createName :createName ,
+                        houseId :houseId,
+                        houseStatus : houseStatus,
+                        checkStatus : checkStatus,
+                        startTimeString :startTime,
+                        endTimeString : endTime,
+                        detailAddress : detailAddress
+                    }
+                });
+            }
+        };
+        //表格重载，条件查询 end
+
+
+        //条件查询提交 start
+        $('#searchBtn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        //条件查询提交 end
+
 
 
 

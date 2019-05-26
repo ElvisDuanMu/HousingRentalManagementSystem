@@ -353,7 +353,6 @@
 <%--工具条--%>
 <script type="text/html" id="queryAllContractInfoListBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="view">查看</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="termination">终止</a>
 </script>
 
 <script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>

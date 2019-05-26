@@ -1,7 +1,9 @@
 package com.dlu.service.impl;
 
 import com.dlu.dto.MoneyDTO;
+import com.dlu.dto.QueryMoneyDTO;
 import com.dlu.mapper.MoneyMapper;
+import com.dlu.pojo.HouseTransferAssociation;
 import com.dlu.pojo.Money;
 import com.dlu.pojo.Page;
 import com.dlu.service.MoneyService;
@@ -15,6 +17,7 @@ public class MoneyServiceImpl implements MoneyService {
 
     @Autowired
     private MoneyMapper moneyMapper;
+
 
     @Override
     public void addNewMoneyMsg(Money money) {
@@ -49,5 +52,16 @@ public class MoneyServiceImpl implements MoneyService {
     @Override
     public List<Double> currentMoney(MoneyDTO moneyDTO) {
         return moneyMapper.currentMoney(moneyDTO);
+    }
+
+    @Override
+    public int AdQueryMoneyCount(QueryMoneyDTO queryMoneyDTO) {
+        return moneyMapper.AdQueryMoneyCount(queryMoneyDTO);
+    }
+
+    @Override
+    public List<HouseTransferAssociation> AdQueryMoney(QueryMoneyDTO queryMoneyDTO, Page page) {
+        return moneyMapper.AdQueryMoney(queryMoneyDTO,page);
+
     }
 }

@@ -120,8 +120,8 @@
 
 <%--工具条--%>
 <script type="text/html" id="queryHouseTransferListBar">
-    <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="end">结束</a>
-    <a class="layui-btn layui-btn layui-btn-xs" lay-event="stop">停租</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs " lay-event="end">结束</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stop">停租</a>
 </script>
 
 <script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>
@@ -220,7 +220,7 @@
             elem:'#queryHouseTransferList',
             url: "${ctx}/houseTransfer/queryHouseTransfer",
             cols: [[
-                {field:'id',title:'合同id',align: 'center',hide:true}
+                {field:'id',title:'id',align: 'center',hide:true}
                 ,{field:'houseId',title:'房源编号',align: 'center'}
                 ,{field:'contractNumber', title: '合同编号',align: 'center'}
                 ,{field:'partALoginName', title: '房主（甲方）',align: 'center'}
@@ -243,17 +243,74 @@
         table.on('tool(queryHouseTransferList)', function(obj){
             var data = obj.data;
 
-            //查看事件
-            if (obj.event === 'view'){
+            //结束事件
+            if (obj.event === 'end'){
+                if (data.status == '已结束'){
+                    layer.msg("已结束");
+                } else if (data.status == '已退租'){
+                    layer.msg("已退租")
+                } else {
+                    layer.confirm('确认结束？',function (index) {
+                        $.ajax({
+                            url:'${ctx}/houseTransfer/end/' + data.houseId
+                            ,type:"post"
+                            ,success:function (msg) {
+                                if (msg.code == 200){
+                                    layer.msg('操作成功', {
+                                        icon: 6,
+                                        time: 1000
+                                    }, function(){
+                                        layer.load();
+                                        setTimeout(function(){
+                                            layer.closeAll();
+                                            table.reload('queryHouseTransferList',{
+                                                page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                }});
+                                        }, 1500);
+                                    });
+                                }else {
+                                    layer.msg("操作失败",{icon:5});
+                                }
+                            }
+                        })
+                    })
+                }
 
             }
-            //通过事件
-            if (obj.event ==='accept'){
-                acceptContract(data.id);
-            }
-            //未通过事件
-            if (obj.event === 'reject'){
-                rejectContract(data.id);
+            //停租事件
+            if (obj.event ==='stop'){
+                if (data.status == '已结束'){
+                    layer.msg("已结束");
+                } else if (data.status == '已退租'){
+                    layer.msg("已退租");
+                }else {
+                    layer.confirm('确认退租？',function (index) {
+                        $.ajax({
+                            url:'${ctx}/houseTransfer/stop/' + data.houseId
+                            ,type:"post"
+                            ,success:function (msg) {
+                                if (msg.code == 200){
+                                    layer.msg('操作成功', {
+                                        icon: 6,
+                                        time: 1000
+                                    }, function(){
+                                        layer.load();
+                                        setTimeout(function(){
+                                            layer.closeAll();
+                                            table.reload('queryHouseTransferList',{
+                                                page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                }});
+                                        }, 1500);
+                                    });
+                                }else {
+                                    layer.msg("操作失败",{icon:5});
+                                }
+                            }
+                        })
+                    })
+                }
             }
 
         });

@@ -29,4 +29,6 @@ public interface ApplicationService {
     int queryFinishCount(String name);
 
     List<Application> queryFinish(String name, Page page);
+
+    void undoApplication(Integer id);
 }

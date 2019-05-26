@@ -110,7 +110,7 @@
                 <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
                 <li class="hover"><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
                 <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
-                <li><a href="">报障信息</a></li>
+                <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
                 <li><a href="">编辑资料</a></li>
             </ul>
         </div>
@@ -122,6 +122,7 @@
                     <ul class="layui-tab-title">
                         <li class="layui-this">未完成的合同</li>
                         <li>已完成的合同</li>
+                        <li>已结束的合同</li>
                         <li>已终止的合同</li>
                     </ul>
                     <div class="layui-tab-content">
@@ -136,6 +137,12 @@
                                 <div  style="margin-top: 20px;">
                                     <table class="layui-hide" id="finishContractListInfo" lay-filter="finishContractListInfo"></table>
                                 </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <%--已结束的合同--%>
+                            <div  style="margin-top: 20px;">
+                                <table class="layui-hide" id="endContractListInfo" lay-filter="endContractListInfo"></table>
+                            </div>
                         </div>
                         <div class="layui-tab-item">
                             <%--已终止的合同--%>
@@ -1154,6 +1161,11 @@
     <a class="layui-btn layui-btn layui-btn-xs " lay-event="view">查看</a>
 </script>
 
+<%--已结束合同信息管理工具条--%>
+<script type="text/html" id="endContractListInfoBar" >
+    <a class="layui-btn layui-btn layui-btn-xs " lay-event="view">查看</a>
+</script>
+
 <script type="text/javascript" src="${ctx}/static/js/jquery-2.1.4.min.js"></script>
 <script src="${ctx}/static/plugins/layui/layui.js"></script>
 <script>
@@ -1235,6 +1247,27 @@
             limits:[5,10,15],
             limit:5
         });
+
+        //已结束的合同信息查看
+        table.render({
+            elem:'#endContractListInfo',
+            url: "${ctx}/contract/queryEndContract/"+ username,
+            cols: [[
+                {field:'id',title:'合同id',align: 'center',hide:true}
+                ,{field:'houseId',title:'房源编号',align: 'center'}
+                ,{field:'contractNumber', title: '合同编号',align: 'center'}
+                ,{field:'partALoginName', title: '房主（甲方）',align: 'center'}
+                ,{field:'partBLoginName', title: '申请人（乙方）',align: 'center'}
+                ,{field:'status', title: '状态',align: 'center'}
+                ,{field:'partAConfirm',title:'甲方确认',align: 'center',hide:true}
+                ,{field:'partBConfirm',title:'乙方确认',align: 'center',hide:true}
+                ,{fixed: 'right', title:'操作', toolbar: '#endContractListInfoBar',align:'center', width:150}
+            ]],
+            page:true,
+            limits:[5,10,15],
+            limit:5
+        });
+
 
         //已终止的合同信息查看
         table.render({

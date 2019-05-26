@@ -1,4 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dlu.mapper.BreakdownMapper">
+    <insert id="addBreakdown">
+        insert into breakdown(id,house_id,title,content,status,create_date,partA_login_name,partB_login_name)
+        values (#{id},#{houseId},#{title},#{content},#{status},#{createDate},#{partALoginName},#{partBLoginName})
+
+    </insert>
+    <update id="updateMsg">
+        update breakdown
+        <trim prefixOverrides="," prefix="set ">
+            <if test="status != null and status != ''">
+                ,status = #{status}
+            </if>
+            <if test="solveDate != null ">
+                ,solve_date = #{solveDate}
+            </if>
+            <if test="checkName != null and checkName!= ''">
+                ,check_name = #{checkName}
+            </if>
+            <if test="checkDate != null">
+                ,check_date =#{checkDate}
+            </if>
+            <if test="title != null and title!= ''">
+                ,title = #{title}
+            </if>
+            <if test="content != null and content!= ''">
+                ,content = #{content}
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+    <select id="queryBreakDownByIdCount" resultType="java.lang.Integer">
+        select count(*)
+        from breakdown
+        where house_id = #{id}
+    </select>
+    <select id="queryBreakDownById" resultType="com.dlu.pojo.Breakdown">
+        select id, house_id, title, content, status, create_date, solve_date, partA_login_name, partB_login_name, check_name, check_date
+        from breakdown
+        where house_id = #{id}
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryBreakDownByPartALoginNameCount" resultType="java.lang.Integer">
+        select count(*)
+        from breakdown
+        where partA_login_name = #{partALoginName}
+    </select>
+    <select id="queryBreakDownByPartALoginName" resultType="com.dlu.pojo.Breakdown">
+        select id, house_id, title, content, status, create_date, solve_date, partA_login_name, partB_login_name, check_name, check_date
+        from breakdown
+        where partA_login_name =  #{partALoginName}
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryListCount" resultType="java.lang.Integer">
+        select count(*)
+        from breakdown
+        <where>
+            <if test="houseId != null">
+                and house_id = #{houseId}
+            </if>
+            <if test="status != null and status !=''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="queryList" resultType="com.dlu.pojo.Breakdown">
+        select id, house_id, title, content, status, create_date, solve_date, partA_login_name, partB_login_name, check_name, check_date
+        from breakdown
+        <where>
+            <if test="breakdownDTO.houseId != null">
+                and house_id = #{breakdownDTO.houseId}
+            </if>
+            <if test="breakdownDTO.status != null and breakdownDTO.status !=''">
+                and status = #{breakdownDTO.status}
+            </if>
+        </where>
+        limit #{page.start},#{page.limit}
+    </select>
 </mapper>

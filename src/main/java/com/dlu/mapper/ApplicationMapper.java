@@ -30,4 +30,6 @@ public interface ApplicationMapper {
     int queryFinishCount(String name);
 
     List<Application> queryFinish(@Param("name") String name,@Param("page") Page page);
+
+    void undoApplication(Integer id);
 }

@@ -64,6 +64,19 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
+                <a href="javascript:;">租金管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toQueryMoney">租金收入查询</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">报障管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toQueryBreakdown">报障信息列表</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toCheckBreakdown">审核报障信息</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
                 <a href="javascript:;">地区设置</a>
                 <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toRegionSettings">地区查询</a></dd>

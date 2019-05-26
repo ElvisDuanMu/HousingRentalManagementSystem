@@ -52,7 +52,7 @@
 
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">创建日期范围</label>
+                        <label class="layui-form-label">创建日期</label>
                         <div class="layui-input-inline" style="margin-top: 10px;">
                             <input type="text" class="layui-input" id="date" placeholder=" - " readonly>
                             <input type="hidden" id="startCreateDate" value="" >

@@ -1,5 +1,6 @@
 package com.dlu.service;
 
+import com.dlu.dto.HouseInfoAdDTO;
 import com.dlu.dto.HouseInfoDTO;
 import com.dlu.pojo.*;
 
@@ -21,9 +22,9 @@ public interface HouseInfoService {
 
     Integer queryHousePuTongImg(Integer houseId);
 
-    List<HouseInfo> query(HouseInfoDTO houseInfoDTO, Page page);
+    List<HouseInfo> query(HouseInfoAdDTO houseInfoAdDTO, Page page);
 
-    int queryCount(HouseInfoDTO houseInfoDTO);
+    int queryCount(HouseInfoAdDTO houseInfoAdDTO);
 
     List<RentContent> queryRentContent(Integer houseId);
 
@@ -41,7 +42,7 @@ public interface HouseInfoService {
 
     List<HouseInfo> queryExam(HouseInfoDTO houseInfoDTO, Page page);
 
-    void checkSuccess(HouseInfo houseInfo);
+    void check(HouseInfo houseInfo);
 
     HouseInfo queryHouseInfoByHouseId(Integer houseId);
 
@@ -50,5 +51,7 @@ public interface HouseInfoService {
     Double queryHousePrice(Integer houseId);
 
 
+    int queryHouseInfoByUserNameAndStatusCount(HouseInfo username);
 
+    List<HouseInfo> queryHouseInfoByUserNameAndStatus(HouseInfo houseInfo, Page page);
 }

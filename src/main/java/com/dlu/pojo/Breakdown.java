@@ -21,6 +21,16 @@ public class Breakdown {
 
     private String solveDateString;
 
+    private String partALoginName;
+
+    private String partBLoginName;
+
+    private String checkName;
+
+    private Date checkDate;
+
+    private String checkDateString;
+
     public Integer getId() {
         return id;
     }
@@ -91,5 +101,65 @@ public class Breakdown {
 
     public void setSolveDateString(String solveDateString) {
         this.solveDateString = solveDateString == null ? null :solveDateString.trim();
+    }
+
+    public String getPartALoginName() {
+        return partALoginName;
+    }
+
+    public void setPartALoginName(String partALoginName) {
+        this.partALoginName = partALoginName == null?null:partALoginName.trim();
+    }
+
+    public String getPartBLoginName() {
+        return partBLoginName;
+    }
+
+    public void setPartBLoginName(String partBLoginName) {
+        this.partBLoginName = partBLoginName == null? null:partBLoginName.trim();
+    }
+
+    public String getCheckName() {
+        return checkName;
+    }
+
+    public void setCheckName(String checkName) {
+        this.checkName = checkName == null? null:checkName.trim();
+    }
+
+    public Date getCheckDate() {
+        return checkDate;
+    }
+
+    public void setCheckDate(Date checkDate) {
+        this.checkDate = checkDate;
+    }
+
+    public String getCheckDateString() {
+        return checkDateString;
+    }
+
+    public void setCheckDateString(String checkDateString) {
+        this.checkDateString = checkDateString ==null ? null: checkDateString.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Breakdown{" +
+                "id=" + id +
+                ", houseId=" + houseId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", status='" + status + '\'' +
+                ", createDate=" + createDate +
+                ", createDateString='" + createDateString + '\'' +
+                ", solveDate=" + solveDate +
+                ", solveDateString='" + solveDateString + '\'' +
+                ", partALoginName='" + partALoginName + '\'' +
+                ", partBLoginName='" + partBLoginName + '\'' +
+                ", checkName='" + checkName + '\'' +
+                ", checkDate=" + checkDate +
+                ", checkDateString='" + checkDateString + '\'' +
+                '}';
     }
 }

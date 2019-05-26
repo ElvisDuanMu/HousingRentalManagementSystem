@@ -22,6 +22,15 @@
     <result property="identityName" column="value_name" />
   </resultMap>
 
+  <resultMap id="houseStatus" type="com.dlu.pojo.HouseStatus" >
+    <id property="houseStatusId" column="value_id" />
+    <result property="houseStatusName" column="value_name" />
+  </resultMap>
+
+  <resultMap id="checkStatus" type="com.dlu.pojo.CheckStatus" >
+    <id property="checkStatusId" column="value_id" />
+    <result property="checkStatusName" column="value_name" />
+  </resultMap>
   <insert id="addNewSettings">
     insert into house_settings
     <trim prefix="(" suffix=")" prefixOverrides=",">
@@ -212,5 +221,15 @@
       select value_id,value_name
       from house_settings
       where type_code = 'IDENTITY_SELECTION'
+  </select>
+  <select id="queryAllHouseStatus" resultMap="houseStatus">
+    select value_id,value_name
+      from house_settings
+      where type_code = 'HOUSE_STATUS'
+  </select>
+  <select id="queryAllCheckStatus" resultMap="checkStatus" >
+     select value_id,value_name
+      from house_settings
+      where type_code = 'CHECK_STATUS'
   </select>
 </mapper>

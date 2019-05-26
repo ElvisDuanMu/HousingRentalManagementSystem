@@ -93,7 +93,7 @@
                 <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
                 <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
                 <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
-                <li><a href="">报障信息</a></li>
+                <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
                 <li><a href="">编辑资料</a></li>
             </ul>
         </div>

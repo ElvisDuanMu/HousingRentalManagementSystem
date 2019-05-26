@@ -15,9 +15,9 @@ public interface HouseTransferService {
 
     List<HouseTransferAssociation> query(HouseTransferDTO houseTransferDTO, Page page);
 
-    int queryRentedHouseCountByPartAName(String name);
+    int queryRentedHouseCountByPartNameAndStatus(HouseTransferAssociation houseTransferAssociation);
 
-    List<HouseTransferAssociation> queryRentedHouseByPartAName(String name, Page page);
+    List<HouseTransferAssociation> queryRentedHouseByPartNameAndStatus(HouseTransferAssociation houseTransferAssociation, Page page);
 
     int queryInfoCount(HouseTransferAssociation houseTransferAssociation);
 
@@ -27,5 +27,14 @@ public interface HouseTransferService {
     List<Double> TotalMoney(MoneyDTO moneyDTO);
 
 
+    int queryHouseBreakdownCount(HouseTransferAssociation houseTransferAssociation);
 
+
+    List<HouseTransferAssociation> queryHouseBreakdown(HouseTransferAssociation houseTransferAssociation, Page page);
+
+    int queryEndHouseCountByPartNameAndStatus(String name, String status);
+
+    List<HouseTransferAssociation> queryEndHouseByPartNameAndStatus(String name, String status, Page page);
+
+    void updateStatus(HouseTransferAssociation houseTransferAssociation);
 }

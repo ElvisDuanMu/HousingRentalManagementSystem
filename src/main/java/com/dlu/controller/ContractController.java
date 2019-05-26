@@ -78,6 +78,27 @@ public class ContractController {
     }
 
     /**
+     * 查询已结束的合同
+     * @param name
+     * @param page
+     * @return
+     */
+    @RequestMapping("/queryEndContract/{name}")
+    @ResponseBody
+    public String queryEndContract(@PathVariable("name") String name, Page page){
+        //查询总数
+        int count = contractService.queryEndCount(name);
+        //设置页码
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        page.setTotalRecord(count);
+        //查询结果
+        List<Contract> contractList = contractService.queryEndContract(name,page);
+        Gson gson = new Gson();
+        return  gson.toJson(new PojoToJson("0","",String.valueOf(count),contractList));
+    }
+
+    /**
      * 查询已终止的合同
      * @param name
      * @param page

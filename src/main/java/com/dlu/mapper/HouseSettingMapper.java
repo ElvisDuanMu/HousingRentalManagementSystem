@@ -52,4 +52,8 @@ public interface HouseSettingMapper {
     List<RentContent> queryAllRentContent();
 
     List<Identity> queryAllIdentity();
+
+    List<HouseStatus> queryAllHouseStatus();
+
+    List<CheckStatus> queryAllCheckStatus();
 }

@@ -196,9 +196,14 @@
     set status = '已终止'
     where id = #{id}
     </update>
+  <update id="updateStatus">
+    update contract
+    set status= #{status}
+    where house_id = #{houseId}
+  </update>
 
 
-    <select id="queryAllCount" resultType="java.lang.Integer">
+  <select id="queryAllCount" resultType="java.lang.Integer">
     select count(*)
     from contract
   </select>
@@ -374,6 +379,19 @@
       </if>
     </where>
     limit #{page.start},#{page.limit}
+  </select>
+  <select id="queryEndCount" resultType="java.lang.Integer">
+    select count(*)
+      from contract
+      where (partA_login_name = #{name} or partB_login_name = #{name})
+            and status = '已结束'
+  </select>
+  <select id="queryEndContract" resultType="com.dlu.pojo.Contract">
+    select id,contract_number,house_id,status,partA_login_name,partB_login_name,partA_confirm,partB_confirm,check_by
+    from contract
+    where (partA_login_name = #{name} or partB_login_name = #{name})
+          and status = '已结束'
+     limit #{page.start},#{page.limit}
   </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.dlu.service.impl;
 
+import com.dlu.dto.HouseInfoAdDTO;
 import com.dlu.dto.HouseInfoDTO;
 import com.dlu.mapper.HouseInfoMapper;
 import com.dlu.pojo.*;
@@ -46,13 +47,13 @@ public class HouseInfoServiceImpl implements HouseInfoService {
     }
 
     @Override
-    public List<HouseInfo> query(HouseInfoDTO houseInfoDTO, Page page) {
-        return houseInfoMapper.query(houseInfoDTO,page);
+    public List<HouseInfo> query(HouseInfoAdDTO houseInfoAdDTO, Page page) {
+        return houseInfoMapper.query(houseInfoAdDTO,page);
     }
 
     @Override
-    public int queryCount(HouseInfoDTO houseInfoDTO) {
-        return houseInfoMapper.queryCount(houseInfoDTO);
+    public int queryCount(HouseInfoAdDTO houseInfoAdDTO) {
+        return houseInfoMapper.queryCount(houseInfoAdDTO);
     }
 
     @Override
@@ -96,8 +97,8 @@ public class HouseInfoServiceImpl implements HouseInfoService {
     }
 
     @Override
-    public void checkSuccess(HouseInfo houseInfo) {
-        houseInfoMapper.checkSuccess(houseInfo);
+    public void check(HouseInfo houseInfo) {
+        houseInfoMapper.check(houseInfo);
     }
 
     @Override
@@ -115,7 +116,15 @@ public class HouseInfoServiceImpl implements HouseInfoService {
         return houseInfoMapper.queryHousePrice(houseId);
     }
 
+    @Override
+    public int queryHouseInfoByUserNameAndStatusCount(HouseInfo houseInfo) {
+        return houseInfoMapper.queryHouseInfoByUserNameAndStatusCount(houseInfo);
+    }
 
+    @Override
+    public List<HouseInfo> queryHouseInfoByUserNameAndStatus(HouseInfo houseInfo, Page page) {
+        return houseInfoMapper.queryHouseInfoByUserNameAndStatus(houseInfo,page);
+    }
 
 
 }

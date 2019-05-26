@@ -1,7 +1,7 @@
 package com.dlu.mapper;
 
+import com.dlu.dto.HouseInfoAdDTO;
 import com.dlu.dto.HouseInfoDTO;
-import com.dlu.dto.HouseTransferDTO;
 import com.dlu.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,9 +30,9 @@ public interface HouseInfoMapper {
 
     Integer queryHousePuTongImg(@Param("houseId") Integer houseId);
 
-    List<HouseInfo> query(@Param("houseInfoDTO") HouseInfoDTO houseInfoDTO,@Param("page") Page page);
+    List<HouseInfo> query(@Param("houseInfoAdDTO") HouseInfoAdDTO houseInfoAdDTO, @Param("page") Page page);
 
-    int queryCount(HouseInfoDTO houseInfoDTO);
+    int queryCount(HouseInfoAdDTO houseInfoAdDTO);
 
     List<RentContent> queryRentContent(@Param("houseId") Integer houseId);
 
@@ -50,7 +50,7 @@ public interface HouseInfoMapper {
 
     List<HouseInfo> queryExam(@Param("houseInfoDTO")HouseInfoDTO houseInfoDTO,@Param("page") Page page);
 
-    void checkSuccess(HouseInfo houseInfo);
+    void check(HouseInfo houseInfo);
 
     HouseInfo queryHouseInfoByHouseId(@Param("houseId") Integer houseId);
 
@@ -59,4 +59,7 @@ public interface HouseInfoMapper {
     Double queryHousePrice(@Param("houseId") Integer houseId);
 
 
+    int queryHouseInfoByUserNameAndStatusCount(HouseInfo houseInfo);
+
+    List<HouseInfo> queryHouseInfoByUserNameAndStatus(@Param("houseInfo") HouseInfo houseInfo, @Param("page") Page page);
 }

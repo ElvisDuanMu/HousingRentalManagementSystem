@@ -62,11 +62,6 @@
             <!-- 菜单导航栏 -->
             <div class="menu fl cf">
                 <a alt="" title="" href="http://www.hizhu.com/shanghai/">首页</a>
-                <a alt="区域找房" title="区域找房" href="#">区域找房</a>
-                <a alt="地铁找房" title="地铁找房" href="#">地铁找房</a>
-                <a alt="地图找房" title="地图找房" href="#">地图找房</a>
-                <a alt="乐租APP下载" title="乐租APP下载" id="app" href="javascript:;" rel="nofollow">APP下载</a>
-                <a alt="乐租帮" title="乐租帮" href="#" target="_blank">乐租帮</a>
             </div>
         </div>
     </section>
@@ -85,32 +80,9 @@
     </div>
     <!-- 搜索框 -->
     <div class="input_wrapper cf">
-        <!-- 选择搜索条件 -->
-        <div class="search_condition fl">
-            <a alt="全部房源" title="全部房源" href="javascript:;" id="js_select">全部</a>
-            <i class="triangle_b"></i>
-            <div class="search_c_list">
-                <span data-housetype-id="0" class="cur">全部</span>
-                <span data-housetype-id="9">整租</span>
-                <span data-housetype-id="10">合租</span>
-                <span data-housetype-id="11">公寓</span>
-            </div>
-        </div>
-        <input type="hidden" id="js_housetype_val" value="0">
-        <!-- 搜索框 -->
-        <input class="input_box" id="input_box" type="text" placeholder="输入地址、写字楼、园区或地铁站">
-        <!-- 马上找房按钮 -->
-        <a alt="点击找房" title="点击找房" id="" class="icon" href="#">马上找房</a>
-        <!-- 搜索结果 -->
-        <div class="search_result">
 
-        </div>
-        <!-- 历史记录 -->
-        <div class="history">
-            <p class="his_title"><span>搜索历史</span><span class="clearhistory">清除记录</span></p>
-            <ul class="history_main">
-            </ul>
-        </div>
+
+
     </div>
     <input type="hidden" id="index_city" value="001009001">
 </section>

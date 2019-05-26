@@ -105,7 +105,7 @@
                 <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
                 <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
                 <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
-                <li><a href="">报障信息</a></li>
+                <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
                 <li><a href="">编辑资料</a></li>
             </ul>
         </div>
@@ -164,7 +164,7 @@
 
     <%--申请工具条--%>
     <script type="text/html" id="applicationBar" >
-        <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="index">查看</a>
+        <a class="layui-btn layui-btn layui-btn-xs " lay-event="view">查看</a>
         <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="undo">撤销</a>
     </script>
 
@@ -350,6 +350,51 @@
                {
                    window.location.href= '${ctx}/user/contract/' + username;
                }
+            }
+
+
+        });
+
+        //监听我的申请工具条
+        table.on('tool(applicationListInfo)',function (obj) {
+            var data = obj.data;
+
+            //查看合同
+            if(obj.event === 'view'){
+                window.location.href= '${ctx}/house/houseDetail/' + data.houseId;
+            }
+
+            //撤销活动
+            if(obj.event === 'undo'){
+                layer.confirm('确定撤销？',function () {
+
+                    //添加报障信息
+                    $.ajax({
+                        url:'${ctx}/house/undoApplication/' + data.id
+                        ,type: 'post'
+                        ,success:function (msg) {
+                            if (msg.code == 200){
+                                layer.msg('撤销成功', {
+                                    icon: 6,
+                                    time: 1000
+                                }, function(){
+                                    layer.load();
+                                    setTimeout(function(){
+                                        layer.closeAll();
+                                        table.reload('applicationListInfo',{
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }});
+                                    }, 1500);
+                                });
+                            }else {
+                                layer.msg("操作失败",{icon:5});
+                            }
+
+                        }
+                    })
+
+                })
             }
 
 

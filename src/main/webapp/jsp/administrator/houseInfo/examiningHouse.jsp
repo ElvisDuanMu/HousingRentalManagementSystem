@@ -29,6 +29,22 @@
     <jsp:include page="/jsp/common/footer.jsp" />
 </div>
 
+<div class="layui-form" id="addRejectMsg" style="display: none; margin: 70px  50px;">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">原因</label>
+        <div class="layui-input-inline" style="width: 650px; ">
+            <textarea id="content"  lay-verify="required" placeholder="请输入原因" class="layui-textarea" ></textarea>
+        </div>
+
+    </div>
+    <div class="layui-form-item" >
+        <button class="layui-btn" lay-submit lay-filter="submit" style="margin-left: 100px; margin-top: 20px; width: 100px;">提交</button>
+    </div>
+</div>
+
+<input type="hidden" id="username" value="${sessionScope.AdUserName}">
+
 <%--弹出房源详细信息--%>
 <div class="layui-form" id="popDetailMsg" style="display: none; margin: 70px  50px;">
     <input type="hidden" id="houseId" >
@@ -335,6 +351,8 @@
         var $ = layui.jquery;
         var layer = layui.layer;
 
+        var username = $('#username').val();
+
         //表格
         var tableIns = table.render({
             elem:'#tableSettings',
@@ -495,6 +513,7 @@
                     }
                 })
             }
+            //审核通过
             if (obj.event === 'accept'){
                 layer.open({
                     type:0,
@@ -533,11 +552,57 @@
                     }
 
                 })
+            }
 
+            //审核未通过
+            if (obj.event === 'error'){
+                layer.open({
+                    type: 1,
+                    title: '审核未通过信息',
+                    area:['1000px','400px'],
+                    content:$("#addRejectMsg"),
+                    success:function () {
+                        form.on('submit(submit)',function () {
+                            layer.confirm('确定？',function () {
+                                var obj = {
+                                    houseId: data.houseId,
+                                    examName : username,
+                                    examInfo  :  $('#content').val().trim()
+                                };
 
+                                //更新不通过原因
+                                $.ajax({
+                                    url:'${ctx}/house/checkDefeat'
+                                    ,type: 'post'
+                                    ,contentType: 'application/json'
+                                    ,data: JSON.stringify(obj)
+                                    ,success:function (msg) {
+                                        if (msg.code == 200){
+                                            layer.msg('操作成功', {
+                                                icon: 6,
+                                                time: 1000
+                                            }, function(){
+                                                layer.load();
+                                                setTimeout(function(){
+                                                    layer.closeAll();
+                                                    table.reload('tableSettings',{
+                                                        page: {
+                                                            curr: 1 //重新从第 1 页开始
+                                                        }});
+                                                }, 1500);
+                                            });
+                                        }else {
+                                            layer.msg("操作失败",{icon:5});
+                                        }
 
+                                    }
+                                })
 
+                            })
+                        });
 
+                    }
+                })
             }
         });
 

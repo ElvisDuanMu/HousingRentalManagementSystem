@@ -93,4 +93,14 @@ public class HouseSettingsServiceImpl implements HouseSettingsService {
     public List<Identity> queryAllIdentity() {
         return houseSettingMapper.queryAllIdentity();
     }
+
+    @Override
+    public List<HouseStatus> queryAllHouseStatus() {
+        return houseSettingMapper.queryAllHouseStatus();
+    }
+
+    @Override
+    public List<CheckStatus> queryAllCheckStatus() {
+        return houseSettingMapper.queryAllCheckStatus();
+    }
 }
