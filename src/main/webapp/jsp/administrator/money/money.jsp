@@ -35,7 +35,7 @@
         <%--记录管理员姓名--%>
         <input id="devName" type="hidden" value="${sessionScope.AdUserName}">
 
-        <div class="layui-form" style="padding: 20px; margin-top: 50px;">
+        <div class="layui-form " style="padding: 20px; margin-top: 50px;">
             <div class="layui-form-item">
                 <label class="layui-form-label">省/直辖市</label>
                 <div class="layui-input-inline" >
@@ -77,10 +77,13 @@
                 </div>
 
             </div>
-            <button class="layui-btn" style="margin-left: 300px; width: 300px;" data-type="reload" id="searchBtn" >搜索</button>
+
+            <button class="layui-btn layui-inline" style="margin-left: 300px; width: 300px;" data-type="reload" id="searchBtn" >搜索</button>
+
         </div>
 
         <div  style="margin: 30px;">
+            <h2>总收入：<p  style="display: inline; font-size: 22px; color: #00a25a" ><cite id="total"></cite></p>&nbsp;&nbsp;元</h2>
             <table class="layui-hide" id="queryMoneyInfoList" lay-filter="queryMoneyInfoList"></table>
         </div>
     </div>
@@ -216,13 +219,37 @@
                 ,{field:'status', title: '状态',align: 'center'}
                 ,{field:'createTimeString',title:'创建时间',align: 'center'}
                 ,{field:'createBy',title:'负责人',align: 'center'}
-                ,{fixed: 'right', title:'操作', toolbar: '#queryBreakdownInfoListBar',align:'center', width:200}
             ]],
             page:true,
             limits:[5,10,15],
-            limit:5
+            limit:5,
+            done: function(res, curr, count) {
+                totalMoney();
+
+            }
         });
 
+        function totalMoney(){
+            var obj ={
+                provinceCode : $('#province').val(),
+                cityCode : $('#city').val(),
+                districtCode : $('#district').val(),
+                checkBy : $('#checkBy').val().trim(),
+                startCreateDateString  : $('#startCreateDate').val(),
+                endCreateDateString : $('#endCreateDate').val()
+            };
+            $.ajax({
+                url: '${ctx}/money/totalMoney',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (data ) {
+                    console.log(data.money);
+                    $('#total').html(data.money);
+
+                }
+            })
+        }
 
 
 

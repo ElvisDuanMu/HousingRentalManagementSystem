@@ -585,7 +585,7 @@
                                                 layer.load();
                                                 setTimeout(function(){
                                                     layer.closeAll();
-                                                    table.reload('tableSettings',{
+                                                    table.reload('message',{
                                                         page: {
                                                             curr: 1 //重新从第 1 页开始
                                                         }});

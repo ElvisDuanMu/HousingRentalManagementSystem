@@ -19,22 +19,7 @@
                     <div class="fl">
                         <ul>
                             <li>
-                                <a class="" href="#">二手房</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">新房</a>
-                            </li>
-                            <li>
                                 <a class="" href="#">租房</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">海外</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">小区</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">经纪人</a>
                             </li>
                             <li class="hover">
                                 <a class="" href="#">
@@ -52,17 +37,9 @@
                                     </dd>
                                 </div>
                             </li>
-                            <li>
-                                <a class="" href="#">房价</a>
-                            </li>
-                            <li>
-                                <a class="" href="#" target="_blank">工具</a>
-                            </li>
+
                             <li>
                                 <a class="" href="${ctx}/user/toPublishing" target="_blank">发布房源</a>
-                            </li>
-                            <li>
-                                <a class="" href="#" target="_blank">企业汇</a>
                             </li>
                         </ul>
                     </div>
@@ -83,7 +60,8 @@
     </header>
     <div class="user-main">
         <div class="main-left fl">
-            <div class="name">
+            <div style="height: 80px; width: 80px; margin: 0 auto;" >
+                <img src="${ctx}${sessionScope.userImg}" style="width: 80px ;height: 80px;">
             </div>
             <div class="user-name" style="padding: 15px 0 5px 0;">欢迎你，${sessionScope.Username} </div>
             <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
@@ -94,12 +72,12 @@
                 <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
                 <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
                 <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-                <li><a href="">编辑资料</a></li>
+                <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
             </ul>
         </div>
         <div class="main-right fr">
             <div id="allList">
-                <div class="title">您关注的房源/小区最新动态</div>
+                <div class="title">优秀房源推荐</div>
 
                 <div class="save-list" node-type="list"></div>
             </div>
@@ -114,10 +92,31 @@
             <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;color: #888c8e;">京公网安备 11010802024019号</p>
         </a></div>
     </div>
-
-
-
-
     </body>
 </head>
+
+<script src="${ctx}/static/js/jquery-2.1.4.min.js"></script>
+
+<script src="${ctx}/static/plugins/layui/layui.js" ></script>
+<script>
+
+
+    layui.use(['form', 'laypage', 'jquery', 'slider','util','element','layer'], function () {
+        var form = layui.form;
+        var laypage = layui.laypage;
+        var $ = layui.jquery;
+        var slider = layui.slider;
+        var util = layui.util;
+        var element = layui.element;
+        var layer = layui.layer;
+
+
+
+    });
+
+
+
+
+</script>
+
 </html>

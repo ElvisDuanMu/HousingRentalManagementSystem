@@ -1,10 +1,14 @@
 package com.dlu.controller;
 
 import com.dlu.dto.AdministratorLoginDTO;
+import com.dlu.dto.QueryMoneyDTO;
+import com.dlu.dto.QueryUserDTO;
 import com.dlu.pojo.*;
 import com.dlu.service.AdministratorService;
 import com.dlu.service.HouseSettingsService;
 import com.dlu.service.RegionService;
+import com.dlu.service.UserService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +32,8 @@ public class AdministratorController {
     private HouseSettingsService houseSettingsService;
     @Autowired
     private RegionService regionService;
+    @Autowired
+    private UserService userService;
 
 
     @RequestMapping("loginChecking")
@@ -234,13 +240,89 @@ public class AdministratorController {
         return "administrator/breakdown/checkBreakdown";
     }
 
-
+    /**
+     * 跳转到租金管理界面
+     * @param model
+     * @return
+     */
     @RequestMapping("/{name}/toQueryMoney")
     public String toQueryMoney(Model model){
         //查询所有的省
         List<Province> provinceList = regionService.queryAllProvince();
         model.addAttribute("province",provinceList);
         return "administrator/money/money";
+    }
+
+    /**
+     * 跳转到数据分析界面
+     * @return
+     */
+    @RequestMapping("/{name}/toAnalysis")
+    public String toAnalysis(Model model){
+        //查询所有的省
+        List<Province> provinceList = regionService.queryAllProvince();
+        model.addAttribute("province",provinceList);
+        return "administrator/analysis/analysis";
+    }
+
+    /**
+     * 跳转到用户管理界面
+     * @return
+     */
+    @RequestMapping("/{name}/toUser")
+    public String toUser(){
+        return "administrator/user/userMsg";
+    }
+
+    /**
+     * 查询用户列表
+     * @param queryUserDTO
+     * @param page
+     * @return
+     */
+    @RequestMapping("queryUser")
+    @ResponseBody
+    public String queryUser(QueryUserDTO queryUserDTO,Page page){
+        int start = page.getLimit()*(page.getPage()-1) ;
+        page.setStart(start);
+        int count = userService.queryUserCount(queryUserDTO);
+        List<User> list = userService.queryUser(queryUserDTO,page);
+        Gson gson = new Gson();
+        return gson.toJson(new PojoToJson("0","",String.valueOf(count),list));
+    }
+
+    /**
+     * 管理员取消封停
+     * @param id
+     * @return
+     */
+    @RequestMapping("/cancel/{id}")
+    @ResponseBody
+    public Map<String,Integer> cancel(@PathVariable("id") Integer id){
+        Map<String,Integer> map = new HashMap<>();
+        User user = new User();
+        user.setUserId(id);
+        user.setUserStatus("激活");
+        userService.updateStatus(user);
+        map.put("code",200);
+        return map;
+    }
+
+    /**
+     * 管理员封停账号
+     * @param id
+     * @return
+     */
+    @RequestMapping("/ban/{id}")
+    @ResponseBody
+    public Map<String,Integer> ban(@PathVariable("id") Integer id){
+        Map<String,Integer> map = new HashMap<>();
+        User user = new User();
+        user.setUserId(id);
+        user.setUserStatus("封停");
+        userService.updateStatus(user);
+        map.put("code",200);
+        return map;
     }
 
 

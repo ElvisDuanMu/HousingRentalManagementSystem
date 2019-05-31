@@ -98,7 +98,7 @@
 
 
         <div class="layui-upload" style="margin-top: 80px;">
-
+            <a href="${ctx}/user/index/${sessionScope.Username}">返回到我的页面</a>
 
         </div>
 

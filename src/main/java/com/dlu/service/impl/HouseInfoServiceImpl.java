@@ -126,5 +126,35 @@ public class HouseInfoServiceImpl implements HouseInfoService {
         return houseInfoMapper.queryHouseInfoByUserNameAndStatus(houseInfo,page);
     }
 
+    @Override
+    public void updateHouseInfo(HouseInfoDTO houseInfoDTO) {
+        houseInfoMapper.updateHouseInfo(houseInfoDTO);
+    }
+
+    @Override
+    public void deleteHouseIdAndContentId(Integer houseId) {
+        houseInfoMapper.deleteHouseIdAndContentId(houseId);
+    }
+
+    @Override
+    public void deleteHouseIdAndFacilityId(Integer houseId) {
+        houseInfoMapper.deleteHouseIdAndFacilityId(houseId);
+    }
+
+    @Override
+    public List<HouseImg> queryAllImgContent(Integer houseId, Page page) {
+        return houseInfoMapper.queryAllImgContent(houseId,page);
+    }
+
+    @Override
+    public void deleteImg(Integer id) {
+        houseInfoMapper.deleteImg(id);
+    }
+
+    @Override
+    public List<HouseInfo> queryAnalysisPrice(Region region) {
+        return houseInfoMapper.queryAnalysisPrice(region);
+    }
+
 
 }

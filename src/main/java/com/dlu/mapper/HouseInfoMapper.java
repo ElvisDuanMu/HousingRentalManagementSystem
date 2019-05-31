@@ -62,4 +62,16 @@ public interface HouseInfoMapper {
     int queryHouseInfoByUserNameAndStatusCount(HouseInfo houseInfo);
 
     List<HouseInfo> queryHouseInfoByUserNameAndStatus(@Param("houseInfo") HouseInfo houseInfo, @Param("page") Page page);
+
+    void updateHouseInfo(HouseInfoDTO houseInfoDTO);
+
+    void deleteHouseIdAndContentId(Integer houseId);
+
+    void deleteHouseIdAndFacilityId(Integer houseId);
+
+    List<HouseImg> queryAllImgContent(@Param("houseId") Integer houseId, @Param("page") Page page);
+
+    void deleteImg(Integer id);
+
+    List<HouseInfo> queryAnalysisPrice(Region region);
 }

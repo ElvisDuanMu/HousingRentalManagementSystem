@@ -2192,7 +2192,49 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="452" parent="252" name="PRIMARY">
+    <column id="452" parent="252" name="user_img_rel_path">
+      <Position>6</Position>
+      <Comment>用户头像相对地址</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="453" parent="252" name="user_city">
+      <Position>7</Position>
+      <Comment>用户城市</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="454" parent="252" name="user_sex">
+      <Position>8</Position>
+      <Comment>用户性别</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="455" parent="252" name="user_email">
+      <Position>9</Position>
+      <Comment>用户email</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="456" parent="252" name="user_phone">
+      <Position>10</Position>
+      <Comment>用户电话</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="457" parent="252" name="user_qq">
+      <Position>11</Position>
+      <Comment>用户qq</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="458" parent="252" name="user_wechat">
+      <Position>12</Position>
+      <Comment>用户微信</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="459" parent="252" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>

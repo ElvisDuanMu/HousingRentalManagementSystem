@@ -12,27 +12,25 @@
     <link rel="stylesheet" href="${ctx}/static/plugins/layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
-<div class="layui-header">
-    <div class="layui-logo">房屋租赁</div>
+<div class="layui-header layui-bg-black" >
+    <div class="layui-logo" style="color: #ffffff">房屋租赁</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
-    <ul class="layui-nav layui-layout-right">
+    <ul class="layui-nav layui-layout-right ">
         <li class="layui-nav-item">
-            <a href="javascript:;">
-                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                ${sessionScope.AdUserName}
+            <a href="javascript:;" >
+                <p style="color: #ffffff">${sessionScope.AdUserName}</p>
             </a>
             <dl class="layui-nav-child">
                 <dd><a href="">基本资料</a></dd>
-                <dd><a href="">安全设置</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item"><a href="${ctx}/administrator/quit">退了</a></li>
+        <li class="layui-nav-item"><a href="${ctx}/administrator/quit">退出</a></li>
     </ul>
 </div>
-<div class="layui-side layui-bg-black">
+<div class="layui-side layui-bg-cyan">
     <div class="layui-side-scroll">
         <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-        <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <ul class="layui-nav layui-nav-tree "  lay-filter="test">
             <li class="layui-nav-item layui-nav-itemed">
                 <a href="javascript:;">房源信息</a>
                 <dl class="layui-nav-child">
@@ -45,6 +43,11 @@
                 <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toHouseSettings">查看房源设置</a></dd>
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toAddNewSetting">添加房源设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">房间设施</a>
+                <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toFacilitySetting">查看房间设施</a></dd>
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toAddFacility">添加房间设施</a></dd>
                 </dl>
@@ -70,6 +73,12 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
+                <a href="javascript:;">数据分析</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toAnalysis">房价分析</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
                 <a href="javascript:;">报障管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toQueryBreakdown">报障信息列表</a></dd>
@@ -77,10 +86,15 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="javascript:;">地区设置</a>
+                <a href="javascript:;">地区管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toRegionSettings">地区查询</a></dd>
-                    <dd><a href="">添加新的地区</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">用户管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toUser">用户查询</a></dd>
                 </dl>
             </li>
         </ul>

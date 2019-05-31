@@ -34,7 +34,7 @@
         <result property="detailAddress" column="detail_address" />
         <result property="examInfo" column="exam_info" />
         <association property="orientation" javaType="com.dlu.pojo.Orientation">
-            <result property="orientationId" column="renovation_id" />
+            <result property="orientationId" column="orientation_id" />
             <result property="orientationName" column="orientationName" />
         </association>
         <association property="leasing" javaType="com.dlu.pojo.Leasing">
@@ -54,7 +54,7 @@
             <result property="districtName" column="districtName" />
         </association>
         <association property="renovation" javaType="com.dlu.pojo.Renovation">
-            <result property="renovationId" column="province_code"/>
+            <result property="renovationId" column="renovation_id"/>
             <result property="renovationName" column="renovationName" />
         </association>
         <association property="inspection" javaType="com.dlu.pojo.Inspection">
@@ -109,7 +109,7 @@
         <result property="examInfo" column="exam_info" />
         <result property="detailAddress" column="detail_address" />
         <association property="orientation" javaType="com.dlu.pojo.Orientation">
-            <result property="orientationId" column="renovation_id" />
+            <result property="orientationId" column="orientation_id" />
             <result property="orientationName" column="orientationName" />
         </association>
         <association property="leasing" javaType="com.dlu.pojo.Leasing">
@@ -129,7 +129,7 @@
             <result property="districtName" column="districtName" />
         </association>
         <association property="renovation" javaType="com.dlu.pojo.Renovation">
-            <result property="renovationId" column="province_code"/>
+            <result property="renovationId" column="renovation_code"/>
             <result property="renovationName" column="renovationName" />
         </association>
         <association property="inspection" javaType="com.dlu.pojo.Inspection">
@@ -446,6 +446,7 @@
             <if test="examInfo != null and examInfo !=''">
                 ,exam_info = #{examInfo}
             </if>
+
         </trim>
         <where>
             <if test=" houseId != null">
@@ -459,6 +460,52 @@
         where house_id = #{houseId}
 
     </update>
+    <update id="updateHouseInfo">
+        update house_info
+        set house_name = #{houseName},
+            orientation_id = #{orientationId},
+            leasing_id = #{leasingId},
+            floor = #{floor},
+            total_floor = #{totalFloor},
+            address_community = #{addressCommunity},
+            address_building = #{addressBuilding},
+            address_unit = #{addressUnit},
+            address_room = #{addressRoom},
+            type_rooms = #{typeRooms},
+            type_halls = #{typeHalls},
+            type_bathrooms = #{typeBathrooms},
+            renovation_id = #{renovationId},
+            house_area = #{houseArea},
+            house_price = #{housePrice},
+            update_name = #{updateBy},
+            update_date = #{updateDate},
+            house_info = #{houseInfo},
+            inspection_id = #{inspectionId},
+            house_elevator = #{houseElevator},
+            house_status_id = #{houseStatusId},
+            house_park = #{housePark},
+            house_rentType_id = #{houseRentTypeId},
+            house_checktime = #{houseCheckTime},
+            house_people = #{housePeople},
+            contacts = #{contacts},
+            identity_id = #{identityId},
+            telephone = #{telephone},
+            check_status_id = #{checkStatusId}, pet=#{pet},
+            sex = #{sex}, detail_address = #{detailAddress}
+        where house_id = #{houseId}
+    </update>
+    <delete id="deleteHouseIdAndContentId">
+        delete from house_rent_content_association
+        where house_id = #{houseId}
+    </delete>
+    <delete id="deleteHouseIdAndFacilityId">
+        delete from  house_facility_association
+        where house_id = #{houseId}
+    </delete>
+    <delete id="deleteImg">
+        delete from house_img
+        where id = #{id}
+    </delete>
     <select id="queryHouseFaceImg" resultType="java.lang.Integer">
         select count(*)
         from house_img
@@ -886,6 +933,28 @@
             and t1.house_status_id = #{houseInfo.houseStatusId}
         </where>
         limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryAllImgContent" resultType="com.dlu.pojo.HouseImg">
+        select id, house_id, img_name, img_path, img_rel_path, img_type
+        from house_img
+        where house_id = #{houseId}
+        limit #{page.start},#{page.limit}
+    </select>
+    <select id="queryAnalysisPrice" resultType="com.dlu.pojo.HouseInfo">
+        select house_id,house_price
+        from house_info
+        <where>
+            <if test="provinceCode != null and provinceCode != ''">
+                and province_code = #{provinceCode}
+            </if>
+            <if test="cityCode != null and cityCode != ''">
+                and city_code = #{cityCode}
+            </if>
+            <if test="districtCode != null and districtCode != ''">
+                and district_code = #{districtCode}
+            </if>
+            and check_status_id = 2
+        </where>
     </select>
 
 

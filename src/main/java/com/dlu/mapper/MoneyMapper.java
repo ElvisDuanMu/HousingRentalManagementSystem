@@ -3,6 +3,7 @@ package com.dlu.mapper;
 import com.dlu.dto.MoneyDTO;
 import com.dlu.dto.QueryInfoDTO;
 import com.dlu.dto.QueryMoneyDTO;
+import com.dlu.pojo.Contract;
 import com.dlu.pojo.HouseTransferAssociation;
 import com.dlu.pojo.Money;
 import com.dlu.pojo.Page;
@@ -29,4 +30,6 @@ public interface MoneyMapper {
     int AdQueryMoneyCount(QueryMoneyDTO queryMoneyDTO);
 
     List<HouseTransferAssociation> AdQueryMoney(@Param("queryMoneyDTO") QueryMoneyDTO queryMoneyDTO, @Param("page") Page page);
+
+    List<Contract> queryTotalMoney(QueryMoneyDTO queryMoneyDTO);
 }

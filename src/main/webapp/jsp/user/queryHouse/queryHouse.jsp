@@ -180,7 +180,7 @@
                             <div class="layui-form-mid layui-word-aux">㎡</div>
                             <div class="layui-form-mid">-</div>
                             <div class="layui-input-inline" style="width: 80px;">
-                                <input id="area_max" type="text" name="area_max" value="1000" autocomplete="off"
+                                <input id="area_max" type="text" name="area_max" value="300" autocomplete="off"
                                        class="layui-input" readonly style="text-align: center">
                             </div>
                             <div class="layui-form-mid layui-word-aux">㎡</div>
@@ -200,7 +200,7 @@
                             <div class="layui-form-mid layui-word-aux">元</div>
                             <div class="layui-form-mid">-</div>
                             <div class="layui-input-inline" style="width: 80px;">
-                                <input id="price_max" type="text" name="area_max" value="100000" autocomplete="off"
+                                <input id="price_max" type="text" name="area_max" value="30000" autocomplete="off"
                                        class="layui-input" readonly style="text-align: center">
                             </div>
                             <div class="layui-form-mid layui-word-aux">元</div>
@@ -594,9 +594,9 @@
         slider.render({
             elem: '#area',  //绑定元素
             min: 0,
-            max: 1000,
+            max: 300,
             range: true,
-            value: [0, 1000],
+            value: [0, 300],
             step: 5,
             tips: true,
             setTips: function (value) { //自定义提示文本
@@ -614,9 +614,9 @@
         slider.render({
             elem: '#price',  //绑定元素
             min: 0,
-            max: 100000,
+            max: 30000,
             range: true,
-            value: [0, 100000],
+            value: [0, 30000],
             step: 500,
             tips: true,
             setTips: function (value) { //自定义提示文本

@@ -14,6 +14,9 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                <legend style="color: black; font-size: 20px;">地区查询</legend>
+            </fieldset>
             <div class="layui-form" >
 
                 <div class="layui-form-item">
@@ -40,8 +43,8 @@
                         </select>
                     </div>
                 </div>
-                <button class="layui-btn" data-type="reload" id="btn">搜索</button>
             </div>
+            <button class="layui-btn" data-type="reload" id="btn" style="margin-left: 100px;">搜索</button>
 
         </div>
         <div  style="margin: 30px;">
@@ -127,7 +130,7 @@
                     }
                 })
             }
-        })
+        });
         //市区联动end
 
 
@@ -141,7 +144,6 @@
                 ,{field:'cityName', title: '市名称',align: 'center'}
                 ,{field:'districtCode', title: '区代码',align: 'center'}
                 ,{field:'districtName', title: '区名称',align: 'center'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]],
             page:true,
             limits:[5,10,15],

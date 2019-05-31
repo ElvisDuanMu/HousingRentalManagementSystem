@@ -3,6 +3,7 @@ package com.dlu.service.impl;
 import com.dlu.dto.MoneyDTO;
 import com.dlu.dto.QueryMoneyDTO;
 import com.dlu.mapper.MoneyMapper;
+import com.dlu.pojo.Contract;
 import com.dlu.pojo.HouseTransferAssociation;
 import com.dlu.pojo.Money;
 import com.dlu.pojo.Page;
@@ -63,5 +64,10 @@ public class MoneyServiceImpl implements MoneyService {
     public List<HouseTransferAssociation> AdQueryMoney(QueryMoneyDTO queryMoneyDTO, Page page) {
         return moneyMapper.AdQueryMoney(queryMoneyDTO,page);
 
+    }
+
+    @Override
+    public List<Contract> queryTotalMoney(QueryMoneyDTO queryMoneyDTO) {
+        return moneyMapper.queryTotalMoney(queryMoneyDTO);
     }
 }

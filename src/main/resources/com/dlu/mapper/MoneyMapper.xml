@@ -155,6 +155,33 @@
     limit #{page.start},#{page.limit}
 
   </select>
+    <select id="queryTotalMoney" resultType="com.dlu.pojo.Contract">
+      select  t3.partA_intermediary_costs ,t3.partB_intermediary_costs
+      from house_transfer_association as t1
+      left join house_info as t2 on t1.house_id = t2.house_id
+      left join contract as t3 on t1.house_id = t3.house_id
+      left join provinces as t4 on t2.province_code = t4.province_code
+      left join cities as t5 on t2.city_code = t5.city_code
+      left join districts as t6 on t2.district_code = t6.district_code
+      <where>
+        <if test="provinceCode != null and provinceCode!=''">
+          and t2.province_code = #{provinceCode}
+        </if>
+        <if test="cityCode != null and cityCode !=''">
+          and t2.city_code = #{cityCode}
+        </if>
+        <if test="districtCode != null and districtCode != ''">
+          and t2.district_code = #{districtCode}
+        </if>
+        <if test="checkBy != null and checkBy !=''">
+          and t1.create_by = #{checkBy}
+        </if>
+        <if test="startCreateDate !=null and endCreateDate !=null">
+          and date_format(t1.create_time,'%Y-%m-%d') between date_format(#{startCreateDate},'%Y-%m-%d') and date_format(#{endCreateDate},'%Y-%m-%d')
+        </if>
+        and ( t1.status = '正在出租' or t1.status = '已结束' )
+      </where>
+    </select>
 
 
 </mapper>

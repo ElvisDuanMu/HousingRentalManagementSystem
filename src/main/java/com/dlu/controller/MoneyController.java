@@ -4,10 +4,7 @@ package com.dlu.controller;
 import com.dlu.dto.MoneyDTO;
 import com.dlu.dto.QueryInfoDTO;
 import com.dlu.dto.QueryMoneyDTO;
-import com.dlu.pojo.HouseTransferAssociation;
-import com.dlu.pojo.Money;
-import com.dlu.pojo.Page;
-import com.dlu.pojo.PojoToJson;
+import com.dlu.pojo.*;
 import com.dlu.service.HouseTransferService;
 import com.dlu.service.MoneyService;
 import com.google.gson.Gson;
@@ -175,7 +172,7 @@ public class MoneyController {
     @RequestMapping("/partAHasMoney")
     @ResponseBody
     public Map<String , Double> partAHasMoney(@RequestBody MoneyDTO moneyDTO) {
-
+        System.out.println((moneyDTO.getPartALoginName()));
         Double money = 0.0;
         List<Double> moneyList = moneyService.currentMoney(moneyDTO);
         if (moneyList.size() != 0){
@@ -228,7 +225,33 @@ public class MoneyController {
 
     }
 
-
+    /**
+     * 管理员多条件查询总收入
+     * @param
+     * @return
+     */
+    @RequestMapping("/totalMoney")
+    @ResponseBody
+    public Map<String,Double> totalMoney(@RequestBody QueryMoneyDTO queryMoneyDTO) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (queryMoneyDTO.getStartCreateDateString() != null && !queryMoneyDTO.getStartCreateDateString().equals("")){
+            queryMoneyDTO.setStartCreateDate(simpleDateFormat.parse(queryMoneyDTO.getStartCreateDateString()));
+        }
+        if (queryMoneyDTO.getEndCreateDateString() != null && !queryMoneyDTO.getEndCreateDateString().equals("")){
+            queryMoneyDTO.setEndCreateDate(simpleDateFormat.parse(queryMoneyDTO.getEndCreateDateString()));
+        }
+        Double money = 0.0;
+        List<Contract> moneyList = moneyService.queryTotalMoney(queryMoneyDTO);
+        if (moneyList.size() != 0){
+            for (Contract d:moneyList) {
+               money = money + d.getPartAIntermediaryCosts() + d.getPartBIntermediaryCosts();
+            }
+        }
+        Map<String,Double> map = new HashMap<>();
+        map.put("money",money);
+        System.out.println(money);
+        return map;
+    }
 
 
 }

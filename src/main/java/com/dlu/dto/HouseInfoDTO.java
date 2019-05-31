@@ -83,6 +83,38 @@ public class HouseInfoDTO {
 
     private Integer houseStatusId;
 
+    private String updateBy;
+
+    private Date updateDate;
+
+    private Date updateDateString;
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+
+
+    public Date getUpdateDateString() {
+        return updateDateString;
+    }
+
+    public void setUpdateDateString(Date updateDateString) {
+        this.updateDateString = updateDateString;
+    }
+
     public Integer getHouseStatusId() {
         return houseStatusId;
     }

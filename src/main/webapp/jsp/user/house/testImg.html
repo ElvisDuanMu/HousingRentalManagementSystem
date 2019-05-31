@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery提供两种点击图片放大效果</title>
+<link href="css/css.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<!-- 代码 开始 -->
+<div id="content">
+	<a class="example1" href="images/d2.jpg"><img src="images/x2.jpg" /></a>
+    <a class="example1" href="images/d1.jpg"><img src="images/x1.jpg" /></a>
+    <br /><br />
+	<a class="example2" href="images/d3.jpg"><img src="images/x3.jpg" /></a>
+    <a class="example2" href="images/d4.jpg"><img src="images/x4.jpg" /></a>
+</div>
+
+<script src="js/jqueryLibrary.min.js"></script>
+<script src="js/jquery.imgbox.pack.js"></script>
+<script>
+$(function(){
+	$(".example1").imgbox();
+	$(".example2").imgbox({
+		'speedIn'		: 0,
+		'speedOut'		: 0,
+		'alignment'		: 'center',
+		'overlayShow'	: true,
+		'allowMultiple'	: false
+	});
+});
+</script>
+<!-- 代码 结束 -->
+</body>
+</html>

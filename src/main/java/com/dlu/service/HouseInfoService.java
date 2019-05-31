@@ -54,4 +54,16 @@ public interface HouseInfoService {
     int queryHouseInfoByUserNameAndStatusCount(HouseInfo username);
 
     List<HouseInfo> queryHouseInfoByUserNameAndStatus(HouseInfo houseInfo, Page page);
+
+    void updateHouseInfo(HouseInfoDTO houseInfoDTO);
+
+    void deleteHouseIdAndContentId(Integer houseId);
+
+    void deleteHouseIdAndFacilityId(Integer houseId);
+
+    List<HouseImg> queryAllImgContent(Integer houseId, Page page);
+
+    void deleteImg(Integer id);
+
+    List<HouseInfo> queryAnalysisPrice(Region region);
 }

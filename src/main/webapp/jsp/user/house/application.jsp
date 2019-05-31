@@ -93,7 +93,8 @@
   <body>
     <div class="user-main">
         <div class="main-left fl">
-            <div class="name">
+            <div style="height: 80px; width: 80px; margin: 0 auto;" >
+                <img src="${ctx}${sessionScope.userImg}" style="width: 80px ;height: 80px;">
             </div>
             <div class="user-name" style="padding: 15px 0 5px 0;">欢迎你，${sessionScope.Username} </div>
             <%--存登陆人--%>
@@ -106,13 +107,13 @@
                 <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
                 <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
                 <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-                <li><a href="">编辑资料</a></li>
+                <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
             </ul>
         </div>
         <div class="main-right fr" style="min-height: 600px;">
             <div id="allList">
                 <%--标题--%>
-                <div class="title">您的房源信息</div>
+                <div class="title">您的申请信息</div>
                 <%--内容--%>
                 <div>
                     <%--选项卡--%>

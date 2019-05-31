@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dlu.mapper.UserMapper">
+    <insert id="addNewUser">
+        insert into user(user_login_name,user_password,user_nickname,user_status,user_img_rel_path,user_email)
+        values (#{userLoginName},#{userPassword},#{userNickname},#{userStatus},#{userImgRelPath},#{userEmail})
+    </insert>
+    <update id="updateMsg">
+        update user
+        <trim prefixOverrides="," prefix="set ">
+            <if test="userNickname != null and userNickname != ''">
+                ,user_nickname = #{userNickname}
+            </if>
+            <if test="userSex != null and userSex != '' ">
+                ,user_sex = #{userSex}
+            </if>
+            <if test="userEmail != null and userEmail!= ''">
+                ,user_email = #{userEmail}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                ,user_phone =#{userPhone}
+            </if>
+            <if test="userQq != null and userQq!= ''">
+                ,user_qq = #{userQq}
+            </if>
+            <if test="userWechat != null and userWechat!= ''">
+                ,user_wechat = #{userWechat}
+            </if>
+        </trim>
+        where user_login_name = #{userLoginName}
+    </update>
+    <update id="updatePassword">
+        update user
+        set user_password = #{password}
+        where user_login_name = #{userLoginName}
+    </update>
+    <update id="updateImg">
+        update user
+        set user_img_rel_path = #{relLocation}
+        where user_login_name = #{username}
+    </update>
+    <update id="updateStatus">
+        update user
+        set user_status = #{userStatus}
+        where user_id = #{userId}
+    </update>
 
     <select id="queryByNamePwd" resultType="com.dlu.pojo.User">
-        select user_login_name,user_password
+        select user_login_name,user_password,user_status
         from user
         <where>
             <if test="userLoginName != null and userLoginName != ''">
@@ -12,5 +55,76 @@
         </where>
 
 
+    </select>
+    <select id="queryImgByName" resultType="java.lang.String">
+        select user_img_rel_path
+        from user
+        where user_login_name=#{userLoginName}
+    </select>
+    <select id="queryLoginName" resultType="java.lang.Integer">
+        select count(*)
+        from  user
+        where user_login_name = #{userLoginName}
+    </select>
+    <select id="queryEmail" resultType="java.lang.Integer">
+        select count(*)
+        from  user
+        where user_email = #{email}
+    </select>
+    <select id="queryViewMessage" resultType="com.dlu.pojo.User">
+        select user_id, user_login_name, user_password, user_nickname, user_status, user_img_rel_path, user_city, user_sex, user_email, user_phone, user_qq, user_wechat
+        from user
+        where user_login_name = #{name}
+    </select>
+    <select id="queryQQ" resultType="java.lang.Integer">
+        select count(*)
+        from  user
+        where user_qq = #{userQq} and user_login_name != #{userLoginName}
+    </select>
+    <select id="queryWechat" resultType="java.lang.Integer">
+        select count(*)
+        from  user
+        where user_wechat = #{userWechat} and user_login_name != #{userLoginName}
+    </select>
+    <select id="queryPhone" resultType="java.lang.Integer">
+         select count(*)
+        from  user
+        where  user_phone = #{userPhone} and user_login_name != #{userLoginName}
+    </select>
+    <select id="queryEmailCount" resultType="java.lang.Integer">
+        select count(*)
+        from  user
+        where user_email = #{userEmail} and user_login_name != #{userLoginName}
+    </select>
+    <select id="queryPassword" resultType="java.lang.String">
+        select user_password
+        from user
+        where user_login_name = #{userLoginName}
+    </select>
+    <select id="queryUserCount" resultType="java.lang.Integer">
+        select count(*)
+        from user
+        <where>
+            <if test="userLoginName !=null and userLoginName !=''">
+                and user_login_name = #{userLoginName}
+            </if>
+            <if test="status !=null and status !=''">
+                and user_status = #{status}
+            </if>
+
+        </where>
+    </select>
+    <select id="queryUser" resultType="com.dlu.pojo.User">
+        select user_id, user_login_name, user_password, user_nickname, user_status, user_sex, user_email, user_phone, user_qq, user_wechat
+        from user
+        <where>
+            <if test="queryUserDTO.userLoginName !=null and queryUserDTO.userLoginName !=''">
+                and user_login_name = #{queryUserDTO.userLoginName}
+            </if>
+            <if test="queryUserDTO.status !=null and queryUserDTO.status !=''">
+                and user_status = #{queryUserDTO.status}
+            </if>
+        </where>
+        limit #{page.start},#{page.limit}
     </select>
 </mapper>
