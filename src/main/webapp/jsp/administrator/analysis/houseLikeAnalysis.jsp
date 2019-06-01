@@ -66,9 +66,9 @@
 
             <div  style="margin-left: 37px; margin-top: 30px;">
                 <div class="layui-card" style="width: 1600px;">
-                    <div class="layui-card-header">房源热度分布图</div>
+                    <div class="layui-card-header">房源热度折线图</div>
                     <div class="layui-card-body">
-                        <div class="layui-carousel" id="houseLikeLineChart"  style="width: 100%; height: 500px;">
+                        <div class="layui-carousel" id="houseLikeLineChart"  style="width: 100%; height: 400px;">
 
                         </div>
 
@@ -76,16 +76,16 @@
                     </div>
                 </div>
 
-                <%--<div class="layui-card">--%>
-                <%--<div class="layui-card-header">堆积折线图</div>--%>
-                <%--<div class="layui-card-body">--%>
+                <div class="layui-card" style="width: 1600px;">
+                <div class="layui-card-header">房源热度分布图</div>
+                <div class="layui-card-body">
 
-                <%--<div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">--%>
+                <div class="layui-carousel " id="houseLikeMap" style="width: 100%; height: 800px;">
 
-                <%--</div>--%>
+                </div>
 
-                <%--</div>--%>
-                <%--</div>--%>
+                </div>
+                </div>
 
             </div>
         </div>
@@ -99,7 +99,7 @@
 
 
 <script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>
-<script src="${ctx}/static/js/echarts.min.js" charset="UTF-8" ></script>
+<script src="${ctx}/static/plugins/incubator-echarts-4.2.1/dist/echarts.js" charset="UTF-8" ></script>
 
 <script>
     //JavaScript代码区域
@@ -175,8 +175,9 @@
 
         //关联表
         var  houseLikeLineChart = echarts.init(document.getElementById('houseLikeLineChart'));
-
-
+        houseLikeLineChart.showLoading();
+        var houseLikeMap = echarts.init(document.getElementById('houseLikeMap'));
+        houseLikeMap.showLoading();
 
         //检测搜索按钮
         $('#searchBtn').click(function () {
@@ -205,6 +206,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(obj),
                 success: function (data ) {
+                    houseLikeLineChart.hideLoading();
                     var district = [];
                     var count = [];
 
@@ -217,7 +219,23 @@
 
 
                     var option = {
-
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'cross',
+                                crossStyle: {
+                                    color: '#999'
+                                }
+                            }
+                        },
+                        toolbox: {
+                            feature: {
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
                         xAxis: [
                             {
                                 type: 'category',
@@ -252,13 +270,98 @@
 
                         ]
                     };
-
+                    //折线图绘制
                     houseLikeLineChart.setOption(option,true);
+
+                    //绘制地图
+                    var provinceCode = $('#province').val();
+                    var cityCode = $('#city').val();
+                    //城市存在，利用区
+                    if(cityCode != '' && cityCode !=null){
+
+                        $.getJSON("${ctx}/static/plugins/echarts_map/china-city/geojson/" + cityCode +".json", function(geoJson) {
+                            houseLikeMap.hideLoading();
+                            createMap(district,count,geoJson);
+
+                        });
+                    }else if (provinceCode != '' && provinceCode !=null){
+
+                        $.getJSON("${ctx}/static/plugins/echarts_map/china-province/geojson/" + provinceCode +".json", function(geoJson) {
+                            houseLikeMap.hideLoading();
+                            createMap(district,count,geoJson);
+
+                        });
+                    }else {
+
+                    }
+
+
+
+
+
+
                 }
             })
         });
 
 
+        function createMap(district,count,geoJson) {
+            echarts.registerMap('mapData', geoJson);
+
+            var houseData = [];
+            for (var i = 0 ; i<district.length ; i++){
+                var houseOne = {
+                    name: district[i],
+                    value : count[i]
+                };
+                houseData.push(houseOne);
+            }
+
+            houseLikeMap.setOption(option = {
+                title: {
+                    text: '房屋热度分布'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}<br/>{c} (套)'
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        dataView: {readOnly: false},
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                visualMap: {
+                    min: 0,
+                    max: 10,
+                    text:['High','Low'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['#2828FF','#FFFB13', '#ED2B2B']
+                    }
+                },
+                series: [
+                    {
+                        name: '房屋热度分布',
+                        type: 'map',
+                        mapType: 'mapData', // 自定义扩展图表类型
+                        itemStyle:{
+                            normal:{label:{show:true}},
+                            emphasis:{label:{show:true}}
+                        },
+                        data:houseData
+
+
+                    }
+                ]
+            });
+        }
 
 
     });

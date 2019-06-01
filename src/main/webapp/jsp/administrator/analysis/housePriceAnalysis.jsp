@@ -164,7 +164,7 @@
 
         //关联表
         var  housePriceLineColumnChart = echarts.init(document.getElementById('housePriceLineColumnChart'));
-
+        housePriceLineColumnChart.showLoading();
 
 
         //检测搜索按钮
@@ -194,6 +194,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(obj),
                 success: function (data ) {
+                    housePriceLineColumnChart.hideLoading();
                     var district = [];
                     var maxPrice = [];
                     var minPrice = [];

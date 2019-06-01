@@ -645,7 +645,6 @@
                 ,{field:'startTimeString', title: '开始日期',align: 'center'}
                 ,{field:'endTimeString', title: '结束日期',align: 'center'}
                 ,{field:'createTimeString', title: '创建日期',align: 'center'}
-                ,{fixed: 'right', title:'操作', toolbar: '#endHouseListInfoBar',align:'center', width:150}
             ]],
             page:true,
             limits:[5,10,15],
@@ -1033,6 +1032,28 @@
                 window.location.href = '${ctx}/house/houseDetail/' + data.houseId
             }
         });
+
+        //监听已出租的房源工具条
+        table.on('tool(rentedHouseListInfo)',function (obj) {
+            var data = obj.data;
+
+            //查看房源信息
+            if(obj.event === 'view'){
+                window.location.href = '${ctx}/house/houseDetail/' + data.houseId
+            }
+        });
+
+        //监听租到的的房源工具条
+        table.on('tool(alreadyRentedHouseListInfo)',function (obj) {
+            var data = obj.data;
+
+            //查看房源信息
+            if(obj.event === 'view'){
+                window.location.href = '${ctx}/house/houseDetail/' + data.houseId
+            }
+        });
+
+
 
         //验证判别
         var check1 = true;
