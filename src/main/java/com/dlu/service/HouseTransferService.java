@@ -5,6 +5,7 @@ import com.dlu.dto.HouseTransferDTO;
 import com.dlu.dto.MoneyDTO;
 import com.dlu.pojo.HouseTransferAssociation;
 import com.dlu.pojo.Page;
+import com.dlu.pojo.Region;
 
 import java.util.List;
 
@@ -37,4 +38,6 @@ public interface HouseTransferService {
     List<HouseTransferAssociation> queryEndHouseByPartNameAndStatus(String name, String status, Page page);
 
     void updateStatus(HouseTransferAssociation houseTransferAssociation);
+
+    Integer queryDistrictCount(Region regionQuery);
 }

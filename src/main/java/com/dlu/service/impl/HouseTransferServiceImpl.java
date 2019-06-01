@@ -5,6 +5,7 @@ import com.dlu.dto.MoneyDTO;
 import com.dlu.mapper.HouseTransferAssociationMapper;
 import com.dlu.pojo.HouseTransferAssociation;
 import com.dlu.pojo.Page;
+import com.dlu.pojo.Region;
 import com.dlu.service.HouseTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,6 +82,11 @@ public class HouseTransferServiceImpl implements HouseTransferService {
     @Override
     public void updateStatus(HouseTransferAssociation houseTransferAssociation) {
         houseTransferAssociationMapper.updateStatus(houseTransferAssociation);
+    }
+
+    @Override
+    public Integer queryDistrictCount(Region regionQuery) {
+        return houseTransferAssociationMapper.queryDistrictCount(regionQuery);
     }
 
 

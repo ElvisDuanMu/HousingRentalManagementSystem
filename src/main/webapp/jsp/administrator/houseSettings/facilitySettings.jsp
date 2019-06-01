@@ -13,7 +13,10 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;">
+        <div style="padding: 20px;">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                <legend style="color: black; font-size: 20px;">查看房间设施</legend>
+            </fieldset>
             <div  style="margin: 30px;">
                 <table class="layui-hide" id="tableSettings" lay-filter="test" ></table>
             </div>

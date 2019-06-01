@@ -26,6 +26,8 @@ public class ShowHouseDTO {
 
     private String[] teSe;
 
+    private String address;
+
     //当前页码值
     private Integer page;
 
@@ -37,6 +39,7 @@ public class ShowHouseDTO {
 
     //tab值
     private Integer tabValue;
+
 
 
 
@@ -162,6 +165,14 @@ public class ShowHouseDTO {
         this.tabValue = tabValue;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "ShowHouseDTO{" +
@@ -176,6 +187,7 @@ public class ShowHouseDTO {
                 ", houseAreaMin='" + houseAreaMin + '\'' +
                 ", houseAreaMax='" + houseAreaMax + '\'' +
                 ", teSe=" + Arrays.toString(teSe) +
+                ", address='" + address + '\'' +
                 ", page=" + page +
                 ", limit=" + limit +
                 ", tabIndex=" + tabIndex +

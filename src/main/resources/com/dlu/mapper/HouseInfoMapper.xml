@@ -712,6 +712,9 @@
             <if test="houseInfo.housePark != null and houseInfo.housePark != ''">
                 and t1.house_park = #{houseInfo.housePark}
             </if>
+            <if test="houseInfo.address != null and houseInfo.address!= ''">
+                and (t1.address_community = #{houseInfo.address} or t1.detail_address like concat('%',#{houseInfo.address},'%') )
+            </if>
             <if test="tab.tabIndex == 1">
                 order by t1.create_date DESC
             </if>
@@ -784,7 +787,9 @@
             <if test="housePark != null and housePark != ''">
                 and t1.house_park = #{housePark}
             </if>
-
+            <if test="address != null and address!= ''">
+                and (t1.address_community = #{address} or t1.detail_address like concat('%',#{address},'%') )
+            </if>
         </where>
     </select>
     <select id="queryExamCount" resultType="java.lang.Integer">

@@ -75,7 +75,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">数据分析</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toAnalysis">房价分析</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toHousePriceAnalysis">房价分析</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toHouseLikeAnalysis">房源热度分析</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">

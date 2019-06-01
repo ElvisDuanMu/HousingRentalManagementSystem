@@ -3,10 +3,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>租房网,房屋出租,公寓出租,租房--找乐租</title>
-    <meta name="keywords" content="租房网,房屋出租,公寓出租,出租房源--找乐租">
-    <meta name="description" content="租房网拥有海量的房屋出租及公寓出租房源，房源信息真实可靠，来乐租租房网，可进行商圈找房、地铁找房、地图找房，同时，已开通APP找房，帮您快速轻松找到满意的整租或合租房屋公寓，满足您的各种租房需求，全国租房热线：400-8180-555。">
-    <meta name="author" content="乐租">
+    <title>租房网,房屋出租,租房</title>
+    <meta name="keywords" content="租房网,房屋出租,公寓出租,出租房源--找租房">
+    <meta name="description" content="租房网拥有海量的房屋出租及公寓出租房源，房源信息真实可靠，来租房网，可进行商圈找房、地铁找房、地图找房，同时，已开通APP找房，帮您快速轻松找到满意的整租或合租房屋公寓，满足您的各种租房需求，全国租房热线：400-8180-555。">
+    <meta name="author" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <%--<link rel="shortcut icon" href="http://www.hizhu.com/favicon.ico" type="image/x-icon">--%>
     <link rel="stylesheet" href="../static/css/common_new.css">
@@ -46,8 +46,8 @@
     <section class="list_bar">
         <div class="common_width cf">
             <!-- logo -->
-            <a alt="乐租租房" title="乐租租房" class="logo fl" href="/" target="_self">
-                <img src="${ctx}/static/img/zufang.png" alt="乐租租房" alt="乐租租房">
+            <a  class="logo fl" href="/" target="_self">
+                <img src="${ctx}/static/img/zufang.png" >
             </a>
             <!-- 城市切换 -->
             <div class="city_box fl">
@@ -56,12 +56,12 @@
                 <ul class="city_list">
                     <li><a alt="上海租房" title="上海租房" href="${ctx}/user/310000/310100/queryHouse">上海</a></li>
                     <li><a alt="北京租房" title="北京租房" href="${ctx}/user/110000/110100/queryHouse">北京</a></li>
-                    <li><a alt="杭州租房" title="杭州租房" href="${ctx}/user/210000/210200/queryHouse">大连</a></li>
+                    <li><a alt="大连租房" title="大连租房" href="${ctx}/user/210000/210200/queryHouse">大连</a></li>
                 </ul>
             </div>
             <!-- 菜单导航栏 -->
             <div class="menu fl cf">
-                <a alt="" title="" href="http://www.hizhu.com/shanghai/">首页</a>
+                <a alt="" title="" href="${ctx}/administrator/toIndex">首页</a>
             </div>
         </div>
     </section>
@@ -72,8 +72,7 @@
     <!-- 轮播 -->
     <div class="swiper-container banner-swiper-container" id="index_banner">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="../static/img/banner.jpg" alt="乐租 让您住的更好点" title="乐租 希望通过我们的努力，让租房成为一件小事"></div>
-            <!--<div class="swiper-slide"><img src="./Public/images/notice.jpg" alt="乐租 让您住的更好点" title="乐租 希望通过我们的努力，让租房成为一件小事" onclick="window.location.href='http://ml.hizhu.com/app/?device=iphone&temp=chunjie'"></div>-->
+            <div class="swiper-slide"><img src="../static/img/banner.jpg" alt="让您住的更好点" title=" 希望通过我们的努力，让租房成为一件小事"></div>
         </div>
         <!-- 分页器 -->
         <div class="swiper-pagination"></div>
@@ -115,19 +114,19 @@
 </section>
 
 
-<!--  TA们都在使用乐租 -->
+<!--  TA们都在使用 -->
 <section class="peoples">
     <section class="common_width">
-        <h2>TA们都在使用乐租</h2>
+        <h2>TA们都在使用</h2>
         <ul class="cf" id="js_feedback">
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/01.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/01.png">
                 <p class="name">租客海岛妹妹</p>
                 <p class="age">餐厅经理&nbsp;&nbsp;22岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>当时租的是房东直租的，没有中介费，而且房子和图片没差，很满意！ 最重要的是不仅找到房子，也交到朋友了 ，乐租是一个披着租房的外衣实际给我们年轻人创造互相交友的平台。</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>当时租的是房东直租的，没有中介费，而且房子和图片没差，很满意！ 最重要的是不仅找到房子，也交到朋友了 ，租房网是一个披着租房的外衣实际给我们年轻人创造互相交友的平台。</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
@@ -135,79 +134,79 @@
                 <p class="name">租客西瓜皮厚</p>
                 <p class="age">软件工程师&nbsp;&nbsp;25岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>一个人来到陌生的城市，第一个安全感就是乐租给我的，找房看房一气呵成，很便捷安全的租房方式，没有中介的絮絮叨叨，没有黑房东的坑蒙拐骗，如今已经换了三次房了，不变的是每一次都是通过乐租，也感谢乐租的工作人员小白，让我在陌生的城市不再彷徨。</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>一个人来到陌生的城市，第一个安全感就是租房给我的，找房看房一气呵成，很便捷安全的租房方式，没有中介的絮絮叨叨，没有黑房东的坑蒙拐骗，如今已经换了三次房了，不变的是每一次都是通过租房网，也感谢租房网的工作人员小白，让我在陌生的城市不再彷徨。</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/03.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/03.png">
                 <p class="name">租客Mathilda</p>
                 <p class="age">销售&nbsp;&nbsp;25岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>沪漂三年了，现在住的房子让我忘记自己是沪漂族。最早来上海很艰难，工作之余住宿环境很不理想，后来机缘巧合遇到乐租，找房子就省心很多，很轻松找到现在的一室户，价格也是满意。有时候就是这样，一件事顺了就处处顺了，如今每天很从容，内心很温暖。</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>沪漂三年了，现在住的房子让我忘记自己是沪漂族。最早来上海很艰难，工作之余住宿环境很不理想，后来机缘巧合遇到租房网，找房子就省心很多，很轻松找到现在的一室户，价格也是满意。有时候就是这样，一件事顺了就处处顺了，如今每天很从容，内心很温暖。</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/09.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/09.png">
                 <p class="name">租客蓝小姐</p>
                 <p class="age">公司职员&nbsp;&nbsp;25岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>我是个怕麻烦的人，之前通过中介找到过合适的房子。一年前换房也是找的中介，但这几次发现不同中介都有个共同点，以优质房源约见面，然后告知房子刚被租出去，再带你看其他不那么好的房源！下了很多租房App，最后在乐租上找到了现在的房子。</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>我是个怕麻烦的人，之前通过中介找到过合适的房子。一年前换房也是找的中介，但这几次发现不同中介都有个共同点，以优质房源约见面，然后告知房子刚被租出去，再带你看其他不那么好的房源！下了很多租房App，最后在租房网上找到了现在的房子。</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/08.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/08.png">
                 <p class="name">租客刘先生</p>
                 <p class="age">项目经理&nbsp;&nbsp;27岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>不找中介找乐租。第一次来上海的时候相信有很多朋友都有过我的类似经历：被黑中介和二房东联手坑的租房经历。所以在第二次找房的时候格外的谨慎，慎着慎着就遇到了乐租和热心的客服。</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>第一次来上海的时候相信有很多朋友都有过我的类似经历：被黑中介和二房东联手坑的租房经历。所以在第二次找房的时候格外的谨慎，慎着慎着就遇到了租房网和热心的客服。</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/04.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/04.png">
                 <p class="name">租客水小鸟</p>
                 <p class="age">品牌主管&nbsp;&nbsp;26岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>身边租房的朋友说乐租上的房子相对很多租房网站来说更真实，而且价格也不贵，打了几个电话后找到了现在的房子，给乐租一个大写的赞！</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>身边租房的朋友说上的房子相对很多租房网站来说更真实，而且价格也不贵，打了几个电话后找到了现在的房子，给租房网一个大写的赞！</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/05.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/05.png">
                 <p class="name">租客朱小姐</p>
                 <p class="age">活动策划&nbsp;&nbsp;22岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>今年刚在上面租到房子，想要稍微好点价格又实惠的房子非常难找，挑了几个乐租上有视频的房子看了后，3天就拎包入住了，节省了很多时间，谢谢乐租！</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>今年刚在上面租到房子，想要稍微好点价格又实惠的房子非常难找，挑了几个租房网上有视频的房子看了后，3天就拎包入住了，节省了很多时间，谢谢租房网！</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/06.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/06.png">
                 <p class="name">租客梁先生</p>
                 <p class="age">商务经理&nbsp;&nbsp;28岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>给公司谈生意是个麻烦事，要在各个城市到处出差，又不喜欢住酒店，乐租的短租解决了我短期问题，没有中介费，而且干净又省钱。</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img  src="../static/img/text_t.png">
+                    <p>给公司谈生意是个麻烦事，要在各个城市到处出差，又不喜欢住酒店，租房网的短租解决了我短期问题，没有中介费，而且干净又省钱。</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
             <li>
-                <img alt="乐租 租客留言" title="乐租 租客留言" class="tx" src="../static/img/07.png">
+                <img alt="租客留言" title="租客留言" class="tx" src="../static/img/07.png">
                 <p class="name">房东陈先生</p>
                 <p class="age">个体经营户&nbsp;&nbsp;32岁</p>
                 <div  class="text_explain">
-                    <img alt="乐租" title="乐租" src="../static/img/text_t.png">
-                    <p>家里闲置的房子发布到乐租上，很快就有人打电话要过来看房，一周就搞定了出租，简单方便实用。</p>
-                    <section class="text_b"><img alt="乐租" title="乐租" src="../static/img/text_b.png"></section>
+                    <img src="../static/img/text_t.png">
+                    <p>家里闲置的房子发布到租房网络上，很快就有人打电话要过来看房，一周就搞定了出租，简单方便实用。</p>
+                    <section class="text_b"><img  src="../static/img/text_b.png"></section>
                 </div>
             </li>
 
@@ -274,12 +273,12 @@
             <section class="ewm">
                 <ul class="cf">
                     <li>
-                        <img alt="乐租租房小程序" title="乐租租房小程序" src="../static/img/erweima.png">
+                        <img  src="../static/img/erweima.png">
                         <span>微信租房小程序</span>
                     </li>
                     <li>
-                        <img alt="乐租公众号" title="乐租公众号" src="../static/img/erweima.png">
-                        <span>关注乐租公众号</span>
+                        <img  src="../static/img/erweima.png">
+                        <span>关注租房公众号</span>
                     </li>
                 </ul>
             </section>

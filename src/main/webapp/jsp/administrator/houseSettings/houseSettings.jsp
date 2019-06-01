@@ -19,6 +19,9 @@
     <div class="layui-body">
 
             <div class="layui-form" style="padding: 20px;">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                    <legend style="color: black; font-size: 20px;">查看房源设置</legend>
+                </fieldset>
                 <div class="layui-form-item">
                     <label class="layui-form-label">类型名称</label>
                     <div class="layui-input-inline">

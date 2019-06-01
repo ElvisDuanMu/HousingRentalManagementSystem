@@ -306,5 +306,21 @@
         </where>
         limit #{page.start},#{page.limit}
     </select>
+    <select id="queryDistrictCount" resultType="java.lang.Integer">
+        select count(*)
+        from  house_transfer_association t1
+        left join house_info t2 on t1.house_id = t2.house_id
+        <where>
+            <if test="provinceCode != null and provinceCode != ''">
+                and t2.province_code = #{provinceCode}
+            </if>
+            <if test="cityCode != null and cityCode != ''">
+                and t2.city_code = #{cityCode}
+            </if>
+            <if test="districtCode != null and districtCode != ''">
+                and t2.district_code = #{districtCode}
+            </if>
+        </where>
+    </select>
 
 </mapper>

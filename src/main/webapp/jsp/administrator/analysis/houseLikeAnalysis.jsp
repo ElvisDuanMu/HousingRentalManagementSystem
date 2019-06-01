@@ -1,0 +1,272 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <title>房屋租赁管理系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="${ctx}/static/plugins/layui/css/layui.css" media="all">
+
+    <style >
+        .user-main .main-right li{
+            padding-top: 0;
+            clear: none;
+        }
+        p {
+            font-size: 15px;
+            color: #000000;
+        }
+        u {
+            color: #0f6fac;
+        }
+
+        body{
+            background: #DCDCDC;
+        }
+
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <jsp:include page="/jsp/common/header.jsp" />
+
+
+
+
+    <div class="layui-body">
+
+        <%--记录管理员姓名--%>
+        <input id="devName" type="hidden" value="${sessionScope.AdUserName}">
+
+        <div class="layui-form" style="padding: 20px;">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                <legend style="color: black; font-size: 20px;">房源热度分析</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label">省/直辖市</label>
+                <div class="layui-input-inline" >
+                    <select name="province" id="province" lay-filter="province" lay-search>
+                        <option value="">-请选择-</option>
+                        <c:forEach items="${province}" var="obj">
+                            <option value="${obj.provinceCode}" >${obj.provinceName}</option>
+
+                        </c:forEach>
+                    </select>
+                </div>
+                <label class="layui-form-label">市</label>
+                <div class="layui-input-inline">
+                    <select name="city" id="city" lay-filter="city" lay-search>
+                        <option value="">-请选择-</option>
+                    </select>
+                </div>
+                <button class="layui-btn"  id="searchBtn" lay-filter="searchBtn" style="margin-left: 100px;">搜索</button>
+            </div>
+
+            <div  style="margin-left: 37px; margin-top: 30px;">
+                <div class="layui-card" style="width: 1600px;">
+                    <div class="layui-card-header">房源热度分布图</div>
+                    <div class="layui-card-body">
+                        <div class="layui-carousel" id="houseLikeLineChart"  style="width: 100%; height: 500px;">
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <%--<div class="layui-card">--%>
+                <%--<div class="layui-card-header">堆积折线图</div>--%>
+                <%--<div class="layui-card-body">--%>
+
+                <%--<div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">--%>
+
+                <%--</div>--%>
+
+                <%--</div>--%>
+                <%--</div>--%>
+
+            </div>
+        </div>
+
+
+    </div>
+    <jsp:include page="/jsp/common/footer.jsp" />
+</div>
+
+
+
+
+<script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>
+<script src="${ctx}/static/js/echarts.min.js" charset="UTF-8" ></script>
+
+<script>
+    //JavaScript代码区域
+    layui.use(['element','form','jquery','table','laydate'], function(){
+        var element = layui.element;
+        var form = layui.form;
+        var table = layui.table;
+        var $ = layui.$;
+
+        //省市联动start
+        form.on('select(province)',function () {
+            //获取provinceCode值
+            var provinceCode = $('#province').val();
+            if(provinceCode == '' ){
+                //清空
+                var html="<option value=\"\">-请选择-</option>";
+                $('#city').html(html);
+                $('#district').html(html);
+                form.render();
+                return ;
+            }else {
+                var html="<option value=\"\">-请选择-</option>";
+                $('#district').html(html);
+                form.render();
+                $.ajax({
+                    url:'${ctx}/regionSettings/queryCityByProvinceCode/' + provinceCode,
+                    type:'get',
+                    success:function (data) {
+                        //根据data修改数据，重新渲染即可
+                        var html="<option value=\"\">-请选择-</option>";
+                        var len = data.length;
+                        for(var i = 0; i <len;i++){
+                            html += '<option value="' + data[i].cityCode +'">' + data[i].cityName +'</option>';
+                        }
+                        //选择level2更新
+                        $('#city').html(html);
+                        form.render();
+                    }
+                })
+            }
+        })
+        //省市联动end
+
+        //市区联动start
+        form.on('select(city)',function () {
+            //获取provinceCode值
+            var cityCode = $('#city').val();
+            if(cityCode == ''){
+                //清空
+                var html="<option value=\"\">-请选择-</option>";
+                $('#district').html(html);
+                form.render();
+                return ;
+            }else {
+                $.ajax({
+                    url:'${ctx}/regionSettings/queryDistrictByCity/' + cityCode,
+                    type:'get',
+                    success:function (data) {
+                        //根据data修改数据，重新渲染即可
+                        var html="<option value=\"\">-请选择-</option>";
+                        var len = data.length;
+                        for(var i = 0; i <len;i++){
+                            html += '<option value="' + data[i].districtCode +'">' + data[i].districtName +'</option>';
+                        }
+                        //选择level2更新
+                        $('#district').html(html);
+                        form.render();
+                    }
+                })
+            }
+        });
+        //市区联动end
+
+        //关联表
+        var  houseLikeLineChart = echarts.init(document.getElementById('houseLikeLineChart'));
+
+
+
+        //检测搜索按钮
+        $('#searchBtn').click(function () {
+
+            //处理直辖市
+            if($('#province').val() == '110000'){
+                $('#city').val('110100');
+            }
+            if($('#province').val() == '120000'){
+                $('#city').val('120100');
+            }
+            if($('#province').val() == '310000'){
+                $('#city').val('310100');
+            }
+            if($('#province').val() == '500000'){
+                $('#city').val('500100')
+            }
+
+            var obj = {
+                provinceCode : $('#province').val(),
+                cityCode : $('#city').val()
+            };
+            $.ajax({
+                url: '${ctx}/analysis/houseLike',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (data ) {
+                    var district = [];
+                    var count = [];
+
+                    for (var i = 0 ;i <data.district.length ;i++){
+                        district.push(data.district[i]);
+                    }
+                    for (var j = 0 ;j <data.count.length ;j++){
+                        count.push(data.count[j]);
+                    }
+
+
+                    var option = {
+
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: district,
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                name: '出租数量/套',
+                                min: 0,
+                                axisLabel: {
+                                    formatter: '{value} 套 '
+                                }
+                            }
+
+                        ],
+                        series: [
+                            {
+                                name: '出租数量',
+                                type: 'line',
+                                data: count,
+                                itemStyle: {
+                                    normal: {
+                                        color: '#ED2B2B'
+                                    }
+                                }
+                            }
+
+                        ]
+                    };
+
+                    houseLikeLineChart.setOption(option,true);
+                }
+            })
+        });
+
+
+
+
+    });
+
+
+</script>
+
+
+</body>
+</html>
+

@@ -40,7 +40,10 @@
         <%--记录管理员姓名--%>
         <input id="devName" type="hidden" value="${sessionScope.AdUserName}">
 
-        <div class="layui-form" style="padding: 20px; margin-top: 50px;">
+        <div class="layui-form" style="padding: 20px;">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                <legend style="color: black; font-size: 20px;">房价分析</legend>
+            </fieldset>
             <div class="layui-form-item">
                 <label class="layui-form-label">省/直辖市</label>
                 <div class="layui-input-inline" >
@@ -72,26 +75,6 @@
 
                     </div>
                 </div>
-                <div class="layui-card" style="width: 1600px;">
-                    <div class="layui-card-header">房价分布图</div>
-                    <div class="layui-card-body">
-                        <div class="layui-carousel" id="test"  style="width: 100%; height: 500px;">
-
-                        </div>
-
-
-                    </div>
-                </div>
-                <%--<div class="layui-card">--%>
-                    <%--<div class="layui-card-header">堆积折线图</div>--%>
-                    <%--<div class="layui-card-body">--%>
-
-                        <%--<div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-heapline" lay-anim="fade" style="width: 100%; height: 280px;">--%>
-
-                        <%--</div>--%>
-
-                    <%--</div>--%>
-                <%--</div>--%>
 
             </div>
         </div>
@@ -277,7 +260,7 @@
                                 data: minPrice,
                                 itemStyle: {
                                     normal: {
-                                        color: '#FFFB13',
+                                        color: '#FFFB13'
                                     }
                                 }
                             },
@@ -287,7 +270,7 @@
                                 data:maxPrice,
                                 itemStyle: {
                                     normal: {
-                                        color: '#00FF00',
+                                        color: '#00FF00'
                                     }
                                 }
                             },
@@ -297,7 +280,7 @@
                                 data:averagePrice,
                                 itemStyle: {
                                     normal: {
-                                        color: '#ED2B2B',
+                                        color: '#ED2B2B'
                                     }
                                 }
                             }

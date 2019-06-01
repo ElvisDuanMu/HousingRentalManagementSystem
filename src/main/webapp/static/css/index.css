@@ -898,8 +898,8 @@
 	cursor: pointer;
 	background-repeat: no-repeat;
 	background-position: left top;
-	background-image: url(../../resource/list/search.jpg?_=1552469966829);
-	background-image: -webkit-image-set(url("../../resource/list/search.jpg?_=1552469966829") 1x, url("../../resource/list/search@2x.jpg?_=1552469966829") 2x)
+	background-image: url(../../static/img/search.jpg);
+	background-image: -webkit-image-set(url("../../static/img/search.jpg") 1x, url("../../static/img/search.jpg") 2x)
 }
 
 .search .sug-search {

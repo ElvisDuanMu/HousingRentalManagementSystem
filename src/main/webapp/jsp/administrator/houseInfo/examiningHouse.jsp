@@ -19,7 +19,9 @@
     <div class="layui-body">
 
         <div class="layui-form" style="padding: 20px;">
-
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                <legend style="color: black; font-size: 20px;">审核房源</legend>
+            </fieldset>
         </div>
 
         <div  style="margin: 30px;">

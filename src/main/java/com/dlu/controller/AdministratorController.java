@@ -1,7 +1,6 @@
 package com.dlu.controller;
 
 import com.dlu.dto.AdministratorLoginDTO;
-import com.dlu.dto.QueryMoneyDTO;
 import com.dlu.dto.QueryUserDTO;
 import com.dlu.pojo.*;
 import com.dlu.service.AdministratorService;
@@ -254,15 +253,27 @@ public class AdministratorController {
     }
 
     /**
-     * 跳转到数据分析界面
+     * 跳转到房价数据分析界面
      * @return
      */
-    @RequestMapping("/{name}/toAnalysis")
-    public String toAnalysis(Model model){
+    @RequestMapping("/{name}/toHousePriceAnalysis")
+    public String toHousePriceAnalysis(Model model){
         //查询所有的省
         List<Province> provinceList = regionService.queryAllProvince();
         model.addAttribute("province",provinceList);
-        return "administrator/analysis/analysis";
+        return "administrator/analysis/housePriceAnalysis";
+    }
+
+    /**
+     * 跳转到热度数据分析界面
+     * @return
+     */
+    @RequestMapping("/{name}/toHouseLikeAnalysis")
+    public String toHouseLikeAnalysis(Model model){
+        //查询所有的省
+        List<Province> provinceList = regionService.queryAllProvince();
+        model.addAttribute("province",provinceList);
+        return "administrator/analysis/houseLikeAnalysis";
     }
 
     /**

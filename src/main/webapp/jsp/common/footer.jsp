@@ -13,7 +13,7 @@
 <body>
 <div class="layui-footer">
     <!-- 底部固定区域 -->
-    © layui.com - 底部固定区域
+    ©  租房网版权所有 2018-2019
 </div>
 </body>
 </html>

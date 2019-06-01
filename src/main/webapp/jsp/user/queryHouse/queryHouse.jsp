@@ -44,19 +44,8 @@
     <div>
         <div class="header ">
             <ul class="header__wrapper w1150 clear typeUserInfo" id="top">
-                <li class="header__item fl "><a href="//bj.lianjia.com" target="_blank">首页</a></li>
-                <li class="header__item fl "><a href="//bj.lianjia.com/ershoufang/" target="_blank">二手房</a></li>
-                <li class="header__item fl "><a href="//bj.fang.lianjia.com/loupan/" target="_blank">新房</a></li>
-                <li class="header__item fl cur"><a href="/zufang/" target="_blank">租房</a></li>
-                <li class="header__item fl "><a href="//us.lianjia.com" target="_blank">海外</a></li>
-                <li class="header__item fl "><a href="//bj.lianjia.com/xiaoqu/" target="_blank">小区</a></li>
-                <li class="header__item fl "><a href="//bj.lianjia.com/jingjiren/" target="_blank">经纪人</a></li>
-                <li class="header__item fl "><a href="//bj.lianjia.com/wenda/" target="_blank">指南</a></li>
-                <li class="header__item fl "><a href="//bj.lianjia.com/fangjia/" target="_blank">房价</a></li>
-                <li class="header__item fl "><a href="//bj.lianjia.com/tool.html" target="_blank">工具</a></li>
-                <li class="header__item fl "><a href="//news.lianjia.com/bj/jingyan/" target="_blank">经验</a></li>
-                <li class="header__item fl "><a href="#" target="_blank">发布房源</a></li>
-                <li class="header__item fl "><a href="#" target="_blank">企业汇</a></li>
+                <li class="header__item fl "><a href="${ctx}/user/toIndex" target="_blank">首页</a></li>
+                <li class="header__item fl cur"><a href="#" target="_blank">租房</a></li>
                 <li class="header__aside fr pointer typeShowUser" >
                     <c:if test="${sessionScope.Username != null}">
                         <a data-el="login_box" href="${ctx}/user/index/${sessionScope.Username}"> 欢迎你：${sessionScope.Username}</a>
@@ -79,30 +68,31 @@
 
                 <ul class="beike__nav--tab">
                     <li>
-                        <a class="cur" href="">首页</a>
+                        <a class="cur" href="${ctx}/user/toIndex">首页</a>
                     </li>
-
-                    <li>
-                        <a class="" href="#">整租</a>
-                    </li>
-
-                    <li><a class="" href="#">合租</a></li>
                     <li class="beike__nav--code">
                         下载APP
                         <div class="nav-list beike__nav--qrcode">
-                            <img src="https://ajax.api.lianjia.com/qr/getDownloadQr?location=nav&amp;ljweb_channel_key=zufang_search"
+                            <img src="${ctx}/static/img/erweima.png"
                                  alt="下载贝壳APP"
                                  class="QRcode-img">
                         </div>
                     </li>
+                    <div class="search w1150" id="search">
+                        <!-- <a class="search__logo" href="/"></a> -->
+                        <div class="search__wrap">
+                            <input class="search__input fl" id="address" type="text"  placeholder="请输入街道或者小区开始找房" autocomplete="off" value="">
+                            <span class="search__button fl" data-el="button" id="addressBtn"></span>
+                        </div>
 
+                    </div>
                 </ul>
             </div>
 
         </div>
         <div class="bread__nav w1150" style="margin-bottom: 0px;">
             <p class="bread__nav__wrapper oneline">
-                <a>乐租网${provinceName}站</a>&nbsp;&gt;&nbsp;
+                <a>${provinceName}站</a>&nbsp;&gt;&nbsp;
             <h1>
                 <a>${cityName}租房</a>
             </h1>
@@ -265,17 +255,16 @@
 
             <div class="content__aside">
                 <div class="download">
-                    <div class="title">下载链家APP</div>
-                    <div class="qr-code"><img width="94" height="94" src=""
-                                              alt="下载贝壳APP">
+                    <div class="title">下载APP</div>
+                    <div class="qr-code"><img width="94" height="94" src="${ctx}/static/img/erweima.png"
+                                              alt="下载APP">
                         <div class="text">
                             <p>扫描上方二维码</p>
                             <p>随时查看新房源</p>
                             <p class="get-more">
-                                <a href="#">了解更多
-                                    <img width="9" height="9"
-                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAGFBMVEUAAACcn6Gfn5+an5+bnqCbnqGfn5+cn6EV6DbuAAAAB3RSTlMA0BAw8LAgvf5k9AAAAEdJREFUKM9jIBOkBqMJhBcqoAmUC6EKmJSjKWEWR1eiiK6ECZsSA3QlzuhKSihRghDA0EJ/BWIoCgzh4YMIZALRYBrMQAkAAF5bGMBkrwzqAAAAAElFTkSuQmCC">
-                                </a>
+                                了解更多
+
+
                             </p>
                         </div>
                     </div>
@@ -291,9 +280,10 @@
 
             <div class="footer__top">
                 <ul class="footer__light">
-                    <li><a href="">网站地图</a></li>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">隐私声明</a></li>
                 </ul>
-                <a class="footer__aside" href="tel:10109666">客服电话<span>10109666</span></a>
+                <a class="footer__aside" href="tel:10109666">客服电话<span>123123123</span></a>
             </div>
 
             <div class="footer__middle">
@@ -302,17 +292,9 @@
 
                 </ul>
                 <ul data-el="childrenList" style="display:block">
-                    <li><a href="https://qd.lianjia.com/zufang/">青岛租房</a></li>
-                    <li><a href="https://nn.lianjia.com/zufang/">南宁租房</a></li>
-                    <li><a href="https://gz.lianjia.com/zufang/">广州租房</a></li>
-                    <li><a href="https://kf.lianjia.com/zufang/">开封租房</a></li>
-                    <li><a href="https://taizhou.lianjia.com/zufang/">台州租房</a></li>
-                    <li><a href="https://tj.lianjia.com/zufang/">天津租房</a></li>
-                    <li><a href="https://zs.lianjia.com/zufang/">中山租房</a></li>
-                    <li><a href="https://wuhu.lianjia.com/zufang/">芜湖租房</a></li>
-                    <li><a href="https://aq.lianjia.com/zufang/">安庆租房</a></li>
-                    <li><a href="https://yy.lianjia.com/zufang/">岳阳租房</a></li>
-                    <li><a href="https://cd.lianjia.com/zufang/">成都租房</a></li>
+                    <li><a href="${ctx}/user/110000/110100/queryHouse">北京租房</a></li>
+                    <li><a href="${ctx}/user/310000/310100/queryHouse">上海租房</a></li>
+
 
                 </ul>
 
@@ -320,12 +302,11 @@
             </div>
 
             <div class="footer__bottom">
-                <p>链家网（北京）科技有限公司 | 网络经营许可证 京ICP备16057509号-2 | &copy; Copyright&copy;2010-2018 链家网Lianjia.com版权所有</p>
-                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802024019"
+                <p>租房（大连） | 网络经营许可证 00000001号-1 | &copy; Copyright&copy;2018-2019 租房版权所有</p>
+                <a target="_blank" href="#"
                    style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
                         style="margin-right: 5px;"
-                        src="https://s1.ljcdn.com/matrix_lianjia_pc/dist/pc/src/resource/img/beian.png?_v=20190411190841403">京公网安备
-                    11010802024019号</a>
+                        src="${ctx}/static/img/beian.png">公网安备 1000000001号</a>
             </div>
 
         </div>
@@ -391,6 +372,9 @@
         var limit = 10;
         var total;
 
+        $('#addressBtn').click(function () {
+            loadData(1);
+        });
 
         window.onload = function () {
             loadData(1);
@@ -499,7 +483,8 @@
                 page: pageIndex,
                 limit: limit,
                 tabIndex: $('#tabIndex').val(),
-                tabValue: $('#tabValue').val()
+                tabValue: $('#tabValue').val(),
+                address: $('#address').val().trim()
             };
             $.ajax({
                 url: '${ctx}/house/userHouseInfo',
@@ -697,6 +682,8 @@
                 }
             })
         });
+
+
 
     });
 </script>

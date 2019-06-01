@@ -4,9 +4,9 @@
 <head>
 
 
-    <title>链家用户中心_买房卖房用户-链家网</title>
-    <meta name="description" content="链家网用户活动中心提供链家网买房卖房用户活动信息，关注房源和小区等" />
-    <meta name="keywords" content="买房卖房用户活动中心，链家用户中心" />
+    <title>用户中心_合同管理</title>
+    <meta name="description" content="用户活动中心提供买房卖房用户活动信息等" />
+    <meta name="keywords" content="买房卖房用户活动中心，用户中心" />
 
     <link rel="stylesheet" href="${ctx}/static/css/common.css">
     <link rel="stylesheet" href="${ctx}/static/css/main.css">
@@ -34,50 +34,16 @@
                     <div class="fl">
                         <ul>
                             <li>
-                                <a class="" href="#">二手房</a>
+                                <a class="" href="${ctx}/user/toIndex">首页</a>
                             </li>
                             <li>
-                                <a class="" href="#">新房</a>
+                                <a class="" href="${ctx}/user/210000/210200/queryHouse">租房</a>
                             </li>
                             <li>
-                                <a class="" href="#">租房</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">海外</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">小区</a>
-                            </li>
-                            <li>
-                                <a class="" href="#">经纪人</a>
-                            </li>
-                            <li class="hover">
-                                <a class="" href="#">
-                                    指南
-                                </a>
-                                <div class="nav-list">
-                                    <dd>
-                                        <i></i>
-                                        <dl>
-                                            <a href="#">问答</a>
-                                        </dl>
-                                        <dl>
-                                            <a href="#">百科</a>
-                                        </dl>
-                                    </dd>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="" href="#">房价</a>
-                            </li>
-                            <li>
-                                <a class="" href="#" target="_blank">工具</a>
+                                <a class="" href="http://www.baidu.com">百科</a>
                             </li>
                             <li>
                                 <a class="" href="${ctx}/user/toPublishing" target="_blank">发布房源</a>
-                            </li>
-                            <li>
-                                <a class="" href="#" target="_blank">企业汇</a>
                             </li>
                         </ul>
                     </div>
@@ -163,13 +129,12 @@
         <div class="clear"></div>
     </div>
 
-    <div class="lianjia-footer-simple">链家网（北京）科技有限公司 | 网络经营许可证 京ICP备16057509号-2<br>© Copyright©2010-2019
-        链家网Lianjia.com版权所有&nbsp;<div style="width:300px;color: #888c8e;font-size: 12px;line-height: 20px;margin: auto;"><a
-                target="_blank"  style="display:inline-block;text-decoration:none;height:20px;line-height:20px;margin: 0 auto;text-align: center;"><img
-                src="/static/img/beian.png" style=" float:left;">
-            <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;color: #888c8e;">京公网安备 11010802024019号</p>
-        </a></div>
-    </div>
+<div class="lianjia-footer-simple">租房（大连） | 网络经营许可证 00000001号-1 | &copy; Copyright&copy;2018-2019 租房版权所有&nbsp;<div style="width:300px;color: #888c8e;font-size: 12px;line-height: 20px;margin: auto;"><a
+        target="_blank"  style="display:inline-block;text-decoration:none;height:20px;line-height:20px;margin: 0 auto;text-align: center;"><img
+        src="${ctx}/static/img/beian.png" style=" float:left;">
+    <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;color: #888c8e;">公网安备1000000001号</p>
+</a></div>
+</div>
 
     </body>
 

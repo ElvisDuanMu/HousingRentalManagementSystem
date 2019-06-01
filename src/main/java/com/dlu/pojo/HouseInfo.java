@@ -94,6 +94,9 @@ public class HouseInfo {
 
     private String examInfo;
 
+    //搜索小区或街道
+    private String address;
+
     //封装朝向
     private Orientation orientation;
     //封装租赁方式
@@ -647,5 +650,13 @@ public class HouseInfo {
 
     public void setExamInfo(String examInfo) {
         this.examInfo = examInfo == null? null : examInfo.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

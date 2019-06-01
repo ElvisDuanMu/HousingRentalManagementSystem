@@ -4,6 +4,7 @@ import com.dlu.dto.HouseTransferDTO;
 import com.dlu.dto.MoneyDTO;
 import com.dlu.pojo.HouseTransferAssociation;
 import com.dlu.pojo.Page;
+import com.dlu.pojo.Region;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -37,4 +38,6 @@ public interface HouseTransferAssociationMapper {
     List<HouseTransferAssociation> queryEndHouseByPartNameAndStatus(@Param("name") String name, @Param("status") String status, @Param("page") Page page);
 
     void updateStatus(HouseTransferAssociation houseTransferAssociation);
+
+    Integer queryDistrictCount(Region regionQuery);
 }

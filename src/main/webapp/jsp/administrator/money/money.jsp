@@ -35,7 +35,10 @@
         <%--记录管理员姓名--%>
         <input id="devName" type="hidden" value="${sessionScope.AdUserName}">
 
-        <div class="layui-form " style="padding: 20px; margin-top: 50px;">
+        <div class="layui-form " style="padding: 20px; ">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                <legend style="color: black; font-size: 20px;">租金收入查询</legend>
+            </fieldset>
             <div class="layui-form-item">
                 <label class="layui-form-label">省/直辖市</label>
                 <div class="layui-input-inline" >

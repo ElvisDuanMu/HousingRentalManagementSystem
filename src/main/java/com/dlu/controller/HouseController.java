@@ -321,6 +321,8 @@ public class HouseController {
         Tab tab = new Tab();
         tab.setTabIndex(showHouseDTO.getTabIndex());
         tab.setTabValue(showHouseDTO.getTabValue());
+        //处理小区或街道
+        houseInfo.setAddress(showHouseDTO.getAddress());
         //获取查询总数
         Integer count = houseInfoService.queryByShowMessageByDistrictCount(houseInfo);
         List<Object> list = new ArrayList<>();

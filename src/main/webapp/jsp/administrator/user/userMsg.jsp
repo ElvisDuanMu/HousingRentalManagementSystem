@@ -17,7 +17,10 @@
             <div class="layui-form" >
 
                 <div class="layui-form-item">
-                    <div class="layui-form" style="padding: 20px; margin-top: 50px;">
+                    <div class="layui-form" style="padding: 20px; ">
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px; border-color: #00AE66;">
+                            <legend style="color: black; font-size: 20px;">用户管理</legend>
+                        </fieldset>
                         <div class="layui-form-item">
                             <label class="layui-form-label">用户登录名</label>
                             <div class="layui-input-inline">
@@ -73,7 +76,6 @@
             cols: [[
                 {field:'userId',title:'会员ID',align: 'center',hide:true}
                 ,{field:'userLoginName',title:'会员登录名',align: 'center'}
-                ,{field:'userPassword', title: '会员密码',align: 'center'}
                 ,{field:'userNickname', title: '会员昵称',align: 'center'}
                 ,{field:'userStatus', title: '会员状态',align: 'center'}
                 ,{field:'userSex',title:'会员性别',align: 'center'}
