@@ -1019,7 +1019,7 @@
                 "partBName": $('#viewPartBName').val(),
                 "partBTypeOfCertificate" : $('#viewPartBTypeOfCertificate').val(),
                 "partBIdNumber": $('#viewPartBIdNumber').val(),
-                "partCName" : "乐租房地产经纪有限公司",
+                "partCName" : "房地产经纪有限公司",
                 "city" : $('#1').html(),
                 "district" : $('#2').html(),
                 "area" : $('#3').html(),

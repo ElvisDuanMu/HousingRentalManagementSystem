@@ -10,4 +10,8 @@ public interface AdministratorService {
     Administrator login(AdministratorLoginDTO administrator);
 
     List<Administrator> queryAllAdministratorName();
+
+    int check(Administrator administrator);
+
+    void add(Administrator administrator);
 }

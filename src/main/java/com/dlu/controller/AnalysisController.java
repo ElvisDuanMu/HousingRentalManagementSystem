@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -41,6 +43,9 @@ public class AnalysisController {
         List<String> averagePriceList = new ArrayList<>();
         //声明一个查询类
         Region regionQuery = new Region();
+        regionQuery.setLeasingId(region.getLeasingId());
+        regionQuery.setHouseAreaMin(region.getHouseAreaMin());
+        regionQuery.setHouseAreaMax(region.getHouseAreaMax());
         //判断省是否含有值，若为空则搜索全国
         if(region.getProvinceCode().equals("") || region.getProvinceCode() == null) {
             List<Province> provinceList = regionService.queryAllProvince();
@@ -126,16 +131,22 @@ public class AnalysisController {
      */
     @RequestMapping("/houseLike")
     @ResponseBody
-    public Map<String,Object> houseLike(@RequestBody Region region){
-        //结果保留两位小数
-        DecimalFormat df = new DecimalFormat("0.00");
+    public Map<String,Object> houseLike(@RequestBody Region region) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        //声明一个查询类
+        Region regionQuery = new Region();
+        //处理时间
+        if (region.getStartCreateDateString() != null &&  !region.getStartCreateDateString().equals("")){
+            regionQuery.setStartCreateDate(simpleDateFormat.parse(region.getStartCreateDateString()));
+        }
+        if (region.getEndCreateDateString() != null && !region.getEndCreateDateString().equals("")){
+            regionQuery.setEndCreateDate(simpleDateFormat.parse(region.getEndCreateDateString()));
+        }
         Map<String, Object> map = new HashMap<>();
         //存储区域
         List<String> districtArray = new ArrayList<>();
         //存储数量值
         List<Integer> countList = new ArrayList<>();
-        //声明一个查询类
-        Region regionQuery = new Region();
         //判断省是否含有值，若为空则搜索全国
         if(region.getProvinceCode().equals("") || region.getProvinceCode() == null) {
             List<Province> provinceList = regionService.queryAllProvince();

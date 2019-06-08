@@ -1,5 +1,7 @@
 package com.dlu.pojo;
 
+import java.util.Date;
+
 public class Region {
     private Integer provinceId;
     private String provinceCode;
@@ -10,6 +12,15 @@ public class Region {
     private Integer districtId;
     private String districtCode;
     private String districtName;
+
+    //数据分析用
+    private Date startCreateDate;
+    private String startCreateDateString;
+    private Date endCreateDate;
+    private String endCreateDateString;
+    private Integer leasingId;
+    private Integer houseAreaMin;
+    private Integer houseAreaMax;
 
     public Integer getProvinceId() {
         return provinceId;
@@ -81,5 +92,61 @@ public class Region {
 
     public void setDistrictName(String districtName) {
         this.districtName = districtName;
+    }
+
+    public Date getStartCreateDate() {
+        return startCreateDate;
+    }
+
+    public void setStartCreateDate(Date startCreateDate) {
+        this.startCreateDate = startCreateDate;
+    }
+
+    public String getStartCreateDateString() {
+        return startCreateDateString;
+    }
+
+    public void setStartCreateDateString(String startCreateDateString) {
+        this.startCreateDateString = startCreateDateString;
+    }
+
+    public Date getEndCreateDate() {
+        return endCreateDate;
+    }
+
+    public void setEndCreateDate(Date endCreateDate) {
+        this.endCreateDate = endCreateDate;
+    }
+
+    public String getEndCreateDateString() {
+        return endCreateDateString;
+    }
+
+    public void setEndCreateDateString(String endCreateDateString) {
+        this.endCreateDateString = endCreateDateString;
+    }
+
+    public Integer getLeasingId() {
+        return leasingId;
+    }
+
+    public void setLeasingId(Integer leasingId) {
+        this.leasingId = leasingId;
+    }
+
+    public Integer getHouseAreaMin() {
+        return houseAreaMin;
+    }
+
+    public void setHouseAreaMin(Integer houseAreaMin) {
+        this.houseAreaMin = houseAreaMin;
+    }
+
+    public Integer getHouseAreaMax() {
+        return houseAreaMax;
+    }
+
+    public void setHouseAreaMax(Integer houseAreaMax) {
+        this.houseAreaMax = houseAreaMax;
     }
 }

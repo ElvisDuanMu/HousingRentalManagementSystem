@@ -48,7 +48,7 @@
                 <li class="header__item fl cur"><a href="#" target="_blank">租房</a></li>
                 <li class="header__aside fr pointer typeShowUser" >
                     <c:if test="${sessionScope.Username != null}">
-                        <a data-el="login_box" href="${ctx}/user/index/${sessionScope.Username}"> 欢迎你：${sessionScope.Username}</a>
+                        <a data-el="login_box" href="${ctx}/user/message/${sessionScope.Username}"> 欢迎你：${sessionScope.Username}</a>
                         <a data-el="logout_btn" href="${ctx}/user/logout" id="logout" >退出</a>
                     </c:if>
                     <c:if test="${sessionScope.Username == null}">
@@ -74,7 +74,7 @@
                         下载APP
                         <div class="nav-list beike__nav--qrcode">
                             <img src="${ctx}/static/img/erweima.png"
-                                 alt="下载贝壳APP"
+                                 alt="下载APP"
                                  class="QRcode-img">
                         </div>
                     </li>
@@ -283,7 +283,7 @@
                     <li><a href="#">关于我们</a></li>
                     <li><a href="#">隐私声明</a></li>
                 </ul>
-                <a class="footer__aside" href="tel:10109666">客服电话<span>123123123</span></a>
+                <a class="footer__aside" href="tel:123123123">客服电话<span>123123123</span></a>
             </div>
 
             <div class="footer__middle">
@@ -339,24 +339,53 @@
         <%--</div>--%>
         <%--</div>--%>
         <%--</div>--%>
-        <div class="layui-form-item" style="margin-bottom: 20px; height: 28px;">
-            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-            <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
-        </div>
         <div class="layui-form-item">
             <button class="layui-btn layui-btn-fluid" id="submit" lay-filter="LAY-user-login-submit">登 入</button>
         </div>
-        <div class="layui-trans layui-form-item layadmin-user-login-other">
-            <label>社交账号登入</label>
-            <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-            <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
-            <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
+        <%--<div class="layui-trans layui-form-item layadmin-user-login-other">--%>
+            <%--<label>社交账号登入</label>--%>
+            <%--<a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>--%>
+            <%--<a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>--%>
+            <%--<a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>--%>
 
-        </div>
+        <%--</div>--%>
     </div>
 </div>
 </body>
-
+<%--用户注册弹窗--%>
+<div class="layadmin-user-login-main" id="registerContent" style="display: none;">
+    <div class="layadmin-user-login-box layadmin-user-login-header" style="margin-top: 40px;">
+        <h2>用户注册</h2>
+    </div>
+    <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+        <div class="layui-form-item">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+            <input type="text" name="username" id="LAY-user-register-username" lay-verify="required" placeholder="用户名（3-20位，建议英文和数字组合）" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-register-password"></label>
+            <input type="password" name="password" id="LAY-user-register-password" lay-verify="pass" placeholder="密码(8—16位，必须包含大写、小写字母和数字，不包含空白)" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-repass"></label>
+            <input type="password" name="repass" id="LAY-user-login-repass" lay-verify="required" placeholder="确认密码" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-nickname"></label>
+            <input type="text" name="nickname" id="LAY-user-login-nickname" lay-verify="nickname" placeholder="昵称（2-10个字符）" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-email"></label>
+            <input type="text" name="email" id="LAY-user-login-email" lay-verify="email" placeholder="邮箱" class="layui-input">
+        </div>
+        <div class="layui-form-item" style="height: 28px;">
+            <input type="checkbox" name="agreement" lay-skin="primary" title="同意用户协议" checked>
+        </div>
+        <div class="layui-form-item" >
+            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-reg-submit">注 册</button>
+        </div>
+    </div>
+</div>
 
 
 
@@ -624,7 +653,7 @@
                     shade : 0.3,
                     shadeClose : true,
                     content: $('#loginContent'),
-                    area : ['600px','500px'],
+                    area : ['600px','400px'],
                     offset: '150px',
                     closeBtn: 0 ,
                     success:function (layero, index) {
@@ -683,7 +712,101 @@
             })
         });
 
+        //用户注册
+        $('#register').click(function () {
+                layer.open({
+                    type: 1 ,
+                    title: false,
+                    shade : 0.3,
+                    shadeClose : true,
+                    content: $('#registerContent'),
+                    area : ['600px','550px'],
+                    offset: '150px',
+                    closeBtn: 0 ,
+                    success:function (layero, index) {
+                        //提交
+                        form.on('submit(LAY-user-reg-submit)', function(obj){
+                            var field = obj.field;
 
+                            //用户名位数
+                            if(field.username.trim().length < 3 || field.username.trim().length >20 ){
+                                return layer.msg('用户名应为3-20个字符');
+                            }
+
+                            //昵称位数检测
+                            if(field.nickname.trim().length < 2 || field.nickname.trim().length >10){
+                                return layer.msg('昵称应为2-10个字符');
+                            }
+
+                            //密码验证
+                            var i = checkPwd(field.password);
+                            if( i == 1 ){
+                                return layer.msg('密码应为8-16位');
+                            }
+                            if( i == 2){
+                                return layer.msg('密码应同时包含大写字母、小写字母和数字');
+                            }
+                            if( i == 3){
+                                return layer.msg('密码不能有空格、tab、换行等空白');
+                            }
+
+
+
+
+                            //确认密码
+                            if(field.password !== field.repass){
+                                return layer.msg('两次密码输入不一致');
+                            }
+
+                            //是否同意用户协议
+                            if(!field.agreement){
+                                return layer.msg('你必须同意用户协议才能注册');
+                            }
+
+                            //确认无误后传参
+                            var userRegisterInfo = {
+                                username : $('#LAY-user-register-username').val().trim(),
+                                password : $('#LAY-user-register-password').val().trim(),
+                                nickname : $('#LAY-user-login-nickname').val().trim(),
+                                email : $('#LAY-user-login-email').val().trim()
+
+                            };
+                            $.ajax({
+                                url: '${ctx}/user/registerChecking',
+                                type: 'post',
+                                contentType: 'application/json',
+                                data: JSON.stringify(userRegisterInfo),
+                                success: function (data) {
+                                    if (data.code == 500){
+                                        layer.msg("该用户名已被注册",{icon:5});
+                                    }
+                                    else if (data.code == 501){
+                                        layer.msg("该邮箱已被使用",{icon:5});
+                                    }
+                                    else {
+                                        layer.msg('注册成功，请登录',{
+                                            icon: 6,
+                                            time: '1000'
+                                        },function () {
+                                            layer.close(index);
+                                            window.location.reload();
+                                        });
+
+                                    }
+
+                                }
+                            });
+
+
+
+
+                        });
+
+
+                    }
+                });
+            }
+        );
 
     });
 </script>

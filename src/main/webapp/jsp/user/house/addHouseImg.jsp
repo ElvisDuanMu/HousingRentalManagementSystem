@@ -106,7 +106,7 @@
             <h2 style="margin-top: 30px;">如果您暂时不想上传或者上传完成的话，请点击</h2>
             <hr class="layui-bg-green" style="margin-bottom: 30px;">
             <form action="${ctx}/user/houseInfo/${sessionScope.Username}">
-                <button type="submit" class="layui-btn" id="next">下一步</button>
+                <button type="submit" class="layui-btn" id="next">完成</button>
             </form>
 
 

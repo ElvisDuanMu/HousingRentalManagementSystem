@@ -131,7 +131,7 @@
                 and t2.city_code = #{city}
             </if>
             <if test="district != null and district != ''">
-                and t2.district_code = #{city}
+                and t2.district_code = #{district}
             </if>
         </where>
     </select>
@@ -170,7 +170,7 @@
                 and t2.city_code = #{houseTransferDTO.city}
             </if>
             <if test="houseTransferDTO.district != null and houseTransferDTO.district !=''">
-                and t2.district_code = #{houseTransferDTO.city}
+                and t2.district_code = #{houseTransferDTO.district}
             </if>
         </where>
         limit #{page.start},#{page.limit}
@@ -319,6 +319,9 @@
             </if>
             <if test="districtCode != null and districtCode != ''">
                 and t2.district_code = #{districtCode}
+            </if>
+            <if test="startCreateDate !=null and endCreateDate !=null">
+                and date_format(t1.create_time,'%Y-%m-%d') between date_format(#{startCreateDate},'%Y-%m-%d') and date_format(#{endCreateDate},'%Y-%m-%d')
             </if>
         </where>
     </select>

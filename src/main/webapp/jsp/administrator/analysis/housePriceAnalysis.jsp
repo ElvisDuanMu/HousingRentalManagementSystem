@@ -61,8 +61,36 @@
                         <option value="">-请选择-</option>
                     </select>
                 </div>
+                <label class="layui-form-label">租赁方式</label>
+                <div class="layui-input-inline">
+                    <select name="leasingId" id="leasingId" lay-filter="city" lay-search>
+                        <option value="">-请选择-</option>
+                        <option value="1">整租</option>
+                        <option value="2">合租</option>
+                    </select>
+                </div>
                 <button class="layui-btn"  id="searchBtn" lay-filter="searchBtn" style="margin-left: 100px;">搜索</button>
             </div>
+            <div class="layui-form-item" style="margin-left:10px; margin-top: 20px; margin-bottom: 3px;">
+                <label class="layui-form-label" style="text-align: left; width: 50px;">面积</label>
+                <div id="area" class="layui-input-inline" style="width: 500px;padding-top: 16px;">
+
+                </div>
+                <div>
+                    <div class="layui-input-inline" style="width: 80px; margin-left: 10px;">
+                        <input id="area_min" type="text" name="area_min" value="0" autocomplete="off"
+                               class="layui-input" readonly style="text-align: center">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">㎡</div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 80px;">
+                        <input id="area_max" type="text" name="area_max" value="300" autocomplete="off"
+                               class="layui-input" readonly style="text-align: center">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">㎡</div>
+                </div>
+            </div>
+
 
             <div  style="margin-left: 37px; margin-top: 30px;">
                 <div class="layui-card" style="width: 1600px;">
@@ -88,15 +116,16 @@
 
 
 <script src="${ctx}/static/plugins/layui/layui.js" charset="UTF-8"></script>
-<script src="${ctx}/static/js/echarts.min.js" charset="UTF-8" ></script>
+<script src="${ctx}/static/plugins/incubator-echarts-4.2.1/dist/echarts.js" charset="UTF-8" ></script>
 
 <script>
     //JavaScript代码区域
-    layui.use(['element','form','jquery','table','laydate'], function(){
+    layui.use(['element','form','jquery','table','slider','laydate'], function(){
         var element = layui.element;
         var form = layui.form;
         var table = layui.table;
         var $ = layui.$;
+        var slider = layui.slider;
 
         //省市联动start
         form.on('select(province)',function () {
@@ -162,6 +191,24 @@
         });
         //市区联动end
 
+        slider.render({
+            elem: '#area',  //绑定元素
+            min: 0,
+            max: 300,
+            range: true,
+            value: [0, 300],
+            step: 5,
+            tips: true,
+            setTips: function (value) { //自定义提示文本
+                return value + '㎡';
+            },
+            change: function (value) {
+                $('#area_min').val(value[0]);
+                $('#area_max').val(value[1]);
+            }
+
+        });
+
         //关联表
         var  housePriceLineColumnChart = echarts.init(document.getElementById('housePriceLineColumnChart'));
         housePriceLineColumnChart.showLoading();
@@ -186,7 +233,10 @@
 
             var obj = {
                 provinceCode : $('#province').val(),
-                cityCode : $('#city').val()
+                cityCode : $('#city').val(),
+                leasingId : $('#leasingId').val(),
+                houseAreaMin: $('#area_min').val(),
+                houseAreaMax: $('#area_max').val()
             };
             $.ajax({
                 url: '${ctx}/analysis/housePrice',

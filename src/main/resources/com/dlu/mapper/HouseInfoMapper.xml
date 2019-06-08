@@ -949,6 +949,7 @@
         select house_id,house_price
         from house_info
         <where>
+
             <if test="provinceCode != null and provinceCode != ''">
                 and province_code = #{provinceCode}
             </if>
@@ -958,7 +959,11 @@
             <if test="districtCode != null and districtCode != ''">
                 and district_code = #{districtCode}
             </if>
+            <if test="leasingId != null ">
+                and leasing_id= #{leasingId}
+            </if>
             and check_status_id = 2
+            and house_area between #{houseAreaMin} and #{houseAreaMax}
         </where>
     </select>
 

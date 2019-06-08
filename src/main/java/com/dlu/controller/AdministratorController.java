@@ -337,4 +337,71 @@ public class AdministratorController {
     }
 
 
+    /**
+     * 跳转到注册管理员界面
+     * @return
+     */
+    @RequestMapping("/{name}/toRegister")
+    public String toRegister(){
+        return "administrator/user/register";
+    }
+
+
+    /**
+     * 核查登录名是否存在
+     * @param loginName
+     * @return
+     */
+    @RequestMapping("/checkLoginName/{name}")
+    @ResponseBody
+    public Map<String,Integer> checkLoginName(@PathVariable("name")String loginName){
+        Map<String,Integer> map = new HashMap<>();
+        Administrator administrator = new Administrator();
+        administrator.setAdministratorName(loginName);
+        int count = administratorService.check(administrator);
+        if (count == 1){
+            //已存在
+            map.put("code",404);
+        }else {
+            //未存在
+            map.put("code",200);
+        }
+        return  map;
+    }
+
+
+    /**
+     * 核查身份证号是否存在
+     * @param certification
+     * @return
+     */
+    @RequestMapping("/checkCertification/{certification}")
+    @ResponseBody
+    public Map<String,Integer> checkCertification(@PathVariable("certification")String certification){
+        Map<String,Integer> map = new HashMap<>();
+        Administrator administrator = new Administrator();
+        administrator.setCertification(certification);
+        int count = administratorService.check(administrator);
+        if (count == 1){
+            //已存在
+            map.put("code",404);
+        }else {
+            //未存在
+            map.put("code",200);
+        }
+        return  map;
+    }
+
+
+    @RequestMapping("/add")
+    @ResponseBody
+    public Map<String,Integer> add(@RequestBody Administrator administrator){
+        Map<String,Integer> map = new HashMap<>();
+        administrator.setStatus(2);
+        administratorService.add(administrator);
+        map.put("code",200);
+        return  map;
+    }
+
+
 }

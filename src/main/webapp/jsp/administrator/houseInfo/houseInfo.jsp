@@ -522,7 +522,7 @@
                 {field:'typeBathrooms',title:'卫',hide:true},
                 {field:'houseArea',title:'面积',hide:true},
                 {field:'housePrice',title:'价格',hide:true},
-                {field:'createName',title:'发布人',width:80},
+                {field:'createName',title:'发布人',width:120},
                 {field:'createDateString',title:'发布时间',width:160},
                 {field:'updateName',title:'修改人',width:80,hide:true},
                 {field:'updateDateString',title:'修改时间',width:160,hide:true},

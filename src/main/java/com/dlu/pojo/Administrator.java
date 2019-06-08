@@ -9,6 +9,10 @@ public class Administrator {
 
     private Integer status;
 
+    private String name;
+
+    private String certification;
+
     public Integer getAdministratorId() {
         return administratorId;
     }
@@ -39,5 +43,21 @@ public class Administrator {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCertification() {
+        return certification;
+    }
+
+    public void setCertification(String certification) {
+        this.certification = certification;
     }
 }

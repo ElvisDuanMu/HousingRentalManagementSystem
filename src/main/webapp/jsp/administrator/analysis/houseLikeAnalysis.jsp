@@ -61,6 +61,12 @@
                         <option value="">-请选择-</option>
                     </select>
                 </div>
+                <label class="layui-form-label">日期选择</label>
+                <div class="layui-input-inline" >
+                    <input type="text" class="layui-input" id="date" placeholder=" - " readonly>
+                    <input type="hidden" id="startCreateDate" value="" >
+                    <input type="hidden" id="endCreateDate" value="" >
+                </div>
                 <button class="layui-btn"  id="searchBtn" lay-filter="searchBtn" style="margin-left: 100px;">搜索</button>
             </div>
 
@@ -108,6 +114,7 @@
         var form = layui.form;
         var table = layui.table;
         var $ = layui.$;
+        var laydate = layui.laydate;
 
         //省市联动start
         form.on('select(province)',function () {
@@ -173,6 +180,21 @@
         });
         //市区联动end
 
+        //日期范围 start
+        laydate.render({
+            elem: '#date'
+            ,range: true
+            ,max:0
+            ,trigger:'click',
+            done: function(value, date, endDate) {
+                var startCreateDateCode = value.substring(0,10);
+                $('#startCreateDate').val(startCreateDateCode);
+                var endCreateDateCode = value.substring(13,23);
+                $('#endCreateDate').val(endCreateDateCode);
+            }
+        });
+        //日期范围 end
+
         //关联表
         var  houseLikeLineChart = echarts.init(document.getElementById('houseLikeLineChart'));
         houseLikeLineChart.showLoading();
@@ -198,7 +220,9 @@
 
             var obj = {
                 provinceCode : $('#province').val(),
-                cityCode : $('#city').val()
+                cityCode : $('#city').val(),
+                startCreateDateString :$('#startCreateDate').val(),
+                endCreateDateString : $('#endCreateDate').val()
             };
             $.ajax({
                 url: '${ctx}/analysis/houseLike',
@@ -338,7 +362,7 @@
                 },
                 visualMap: {
                     min: 0,
-                    max: 10,
+                    max: 7,
                     text:['High','Low'],
                     realtime: false,
                     calculable: true,

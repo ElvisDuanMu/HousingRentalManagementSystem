@@ -19,4 +19,8 @@ public interface AdministratorMapper {
      * @return
      */
     List<Administrator> queryAllAdministratorName();
+
+    int check(Administrator administrator);
+
+    void add(Administrator administrator);
 }

@@ -35,4 +35,14 @@ public class AdministratorServiceImpl implements AdministratorService {
 
         return administratorMapper.queryAllAdministratorName();
     }
+
+    @Override
+    public int check(Administrator administrator) {
+        return administratorMapper.check(administrator);
+    }
+
+    @Override
+    public void add(Administrator administrator) {
+        administratorMapper.add(administrator);
+    }
 }

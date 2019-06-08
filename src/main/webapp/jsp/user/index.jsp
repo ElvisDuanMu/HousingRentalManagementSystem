@@ -66,7 +66,7 @@
         </div>
         <div class="main-right fr">
             <div id="allList">
-                <div class="title">优秀房源推荐</div>
+                <div class="title">欢迎进入系统</div>
 
                 <div class="save-list" node-type="list"></div>
             </div>

@@ -20,9 +20,9 @@
             <a href="javascript:;" >
                 <p style="color: #ffffff">${sessionScope.AdUserName}</p>
             </a>
-            <dl class="layui-nav-child">
-                <dd><a href="">基本资料</a></dd>
-            </dl>
+            <%--<dl class="layui-nav-child">--%>
+                <%--<dd><a href="">基本资料</a></dd>--%>
+            <%--</dl>--%>
         </li>
         <li class="layui-nav-item"><a href="${ctx}/administrator/quit">退出</a></li>
     </ul>
@@ -96,6 +96,7 @@
                 <a href="javascript:;">用户管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toUser">用户查询</a></dd>
+                    <dd><a href="${ctx}/administrator/${sessionScope.AdUserName}/toRegister">管理员注册</a></dd>
                 </dl>
             </li>
         </ul>

@@ -89,13 +89,13 @@
         <input type="hidden" value="${sessionScope.Username}" id="username">
         <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
         <ul>
-            <li><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
+            <li class="hover"><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
             <li> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
             <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
             <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
             <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
             <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-            <li class="hover"><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
+
         </ul>
     </div>
     <div class="main-right fr" style="min-height: 600px;">
@@ -539,7 +539,7 @@
 
         form.on('submit(editPassword)', function(data){
             var password =  $('#newPassword').val().trim();
-            //添加报障信息
+            //修改用户信息
             $.ajax({
                 url:'${ctx}/user/updatePassword/' + username + "/" + password
                 ,type: 'post'

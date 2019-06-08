@@ -22,6 +22,9 @@
         u {
             color: #0f6fac;
         }
+        h3 {
+            color: red;
+        }
 
     </style>
 </head>
@@ -71,13 +74,13 @@
         <input type="hidden" value="${sessionScope.Username}" id="username">
         <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
         <ul>
-            <li><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
+            <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
             <li> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
             <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
             <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
             <li class="hover"><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
             <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-            <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
+
         </ul>
     </div>
     <div class="main-right fr" style="min-height: 600px;">
@@ -116,6 +119,11 @@
                         <div  style="margin-top: 20px;">
                             <table class="layui-hide" id="incomeHouseListInfo" lay-filter="incomeHouseListInfo"></table>
                         </div>
+                            <div style="margin-top: 20px;">
+                                <h3>说明：1.您可以在这里查看应得收入信息和实际获得收入信息。</h3>
+                                <h3>2.进入具体收入信息后，您可以确认收入内容。需要等待乙方支付确认完成后才能确认。</h3>
+                                <h3>3.您也可以编辑提示信息促使乙方按时确认交款。</h3>
+                            </div>
                     </div>
                     <div class="layui-tab-item">
                         <%--我的支出房源信息--%>
@@ -129,6 +137,10 @@
                             </div>
                         <div  style="margin-top: 20px;">
                             <table class="layui-hide" id="expenditureHouseListInfo" lay-filter="expenditureHouseListInfo"></table>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <h3>说明：1.您可以在这里查看支出信息。</h3>
+                            <h3>2.请您按时确认支付款项。</h3>
                         </div>
                     </div>
                 </div>
@@ -180,7 +192,10 @@
     <div  style="margin-top: 20px;">
         <table class="layui-hide" id="incomeListInfo" lay-filter="incomeListInfo"></table>
     </div>
-
+    <div style="margin-top: 20px;">
+        <h3>说明：1.乙方已确认或者已完成时，您不可以再添加提示信息。</h3>
+        <h3>2.乙方确认后，请您及时确认。</h3>
+    </div>
 </div>
 
 
@@ -531,6 +546,8 @@
             if(obj.event === 'prompt'){
                 if (data.partAConfirm == '已确认'){
                     layer.msg("已完成，无需填写提示信息");
+                }else if (data.partBConfirm == '已确认'){
+                    layer.msg("乙方已确认，无需填写提示信息");
                 }else {
                     //添加提示信息
                     promptPartA(data.id);

@@ -41,6 +41,9 @@
             clear: both;
 
         }
+        h3 {
+            color: red;
+        }
 
 
 
@@ -92,13 +95,13 @@
         <input type="hidden" value="${sessionScope.Username}" id="username">
         <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
         <ul>
-            <li><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
+            <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
             <li> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
             <li class="hover"><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
             <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
             <li ><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
             <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-            <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
+
         </ul>
     </div>
     <div class="main-right fr" style="min-height: 600px;">
@@ -121,12 +124,18 @@
                         <div  style="margin-top: 20px;">
                             <table class="layui-hide" id="checkHouseListInfo" lay-filter="checkHouseListInfo"></table>
                         </div>
+                            <div style="margin-top: 20px;">
+                                <h3>说明：您可以在这里查看待审核的房源列表，在审核前可以随时修改房源信息和图片信息。</h3>
+                            </div>
                     </div>
                     <div class="layui-tab-item">
                         <%--待修改的房源--%>
                         <div  style="margin-top: 20px;">
                             <table class="layui-hide" id="updateHouseListInfo" lay-filter="updateHouseListInfo"></table>
                         </div>
+                            <div style="margin-top: 20px;">
+                                <h3>说明：您可以在这里查看审核未通过的房源列表，您可以查到审核不通过的具体原因，通过修改之后重新进入审核状态。</h3>
+                            </div>
                     </div>
                     <div class="layui-tab-item">
                         <%--待出租的房源--%>
@@ -521,9 +530,9 @@
     <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="view">查看房源</a>
 </script>
 
-<%--待出租的房源工具条--%>
+<%--房源图片工具条--%>
 <script type="text/html" id="houseImgInfoBar" >
-    <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="view">查看房源</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="delete">删除</a>
 </script>
 
 <script type="text/javascript" src="${ctx}/static/js/jquery-2.1.4.min.js"></script>

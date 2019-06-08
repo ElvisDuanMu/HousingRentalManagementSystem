@@ -23,6 +23,9 @@
         u {
             color: #0f6fac;
         }
+        h3 {
+            color: red;
+        }
 
     </style>
 </head>
@@ -72,13 +75,13 @@
         <input type="hidden" value="${sessionScope.Username}" id="username">
         <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
         <ul>
-            <li><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
+            <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
             <li> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
             <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
             <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
             <li ><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
             <li class="hover"><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-            <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
+
         </ul>
     </div>
     <div class="main-right fr" style="min-height: 600px;">
@@ -97,12 +100,22 @@
                         <div  style="margin-top: 20px;">
                             <table class="layui-hide" id="runningHouseListInfo" lay-filter="runningHouseListInfo"></table>
                         </div>
+                            <div style="margin-top: 20px;">
+                                <h3>说明：1.您可以在这里查看在租房源的故障信息。</h3>
+                                <h3>2.房子如果有问题，请您填写报障单。</h3>
+                                <h3>3.报障状态为：等待审核→等待甲方确认→处理中→已解决。</h3>
+                                <h3>4.当状态为处理中时，处理完成时请您及时确认。</h3>
+                            </div>
                     </div>
                     <div class="layui-tab-item">
                         <%--待处理的报障信息--%>
                         <div  style="margin-top: 20px;">
                             <table class="layui-hide" id="manageBreakdownListInfo" lay-filter="manageBreakdownListInfo"></table>
                         </div>
+                            <div style="margin-top: 20px;">
+                                <h3>说明：1.您可以在这里查看需要处理的报障信息。</h3>
+                                <h3>2.房子如果有问题，请您及时确认并尽快处理解决。</h3>
+                            </div>
                     </div>
                 </div>
 
@@ -149,6 +162,7 @@
     <div class="layui-form-item" >
         <button class="layui-btn" lay-submit lay-filter="submit" style="margin-left: 100px; margin-top: 20px; width: 100px;">提交</button>
     </div>
+
 </div>
 
 <%--乙方修改信息--%>
@@ -171,6 +185,7 @@
     <div class="layui-form-item" >
         <button class="layui-btn" lay-submit lay-filter="submitUpdate" style="margin-left: 100px; margin-top: 20px; width: 100px;">提交</button>
     </div>
+
 </div>
 
 <div class="layui-form" id="houseBreakdown" style="display: none; margin: 70px  50px;">
@@ -188,6 +203,11 @@
     <%--房源故障信息列表--%>
     <div  style="margin-top: 20px;">
         <table class="layui-hide" id="houseBreakdownInfoList" lay-filter="houseBreakdownInfoList"></table>
+    </div>
+    <div style="margin-top: 20px;">
+        <h3>说明：1.您可以在这里查看您添加的在租房源的具体故障信息。</h3>
+        <h3>2.只有审核未通过时才能修改信息。</h3>
+        <h3>3.甲方没有确认时，您不能确认。</h3>
     </div>
 
 </div>

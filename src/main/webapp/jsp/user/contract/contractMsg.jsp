@@ -23,6 +23,10 @@
         u {
             color: #0f6fac;
         }
+        h3 {
+            color: red;
+        }
+
 
     </style>
 </head>
@@ -72,13 +76,13 @@
             <input type="hidden" value="${sessionScope.Username}" id="username">
             <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
             <ul>
-                <li><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
+                <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
                 <li> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
                 <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
                 <li class="hover"><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
                 <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
                 <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-                <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
+
             </ul>
         </div>
         <div class="main-right fr" style="min-height: 600px;">
@@ -98,6 +102,13 @@
                             <div  style="margin-top: 20px;">
                                 <table class="layui-hide" id="runningContractListInfo" lay-filter="runningContractListInfo"></table>
                             </div>
+                                <div style="margin-top: 20px;">
+                                    <h3>说明：1.您可以在这里查看正在进行的合同列表。</h3>
+                                    <h3>2.合同流程为：等待乙方填写信息→等待甲方填写信息→双方确认信息→管理员审核</h3>
+                                    <h3>3.在双方填写合同期间，您不可查看合同；在确认阶段您可查看合同信息。</h3>
+                                    <h3>4.合同信息只能提交一次，提交后不可再更改，请慎重填写。</h3>
+                                    <h3>5.合同填写完成后，房源将进入正在出租状态。</h3>
+                                </div>
                         </div>
                         <div class="layui-tab-item">
                             <%--已完成的合同--%>
@@ -636,7 +647,7 @@
                     </div>
                     <label class="layui-form-label" style="padding:0 15px;" >各期租金支付日期</label>
                     <div class="layui-input-inline" style="width: 400px; ">
-                        <input  type="text"  id="paymentDateString" name="paymentDateString" lay-verify="required"  autocomplete="off" class="layui-input" >
+                        <input  type="text"  id="paymentDateString" name="paymentDateString" lay-verify="required" placeholder="请输入时间的年月日信息、以空格分开。例如：2019年1月1日 2019年2月1日" autocomplete="off" class="layui-input" >
                     </div>
                 </div>
             </div>

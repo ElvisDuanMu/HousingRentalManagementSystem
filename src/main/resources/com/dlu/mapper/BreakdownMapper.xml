@@ -49,7 +49,7 @@
     <select id="queryBreakDownByPartALoginName" resultType="com.dlu.pojo.Breakdown">
         select id, house_id, title, content, status, create_date, solve_date, partA_login_name, partB_login_name, check_name, check_date
         from breakdown
-        where partA_login_name =  #{partALoginName}
+        where partA_login_name =  #{partALoginName} and status = '等待甲方确认'
         limit #{page.start},#{page.limit}
     </select>
     <select id="queryListCount" resultType="java.lang.Integer">

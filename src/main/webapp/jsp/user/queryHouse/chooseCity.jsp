@@ -462,22 +462,18 @@
         <div class="f-title">
             <div class="fl">
                 <ul>
-                    <li><a href="#" rel="nofollow" target="_blank">关于链家</a></li>
-                    <li><a href="#" rel="nofollow" target="_blank">联系我们</a></li>
-                    <li><a href="#" rel="nofollow" target="_blank">加入我们</a></li>
-                    <li><a href="#" rel="nofollow" target="_blank">隐私声明</a></li>
-                    <li><a href="#" rel="nofollow" target="_blank">友情链接</a></li>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">隐私声明</a></li>
                 </ul>
             </div>
-            <div class="fr">服务热线 10109666</div>
+            <div class="fr">服务热线 123123123</div>
         </div>
         <div class="bottom">
-            <div class="copyright fl">链家网（北京）科技有限公司 | 网络经营许可证 京ICP备16057509号-2<br>© Copyright©2010-2019 链家网Lianjia.com版权所有<br>违法和不良信息举报电话：010-86440676
-                违法和不良信息举报邮箱：jubaoyouxiang@lianjia.com<div style="width:300px;color: #888c8e;font-size: 12px;line-height: 20px;margin: 0 auto;text-align: center;"><a
-                        target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802024019" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
-                        src="https://s1.ljcdn.com/feroot/pc/asset/img/home/beian.png?_v=20190409122206"" style=" float:left;">
-                    <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;color: #888c8e;">京公网安备
-                        11010802024019号</p>
+            <div class="copyright fl">租房（大连） | 网络经营许可证 00000001号-1 <br>© Copyright&copy;2018-2019 租房版权所有<br>违法和不良信息举报电话：010-123456789
+                违法和不良信息举报邮箱：jubaoyouxiang@163.com<div style="width:300px;color: #888c8e;font-size: 12px;line-height: 20px;margin: 0 auto;text-align: center;"><a
+                        target="_blank"  style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
+                        src="${ctx}/static/img/beian.png" style=" float:left;">
+                    <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;color: #888c8e;">公网安备 1000000001号</p>
                 </a></div>
             </div>
 

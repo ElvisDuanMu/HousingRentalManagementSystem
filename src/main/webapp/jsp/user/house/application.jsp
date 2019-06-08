@@ -17,6 +17,10 @@
             clear: none;
         }
 
+        h3 {
+            color: red;
+        }
+
     </style>
 </head>
     <header class="lianjia-header">
@@ -66,13 +70,13 @@
             <input type="hidden" value="${sessionScope.Username}" id="username">
             <div class="user-name" style="padding: 0 0 15px 0;"><a id="logout" href="${ctx}/user/quit" >退出</a></div>
             <ul>
-                <li><a href="${ctx}/user/index/${sessionScope.Username}">首页</a></li>
+                <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
                 <li class="hover"> <a href="${ctx}/user/application/${sessionScope.Username}">申请管理</a></li>
                 <li><a href="${ctx}/user/houseInfo/${sessionScope.Username}">我的房源</a></li>
                 <li><a href="${ctx}/user/contract/${sessionScope.Username}">我的合同</a></li>
                 <li><a href="${ctx}/user/money/${sessionScope.Username}">我的收入</a></li>
                 <li><a href="${ctx}/user/breakdown/${sessionScope.Username}">报障信息</a></li>
-                <li><a href="${ctx}/user/message/${sessionScope.Username}">编辑资料</a></li>
+
             </ul>
         </div>
         <div class="main-right fr" style="min-height: 600px;">
@@ -94,18 +98,31 @@
                                 <div  style="margin-top: 20px;">
                                     <table class="layui-hide" id="applicationListInfo" lay-filter="applicationListInfo"></table>
                                 </div>
+                                    <div style="margin-top: 20px;">
+                                        <h3>说明：您可以在这里查看申请的房源列表，如果不满意可以撤回申请。</h3>
+                                    </div>
                             </div>
                             <div class="layui-tab-item">
                                 <%--处理别人的申请--%>
                                 <div  style="margin-top: 20px;">
                                     <table class="layui-hide" id="otherApplicationListInfo" lay-filter="otherApplicationListInfo"></table>
                                 </div>
+                                    <div style="margin-top: 20px;">
+                                        <h3>说明：1.您可以在这里查看别人申请的您所发布的房源列表。</h3>
+                                        <h3> 2.您可以直接拒绝别人的申请；您也可以通过同意申请自动拒绝剩下人的申请。</h3>
+                                        <h3> 3.房源的申请是双向决定的，当您同意申请时，房源会进入锁定状态，此时您的房源合同自动生成，您可以去查看并填写合同信息。
+                                    </div>
                             </div>
                             <div class="layui-tab-item">
                                 <%--处理已完成的申请--%>
                                 <div  style="margin-top: 20px;">
                                     <table class="layui-hide" id="finishApplicationListInfo" lay-filter="finishApplicationListInfo"></table>
                                 </div>
+                                    <div style="margin-top: 20px;">
+                                        <h3>说明：1.这里显示的是您已完成的申请列表。</h3>
+                                        <h3> 2.申请通过时您可以去填写合同信息。</h3>
+                                        <h3> 3.申请被拒绝时，没有合同信息生成，您可以去搜索别的房源。</h3>
+                                    </div>
                             </div>
 
                         </div>
@@ -113,6 +130,7 @@
 
 
                     </div>
+
 
                 </div>
             </div>

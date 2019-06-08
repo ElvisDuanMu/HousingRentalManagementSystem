@@ -39,7 +39,7 @@
                     <div class="fl">
                         <ul>
                             <li>
-                                <a class="" href="${ctx}/user/${ctx}/user/210000/210200/queryHouse">租房</a>
+                                <a class="" href="${ctx}/user/210000/210200/queryHouse">租房</a>
                             </li>
                             <li>
                                 <a class="" href="http://www.baidu.com">百科</a>

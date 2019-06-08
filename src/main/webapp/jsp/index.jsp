@@ -8,7 +8,6 @@
     <meta name="description" content="租房网拥有海量的房屋出租及公寓出租房源，房源信息真实可靠，来租房网，可进行商圈找房、地铁找房、地图找房，同时，已开通APP找房，帮您快速轻松找到满意的整租或合租房屋公寓，满足您的各种租房需求，全国租房热线：400-8180-555。">
     <meta name="author" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <%--<link rel="shortcut icon" href="http://www.hizhu.com/favicon.ico" type="image/x-icon">--%>
     <link rel="stylesheet" href="../static/css/common_new.css">
     <link rel="stylesheet" href="../static/css/swiper-4.1.6.min.css">
     <link rel="stylesheet" href="../static/css/index_new.css">
@@ -27,7 +26,7 @@
 
 
                 <c:if test="${sessionScope.Username != null}">
-                    <a data-el="login_box" href="${ctx}/user/index/${sessionScope.Username}"> 欢迎你：${sessionScope.Username}</a>
+                    <a data-el="login_box" href="${ctx}/user/message/${sessionScope.Username}"> 欢迎你：${sessionScope.Username}</a>
                     <a data-el="logout_btn" href="${ctx}/user/logout" id="logout" >退出</a>
                 </c:if>
                 <c:if test="${sessionScope.Username == null}">
@@ -51,7 +50,7 @@
             </a>
             <!-- 城市切换 -->
             <div class="city_box fl">
-                <span class="cur_city"><a href="/user/chooseCity">上海</a></span>
+                <span class="cur_city"><a href="/user/chooseCity">大连</a></span>
                 <i class="triangle_b"></i>
                 <ul class="city_list">
                     <li><a alt="上海租房" title="上海租房" href="${ctx}/user/310000/310100/queryHouse">上海</a></li>
@@ -265,10 +264,10 @@
                 <a alt="新浪微博" title="新浪微博" el="nofollow" class="weibo" href="#" target="_blank" rel="nofollow">新浪微博</a>
             </div>
             <p class="hotline">客服热线（周一至周日09：00-18：00，节假日除外）</p>
-            <p class="tel">400-8180-555</p>
+            <p class="tel">100010001000</p>
             <p class="copyright">
-                ©2018-2019 Shanghai Gaodu Technology Co.,Ltd All Rights Reserved. <br>
-                上海高度信息科技有限公司 备案号：沪ICP备15016401号  &nbsp;&nbsp;<a alt="备案信息" title="备案信息" target="_blank" class="copyright" href="#" >沪公网安备 31010602002785号&nbsp;&nbsp;<img alt="备案信息" title="备案信息" src='../static/img/beian.png'/></a>
+                ©2018-2019 zufang  All Rights Reserved. <br>
+                租房网 备案号：102325662号  &nbsp;&nbsp;<a alt="备案信息" title="备案信息" target="_blank" class="copyright" href="#" >公网安备 1000000001号&nbsp;&nbsp;<img alt="备案信息" title="备案信息" src='../static/img/beian.png'/></a>
             </p>
             <section class="ewm">
                 <ul class="cf">
@@ -301,20 +300,16 @@
             <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
             <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
         </div>
-        <div class="layui-form-item" style="margin-bottom: 20px; height: 28px;">
-            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-            <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
-        </div>
         <div class="layui-form-item">
             <button class="layui-btn layui-btn-fluid" id="submit" lay-filter="LAY-user-login-submit">登 入</button>
         </div>
-        <div class="layui-trans layui-form-item layadmin-user-login-other">
-            <label>社交账号登入</label>
-            <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
-            <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
-            <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
+        <%--<div class="layui-trans layui-form-item layadmin-user-login-other">--%>
+            <%--<label>社交账号登入</label>--%>
+            <%--<a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>--%>
+            <%--<a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>--%>
+            <%--<a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>--%>
 
-        </div>
+        <%--</div>--%>
     </div>
 </div>
 
@@ -370,10 +365,6 @@
         <div class="layui-form-item">
             <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
             <input type="password" name="password" id="LAY-ad-login-password" lay-verify="required" placeholder="密码" class="layui-input">
-        </div>
-        <div class="layui-form-item" style="margin-bottom: 20px; height: 28px;">
-            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-            <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
         </div>
         <div class="layui-form-item">
             <button class="layui-btn layui-btn-fluid" id="submitAd" lay-filter="LAY-user-login-submit">登 入</button>
@@ -466,7 +457,7 @@
                     shade : 0.3,
                     shadeClose : true,
                     content: $('#loginContent'),
-                    area : ['600px','500px'],
+                    area : ['600px','400px'],
                     offset: '150px',
                     closeBtn: 0 ,
                     success:function (layero, index) {
@@ -621,7 +612,7 @@
                     shade : 0.3,
                     shadeClose : true,
                     content: $('#AdLoginContent'),
-                    area : ['600px','500px'],
+                    area : ['600px','400px'],
                     offset: '150px',
                     closeBtn: 0 ,
                     success:function (layero, index) {
