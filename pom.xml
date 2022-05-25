@@ -18,7 +18,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <!--指定spring版本-->
-    <spring.version>5.1.4.RELEASE</spring.version>
+    <spring.version>5.2.22.RELEASE</spring.version>
     <!--指定jackson版本-->
     <jackson.version>2.9.8</jackson.version>
   </properties>
